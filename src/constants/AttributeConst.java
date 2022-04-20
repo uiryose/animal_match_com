@@ -1,0 +1,131 @@
+package constants;
+
+/**
+ * 画面の項目値等を定義するEnumクラス
+ *
+ */
+public enum AttributeConst {
+
+    //フラッシュメッセージ
+    FLUSH("flush"),
+
+    //一覧画面共通
+    MAX_ROW("maxRow"),
+    PAGE("page"),
+
+    //入力フォーム共通
+    TOKEN("_token"),
+    ERR("errors"),
+
+    //ログイン中のユーザー
+    LOGIN_USER("login_user"),
+
+    //ログイン画面
+    LOGIN_ERR("loginError"),
+
+    //ユーザーUser管理
+    USER("user"),
+    USERS("users"),
+    USER_CODE("code"),
+    USER_PASSWORD("password"),
+    USER_FLAG("user_flag"),
+
+    //動物園Zoo管理
+    ZOOLOYEE("zoo"),
+    ZOOLOYEES("zoos"),
+    ZOO_ID("id"),
+    ZOO_NAME("zoo_name"),
+    ZOO_REGION("region"),
+    ZOO_PHONE("phone"),
+
+    //顧客Customer管理
+    CUSTOMER("customer"),
+    CUSTOMERS("customers"),
+    CUST_ID("id"),
+    CUST_NAME("cust_name"),
+
+    //管理者フラグ
+    ROLE_ADMIN(1),
+    ROLE_GENERAL(0),
+
+    //削除フラグ
+    DEL_FLAG_FALSE(0),
+    DEL_FLAG_TRUE(1),  //削除済み
+
+    //編集フラグ
+    EDIT_FLAG_FALSE(0),
+    EDIT_FLAG_TRUE(1),  //編集済み
+
+    //動物基本情報管理AnimalBase
+    ANIMALBASE("animalbase"),
+    ANIMALBASES("animalbases"),
+    BASE_COUNT("base_count"),
+    BASE_ID("id"),
+    BASE_NAME("base_name"),
+    BASE_IMAGE("base_image"),
+    BASE_SIZE("base_size"),
+    BASE_DIFFICULTY("base_difficulty"),
+    BASE_BREED_FLAG("base_breed_flag"),
+    BASE_COMMENT("base_comment"),
+
+    //動物販売情報管理
+    ANIMAL("animal"),
+    ANIMALS("animals"),
+    ANI_COUNT("animal_count"),
+    ANI_ID("id"),
+    ANI_NICKNAME("animal_nickname"),
+    ANI_IMAGE("animal_image"),
+    ANI_AGE("animal_age"),
+    ANI_SEX("animal_sex"),
+    PRICE_FOR_CUST("price_for_cust"),
+    PRICE_FOR_ZOO("price_for_zoo"),
+    ZOO_COMMENT("zoo_comment"),
+    SOLD_FLAG("sold_flag"),
+
+    //性別フラグ
+    SEX_MALE(0), //オス
+    SEX_FEMALE(1), //メス
+    SEX_UNKNOWN(2), //不明
+
+    //販売済みフラグ
+    SOLD_FLAG_FALSE(0),
+    SOLD_FLAG_TRUE(1), //販売済み
+
+
+    //お気に入り
+    LIKE("like"),
+    LIKES("likes"),
+    LIKE_ID("id"),
+
+    //チャット
+    CHAT("chat"),
+    CHATS("chats"),
+    CHAT_ID("id"),
+    CHAT_ANI_ID("ani_id"),
+    CHAT_ZOO_ID("zoo_id"),
+    CHAT_CUST_ID("cust_id"),
+    CHAT_CONTENT("content");
+
+
+    private final String text;
+    private final Integer i;
+
+    private AttributeConst(final String text) {
+        this.text = text;
+        this.i = null;
+    }
+
+    private AttributeConst(final Integer i) {
+        this.text = null;
+        this.i = i;
+    }
+
+    public String getValue() {
+        return this.text;
+    }
+
+    public Integer getIntegerValue() {
+        return this.i;
+    }
+
+}
