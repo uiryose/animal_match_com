@@ -16,15 +16,15 @@ public interface JpaConst {
     String TABLE_USER ="users"; //テーブル名
     //ユーザーテーブルカラム
     String USER_COL_ID = "id"; //id
-    String USER_COL_CODER = "code"; //code
-    String USER_COL_USERFLAG = "user_flag"; //code
+    String USER_COL_CODE = "code"; //code
+    String USER_COL_USER_FLAG = "user_flag"; //code
     String USER_COL_PASS = "password"; //パスワード
 
     //顧客テーブル
     String TABLE_CUSTOMER = "customers";
     //顧客テーブルカラム
     String CUST_COL_ID = "id"; //id
-    String CUST_COL_USER = "user_id"; //名前
+    String CUST_COL_USER = "user_id"; //ユーザーテーブルのid
     String CUST_COL_NAME = "customer_name"; //名前
     String CUST_COL_DELETE_FLAG = "delete_flag"; //削除フラグ
     String CUST_COL_CREATED_AT = "created_at"; //登録日時
@@ -34,9 +34,10 @@ public interface JpaConst {
     String TABLE_ZOO = "zoos"; //テーブル名
     //動物園テーブルカラム
     String ZOO_COL_ID = "id"; //id
-    String ZOO_COL_USER = "user_id"; //名前
+    String ZOO_COL_USER = "user_id"; //ユーザーテーブルのid
     String ZOO_COL_NAME = "zoo_name"; //動物園名
     String ZOO_COL_REGION = "zoo_region"; //所在地
+    String ZOO_COL_PHONE = "zoo_phone"; //電話番号
     String ZOO_COL_DELETE_FLAG = "delete_flag"; //削除フラグ
     String ZOO_COL_CREATED_AT = "created_at"; //登録日時
     String ZOO_COL_UPDATED_AT = "updated_at"; //更新日時
@@ -78,9 +79,9 @@ public interface JpaConst {
     String TABLE_ANIMAL = "animals"; //テーブル名
     //動物販売情報テーブルカラム
     String ANI_COL_ID = "id"; //id
-    String ANI_COL_BASE_ID = "base_id"; //動物基本情報のid
-    String ANI_COL_ZOO_ID = "zoo_id"; //動物園のid
-    String ANI_COL_NICKNAME = "animal_nickname"; //愛称
+    String ANI_COL_BASE = "base_id"; //動物基本情報のid
+    String ANI_COL_ZOO = "zoo_id"; //動物園のid
+    String ANI_COL_NICKNAME = "nickname"; //愛称
     String ANI_COL_IMAGE = "animal_image"; //動物の画像
     String ANI_COL_AGE = "animal_age"; //動物の年齢
     String ANI_COL_SEX = "animal_sex"; //動物の性別
