@@ -9,8 +9,10 @@ public enum ForwardConst {
     //action
     ACT("action"),
     ACT_TOP("Top"),
-    ACT_ZOO("Zoo"),
+    ACT_USER("User"),
     ACT_CUST("Customer"),
+    ACT_ZOO("Zoo"),
+    ACT_BASE("Base"),
     ACT_ANI("Animal"),
     ACT_AUTH("Auth"),
     ACT_LIKE("Like"),
