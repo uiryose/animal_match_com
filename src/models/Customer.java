@@ -59,11 +59,11 @@ public class Customer {
     @Column(name = JpaConst.CUST_COL_NAME, nullable = false)
     private String customerName;
 
-    /**
-     * 削除された顧客かどうか（現役：0、削除済み：1）
-     */
-    @Column(name = JpaConst.CUST_COL_DELETE_FLAG, nullable = false)
-    private Integer deleteFlag;
+//    /**
+//     * 削除された顧客かどうか（現役：0、削除済み：1）
+//     */
+//    @Column(name = JpaConst.CUST_COL_DELETE_FLAG, nullable = false)
+//    private Integer deleteFlag;
 
     /**
      *登録日時

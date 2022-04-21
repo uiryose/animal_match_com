@@ -52,10 +52,13 @@ public interface JpaConst {
 
     int ANI_SOLD_FALSE = 0; //販売済フラグOFF(現役)
     int ANI_SOLD_TURE = 1; //販売済フラグON(販売済み)
-    int ZOO_DEL_FALSE = 0; //削除フラグOFF(現役)
-    int ZOO_DEL_TRUE = 1; //削除フラグON(削除済み)
-    int CUST_DEL_FALSE = 0; //削除フラグOFF(現役)
-    int CUST_DEL_TRUE = 1; //削除フラグON(削除済み)
+
+    int USER_DEL_FALSE = 0; //削除フラグOFF(現役)
+    int USER_DEL_TRUE = 1; //削除フラグON(削除済み)
+//    int ZOO_DEL_FALSE = 0; //削除フラグOFF(現役)
+//    int ZOO_DEL_TRUE = 1; //削除フラグON(削除済み)
+//    int CUST_DEL_FALSE = 0; //削除フラグOFF(現役)
+//    int CUST_DEL_TRUE = 1; //削除フラグON(削除済み)
     int CHAT_EDIT_FALSE = 0; //編集フラグOFF(現役)
     int CHAT_EDIT_TRUE = 1; //編集フラグON(編集済み)
     int CHAT_DEL_FALSE = 0; //削除フラグOFF(現役)
@@ -132,6 +135,7 @@ public interface JpaConst {
     //Entity名
     String ENTITY_BASE = "animalbase"; //動物基本情報
     String ENTITY_ANI = "animal"; //動物販売
+    String ENTITY_USER= "user"; //ユーザー
     String ENTITY_CUST= "customer"; //顧客
     String ENTITY_ZOO = "zoo"; //動物園
     String ENTITY_LIKE = "like"; //お気に入り
@@ -140,6 +144,7 @@ public interface JpaConst {
 
     //JPQL内パラメータ
     String JPQL_PARM_ID = "id"; //id
+    String JPQL_PARM_CODE = "code"; //code
     String JPQL_PARM_NAME = "name";
     String JPQL_PARM_PASSWORD = "password";
     String JPQL_PARM_ANIMALBASE = "animalBase";
@@ -151,20 +156,22 @@ public interface JpaConst {
 
 
 
-    /**
     //NamedQueryの nameとquery
+    //ユーザーコードとハッシュ化済パスワードを条件に未削除のユーザーを取得する
+    String Q_USER_GET_BY_CODE_AND_PASS = ENTITY_USER + ".getByCodeAndPass";
+    String Q_USER_GET_BY_CODE_AND_PASS_DEF = "SELECT u FROM User AS u WHERE u.deleteFlag = 0 AND u.code = :" + JPQL_PARM_CODE + " AND u.password = :" + JPQL_PARM_PASSWORD;
+
+    //指定したコードを保持するユーザーの件数を取得する
+    String Q_USER_COUNT_RESISTERED_BY_CODE = ENTITY_USER + ".countRegisteredByCode";
+    String Q_USER_COUNT_RESISTERED_BY_CODE_DEF = "SELECT COUNT(u) FROM User AS u WHERE u.code = :" + JPQL_PARM_CODE;
+
+    /**
     //全ての従業員をidの降順に取得する
     String Q_EMP_GET_ALL = ENTITY_EMP + ".getAll"; //name
     String Q_EMP_GET_ALL_DEF = "SELECT e FROM Employee AS e ORDER BY e.id DESC"; //query
     //全ての従業員の件数を取得する
     String Q_EMP_COUNT = ENTITY_EMP + ".count";
     String Q_EMP_COUNT_DEF = "SELECT COUNT(e) FROM Employee AS e";
-    //社員番号とハッシュ化済パスワードを条件に未削除の従業員を取得する
-    String Q_EMP_GET_BY_CODE_AND_PASS = ENTITY_EMP + ".getByCodeAndPass";
-    String Q_EMP_GET_BY_CODE_AND_PASS_DEF = "SELECT e FROM Employee AS e WHERE e.deleteFlag = 0 AND e.code = :" + JPQL_PARM_CODE + " AND e.password = :" + JPQL_PARM_PASSWORD;
-    //指定した社員番号を保持する従業員の件数を取得する
-    String Q_EMP_COUNT_RESISTERED_BY_CODE = ENTITY_EMP + ".countRegisteredByCode";
-    String Q_EMP_COUNT_RESISTERED_BY_CODE_DEF = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :" + JPQL_PARM_CODE;
     //全ての日報をidの降順に取得する
     String Q_REP_GET_ALL = ENTITY_REP + ".getAll";
     String Q_REP_GET_ALL_DEF = "SELECT r FROM Report AS r ORDER BY r.id DESC";

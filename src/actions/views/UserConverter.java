@@ -25,7 +25,12 @@ public class UserConverter {
                         : uv.getUserFlag() == AttributeConst.USER_CUST.getIntegerValue()
                                 ? JpaConst.USER_CUST
                                 : JpaConst.USER_ZOO,
-                uv.getPassword());
+                uv.getPassword(),
+                uv.getDeleteFlag() == null
+                        ? null
+                        : uv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                                ? JpaConst.USER_DEL_TRUE
+                                : JpaConst.USER_DEL_FALSE);
     }
 
 
@@ -48,7 +53,12 @@ public class UserConverter {
                         : u.getUserFlag() == JpaConst.USER_CUST
                             ? AttributeConst.USER_CUST.getIntegerValue()
                             : AttributeConst.USER_ZOO.getIntegerValue(),
-                u.getPassword());
+                u.getPassword(),
+                u.getDeleteFlag() == null
+                        ? null
+                        : u.getDeleteFlag() == JpaConst.USER_DEL_TRUE
+                            ? AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                            : AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
     }
 
     /**
@@ -75,5 +85,6 @@ public class UserConverter {
         u.setCode(uv.getCode());
         u.setUserFlag(uv.getUserFlag());
         u.setPassword(uv.getPassword());
+        u.setDeleteFlag(uv.getDeleteFlag());
     }
 }

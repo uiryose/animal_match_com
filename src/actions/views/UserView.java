@@ -37,4 +37,8 @@ public class UserView {
      */
     private String password;
 
+    /**
+     * ユーザーの論理削除を管理（論理削除:1）
+     */
+    private Integer deleteFlag;
 }

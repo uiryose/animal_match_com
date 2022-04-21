@@ -49,8 +49,8 @@ public enum AttributeConst {
     USER_ZOO(1),
 
     //管理者フラグ
-    ROLE_ADMIN(1),
     ROLE_GENERAL(0),
+    ROLE_ADMIN(1),
 
     //削除フラグ
     DEL_FLAG_FALSE(0),
