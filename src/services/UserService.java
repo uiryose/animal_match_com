@@ -16,9 +16,6 @@ import utils.EncryptUtil;
  */
 public class UserService extends ServiceBase {
 
-
-
-
     /**
      * コードとパスワードを条件に取得したデータをUserViewのインスタンスで返却する
      * @param code ユーザーコード
@@ -57,7 +54,6 @@ public class UserService extends ServiceBase {
     }
 
 
-
     /**
      * コードを条件に該当するデータの件数を取得し、返却する
      * @param code ユーザーコード
@@ -90,7 +86,7 @@ public class UserService extends ServiceBase {
 
         //バリデーションエラーがなければデータを登録する
         if(errors.size() == 0) {
-            create(uv);
+            createInternal(uv);
         }
 
         //エラーを返却（エラーがなければ0件の空リスト）
@@ -135,7 +131,7 @@ public class UserService extends ServiceBase {
 
         //バリデーションエラーがなければデータを更新する
         if (errors.size() == 0) {
-            update(savedUser);
+            updateInternal(savedUser);
         }
 
         //エラーを返却（エラーがなければ0件の空リスト）
@@ -145,7 +141,10 @@ public class UserService extends ServiceBase {
     }
 
 
-
+    /**
+     * 論理削除を行う
+     * @param id
+     */
     public void destroy(Integer id) {
 
         //idを条件に登録済みのユーザー情報を取得する
@@ -155,13 +154,13 @@ public class UserService extends ServiceBase {
         savedUser.setDeleteFlag(JpaConst.USER_DEL_TRUE);
 
         //更新作業を行う
-        update(savedUser);
+        updateInternal(savedUser);
 
     }
 
 
     /**
-     * idを条件にデータを1件取得し、Userのインスタンスで半客する
+     * idを条件にデータを1件取得し、Userのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -176,7 +175,7 @@ public class UserService extends ServiceBase {
      * @param uv ユーザーデータ
      * @return 登録結果(成功:true 失敗:false)
      */
-    private void create(UserView uv) {
+    private void createInternal(UserView uv) {
 
         em.getTransaction().begin();
         em.persist(UserConverter.toModel(uv));
@@ -189,7 +188,7 @@ public class UserService extends ServiceBase {
      * ユーザーデータを更新する
      * @param uv 画面から入力されたユーザーの登録内容
      */
-    private void update(UserView uv) {
+    private void updateInternal(UserView uv) {
 
         em.getTransaction().begin();
         User u = findOneInternal(uv.getId());
