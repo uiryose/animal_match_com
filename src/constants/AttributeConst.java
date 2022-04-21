@@ -44,6 +44,10 @@ public enum AttributeConst {
     CUST_ID("id"),
     CUST_NAME("cust_name"),
 
+    //ユーザーフラグ
+    USER_CUST(0),
+    USER_ZOO(1),
+
     //管理者フラグ
     ROLE_ADMIN(1),
     ROLE_GENERAL(0),

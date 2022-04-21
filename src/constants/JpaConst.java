@@ -43,6 +43,10 @@ public interface JpaConst {
     String ZOO_COL_UPDATED_AT = "updated_at"; //更新日時
 
 
+    //ユーザーフラグ
+    int USER_CUST = 0; //顧客ユーザー
+    int USER_ZOO = 1; //動物園ユーザー
+
     int ROLE_ADMIN = 1; //管理者権限ON(管理者)
     int ROLE_GENERAL = 0; //管理者権限OFF(一般)
 
