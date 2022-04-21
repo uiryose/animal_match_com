@@ -71,11 +71,11 @@ public class Zoo {
     @Column(name = JpaConst.ZOO_COL_PHONE, nullable = false)
     private String phone;
 
-    /**
-     * 削除された動物園かどうか（現役：0、削除済み：1）
-     */
-    @Column(name = JpaConst.ZOO_COL_DELETE_FLAG, nullable = false)
-    private Integer deleteFlag;
+//    /**
+//     * 削除された動物園かどうか（現役：0、削除済み：1）
+//     */
+//    @Column(name = JpaConst.ZOO_COL_DELETE_FLAG, nullable = false)
+//    private Integer deleteFlag;
 
     /**
      *登録日時
