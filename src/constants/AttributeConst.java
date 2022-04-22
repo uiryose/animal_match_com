@@ -31,8 +31,8 @@ public enum AttributeConst {
     USER_FLAG("user_flag"),
 
     //動物園Zoo管理
-    ZOOLOYEE("zoo"),
-    ZOOLOYEES("zoos"),
+    ZOO("zoo"),
+    ZOOS("zoos"),
     ZOO_ID("id"),
     ZOO_NAME("zoo_name"),
     ZOO_REGION("region"),

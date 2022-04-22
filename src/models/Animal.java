@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.Table;
@@ -50,14 +51,14 @@ public class Animal {
      * AnimalBaseクラス
      */
     @ManyToOne
-    @Column(name = JpaConst.ANI_COL_BASE, nullable = false)
+    @JoinColumn(name = JpaConst.ANI_COL_BASE, nullable = true)
     private AnimalBase animalBase;
 
     /**
      * Zooクラス
      */
     @ManyToOne
-    @Column(name = JpaConst.ANI_COL_ZOO, nullable = false)
+    @JoinColumn(name = JpaConst.ANI_COL_ZOO, nullable = true)
     private Zoo zoo;
 
     /**
