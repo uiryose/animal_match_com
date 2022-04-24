@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.Table;
@@ -55,7 +56,7 @@ public class Animal {
     private AnimalBase animalBase;
 
     /**
-     * Zooクラス
+     * 動物を掲載したZooクラス
      */
     @ManyToOne
     @JoinColumn(name = JpaConst.ANI_COL_ZOO, nullable = true)
@@ -100,6 +101,7 @@ public class Animal {
     /**
      * 動物園からのコメント
      */
+    @Lob
     @Column(name = JpaConst.ANI_COL_COMMENT, nullable = false)
     private String animalComment;
 

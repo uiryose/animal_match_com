@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import constants.JpaConst;
@@ -23,13 +23,16 @@ import lombok.Setter;
  *
  */
 @Table(name = JpaConst.TABLE_ANIMAL_BASE)
-@NamedQueries({
-
-
-
+/*@NamedQueries({
+    @NamedQuery(
+            name = JpaConst.Q_BASE_GET_ALL,
+            query = JpaConst.Q_BASE_GET_ALL_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_BASE_COUNT,
+            query = JpaConst.Q_BASE_COUNT_DEF)
 
 })
-
+*/
 @Getter
 @Setter
 @NoArgsConstructor
@@ -78,6 +81,7 @@ public class AnimalBase {
     /**
      * 基本動物情報の特徴コメント
      */
+    @Lob
     @Column(name = JpaConst.BASE_COL_COMMENT, nullable = false)
     private String baseComment;
 
