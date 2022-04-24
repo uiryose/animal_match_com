@@ -65,7 +65,8 @@ public class ZooValidator {
      */
     private static String validateRegion(String region) {
         if(!region.matches("^(東京都|北海道|(京都|大阪)府|.{2,3}県)$")) {
-            return MessageConst.E_NOREGION.getMessage();
+//        if(region == null || region.equals("")) {
+        return MessageConst.E_NOREGION.getMessage();
         }
         //正しい入力値がある場合は空文字を返却
         return "";
@@ -80,7 +81,8 @@ public class ZooValidator {
      */
     private static String validatePhone(String phone) {
         if(phone.matches("^[0-9]+$")) {
-            return MessageConst.E_NOPHONE.getMessage();
+//        if(phone == null || phone.equals("")) {
+        return MessageConst.E_NOPHONE.getMessage();
         }
         return "";
 

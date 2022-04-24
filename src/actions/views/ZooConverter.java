@@ -3,6 +3,7 @@ package actions.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.User;
 import models.Zoo;
 
 public class ZooConverter {
@@ -24,6 +25,24 @@ public class ZooConverter {
                 zv.getUpdatedAt());
     }
 
+    /**
+     * 新規でZooとUserを登録する際に、ZooViewモデルのインスタンスからDTOモデルのインスタンスを作成する
+     * @param zv ZooViewのインスタンス
+     * @param u persist直後のUserインスタンス
+     * @return Zooのインスタンス
+     */
+
+    public static Zoo toModelForCreate(ZooView zv, User u) {
+
+        return new Zoo(
+                zv.getId(),
+                u,
+                zv.getZooName(),
+                zv.getRegion(),
+                zv.getPhone(),
+                zv.getCreatedAt(),
+                zv.getUpdatedAt());
+    }
 
 
     /**

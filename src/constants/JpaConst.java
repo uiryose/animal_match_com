@@ -157,6 +157,7 @@ public interface JpaConst {
 
 
     //NamedQueryの nameとquery
+//Userクラス
     //ユーザーコードとハッシュ化済パスワードを条件に未削除のユーザーを取得する
     String Q_USER_GET_BY_CODE_AND_PASS = ENTITY_USER + ".getByCodeAndPass";
     String Q_USER_GET_BY_CODE_AND_PASS_DEF = "SELECT u FROM User AS u WHERE u.deleteFlag = 0 AND u.code = :" + JPQL_PARM_CODE + " AND u.password = :" + JPQL_PARM_PASSWORD;
@@ -164,6 +165,35 @@ public interface JpaConst {
     //指定したコードを保持するユーザーの件数を取得する
     String Q_USER_COUNT_RESISTERED_BY_CODE = ENTITY_USER + ".countRegisteredByCode";
     String Q_USER_COUNT_RESISTERED_BY_CODE_DEF = "SELECT COUNT(u) FROM User AS u WHERE u.code = :" + JPQL_PARM_CODE;
+
+
+//AnimalaBaseクラス
+    //全ての基本動物情報を名前順に取得する
+    String Q_BASE_GET_ALL = ENTITY_BASE + ".getAll";
+    String Q_BASE_GET_ALL_DEF = "SELECT b FROM AnimalBase AS b ORDER BY b.id"; //id==baseNameに変更する
+
+    //全ての基本動物情報を件数を取得する
+    String Q_BASE_COUNT = ENTITY_BASE + ".count";
+    String Q_BASE_COUNT_DEF = "SELECT COUNT(b) FROM AnimalBase AS b";
+
+
+//Animalクラス
+    //全ての販売動物をidの降順に取得する
+    String Q_ANI_GET_ALL = ENTITY_ANI + ".getAll";
+    String Q_ANI_GET_ALL_DEF = "SELECT a FROM Animal AS a ORDER BY a.id DESC";
+    //全ての販売動物の件数を取得する
+    String Q_ANI_COUNT = ENTITY_ANI + ".count";
+    String Q_ANI_COUNT_DEF = "SELECT COUNT(a) FROM Animal AS a";
+    //指定した基本動物情報の販売動物を全件idの降順で取得する
+    String Q_ANI_GET_ALL_MINE = ENTITY_ANI + ".getAllMine";
+    String Q_ANI_GET_ALL_MINE_DEF = "SELECT a FROM Animal AS a WHERE a.animalBase = :" + JPQL_PARM_ANIMALBASE + " ORDER BY a.id DESC";
+    //指定した基本動物情報の販売動物の件数を取得する
+    String Q_ANI_COUNT_ALL_MINE = ENTITY_ANI + ".countAllMine";
+    String Q_ANI_COUNT_ALL_MINE_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.animalBase = :" + JPQL_PARM_ANIMALBASE;
+
+
+
+
 
     /**
     //全ての従業員をidの降順に取得する

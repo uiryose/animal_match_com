@@ -1,76 +1,47 @@
-@CHARSET "UTF-8";
-
 body {
     color: #333333;
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
 }
 
-#header {
-    width: 100%;
-    height: 70px;
-    background-color: #333333;
-}
-
 #content {
-    width: 94%;
+    width: 100%;
     margin-top: 15px;
-    padding-left: 3%;
+/*     padding-left: 3%; */
 }
 
+.jumbotron .row {
+    margin-right: -30px;
+    margin-bottom: -6px;
+}
 
 h1 {
-    font-size: 24px;
     display: inline;
-    color: white;
+}
+     header.jumbotron {
+       background: url("../image/topimage.jpg");
+       background-position: left left;
+       background-size: cover;
+       color: #fff;
+       padding-bottom: 5px;
+       margin-bottom: 10px;
+     }
+
+.base {
+    height: 250px;
 }
 
-
-h2 {
-    font-size: 36px;
-    margin-bottom: 15px;
-}
-
-li {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-p {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-a {
-    text-decoration: none;
-    color: #24738e;
-}
-
-table, tr, th, td {
-    border: 1px solid #cccccc;
-}
-
-table {
-    width: 100%;
-    table-layout: fixed;
-}
-
-th {
-    width: 26%;
-    padding: 10px 2%;
-}
-
-td {
-    width: 66%;
-    padding: 10px 2%;
-}
-
-button {
-    font-size: 14px;
-    padding: 5px 10px;
-}
+.card-img-top {
+    text-align: center;
+     max-height: 187;
+    width: auto;
+ }
+ .card-body{
+    height: 187px;
+ }
 
 #footer {
     text-align: center;
+    margin-top: auto;
 }
 
 #flush_success {
@@ -92,65 +63,12 @@ button {
     background-color: #f8d7da;
 }
 
-select {
-    height: 30px;
-}
 
-#header_menu {
-    width: 57%;
-    padding-top: 17px;
-    padding-left: 3%;
-    display: inline-block;
-}
 
-#employee_name {
-    color: #cccccc;
-    width: 36%;
-    padding-right: 3%;
-    text-align: right;
-    display: inline-block;
-}
-
-#header a {
-    color: #eeeeee;
-}
-
-h1 a {
-    color: #eeeeee;
-}
-table#report_list th {
-    font-weight: bold;
-    padding: 10px 2%;
-}
-
-table#report_list .report_name {
-    width: 20%;
-    padding: 10px 2%;
-}
-table#report_list .report_date {
-    width: 20%;
-}
-
-table#report_list .report_title {
-    width: 37%;
-}
-
-table#report_list .report_action {
-    width: 13%;
-}
 
 pre {
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
 }
-
-h3 {
-    font-size: larger;
-}
-
-
-
-
-
 
 
 
@@ -164,11 +82,11 @@ h3 {
 
 
 .container {
-  max-width: none !important;
-  width: 970px;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
 }
 
-
+/*
 .navbar-collapse {
   display: block !important;
   height: auto !important;
@@ -183,3 +101,11 @@ h3 {
 .navbar-brand {
   margin-left: -15px;
 }
+ */
+
+
+/*  li {
+    height: 50px;
+ }
+ */
+

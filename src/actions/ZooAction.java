@@ -24,11 +24,13 @@ public class ZooAction extends ActionBase {
     public void process() throws ServletException, IOException {
 
         zooService = new ZooService();
+        userService = new UserService();
 
         //メソッドの実行
         invoke();
 
         zooService.close();
+        userService.close();
     }
 
 
@@ -41,8 +43,8 @@ public class ZooAction extends ActionBase {
     public void entryNew() throws ServletException, IOException{
 
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-//        putRequestScope(AttributeConst.USER, new UserView()); //空のUserインスタンス
-//        putRequestScope(AttributeConst.ZOO, new ZooView()); //空のZooインスタンス
+        putRequestScope(AttributeConst.USER, new UserView()); //空のUserインスタンス
+        putRequestScope(AttributeConst.ZOO, new ZooView()); //空のZooインスタンス
 
         //案内ページを表示
         forward(ForwardConst.FW_ZOO_NEW);
@@ -50,66 +52,66 @@ public class ZooAction extends ActionBase {
 
 
     /**
-     * 新規登録を行う
+     * ユーザーと動物園の新規登録を行う
      * @throws ServletException
      * @throws IOException
      */
-    public void create() throws ServletException, IOException{
+    public void create() throws ServletException, IOException {
 
         //CSRF対策 tokenのチェック
-        if(checkToken()) {
+        if (checkToken()) {
 
-        }
+            //パラメータの値を元に、UserインスタンスとZooインスタンスを作成する
+            UserView uv = new UserView(
+                    null,
+                    getRequestParam(AttributeConst.USER_CODE),
+                    toNumber(getRequestParam(AttributeConst.USER_FLAG)),
+                    getRequestParam(AttributeConst.USER_PASSWORD),
+                    AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
 
+            //アプリケーションスコープからpepper文字列を取得
+            String pepper = getContextScope(PropertyConst.PEPPER);
 
+            System.out.println("PEPPEのテスト:"+ pepper);
+            if (pepper == null) {
+                pepper = "test";
+            }
 
-        //パラメータの値を元に、UserインスタンスとZooインスタンスを作成する
-        UserView uv = new UserView(
-                null,
-                getRequestParam(AttributeConst.USER_CODE),
-                toNumber(getRequestParam(AttributeConst.USER_FLAG)),
-                getRequestParam(AttributeConst.USER_PASSWORD),
-                AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
+            ZooView zv = new ZooView(
+                    null,
+                    null,
+                    getRequestParam(AttributeConst.ZOO_NAME),
+                    getRequestParam(AttributeConst.ZOO_REGION),
+                    getRequestParam(AttributeConst.ZOO_PHONE),
+                    null,
+                    null);
 
-        String pepper = getContextScope(PropertyConst.PEPPER);
+            //User情報の登録
+            List<String> errors = userService.create(uv, pepper, zv);
 
-        ZooView zv = new ZooView(
-                null,
-                null,
-                getRequestParam(AttributeConst.ZOO_NAME),
-                getRequestParam(AttributeConst.ZOO_REGION),
-                getRequestParam(AttributeConst.ZOO_PHONE),
-                null,
-                null);
+            if (errors.size() > 0) {
 
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.USER, uv);
+                putRequestScope(AttributeConst.ZOO, zv);
+                putRequestScope(AttributeConst.ERR, errors);
 
+                //新規登録画面を再表示
+                forward(ForwardConst.FW_ZOO_NEW);
 
-        //User情報の登録
-        List<String> errors = userService.create(uv, pepper);
-        List<String> zooErrors = zooService.create(zv);
+            } else {
+                //登録中にエラーがなかった場合
 
-        if(errors.size() > 0) {
+                //セッションに登録完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
-            putRequestScope(AttributeConst.TOKEN, getTokenId());
-            putRequestScope(AttributeConst.USER, uv);
-            putRequestScope(AttributeConst.ZOO, zv);
+                //一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_BASE, ForwardConst.CMD_INDEX);
 
-            //新規登録画面を再表示
-            forward(ForwardConst.FW_ZOO_NEW);
-
-        } else {
-            //登録中にエラーがなかった場合
-
-            //セッションに登録完了のフラッシュメッセージを設定
-            putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
-
-            //一覧画面にリダイレクト
-            redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
+            }
 
         }
 
     }
-
-
 
 }
