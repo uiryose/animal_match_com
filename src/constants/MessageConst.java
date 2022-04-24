@@ -28,7 +28,7 @@ public enum MessageConst {
     E_NOCOMMENT("コメントを入力してください。"),
     E_NOTITLE("タイトルを入力してください。"),
     E_NOCONTENT("内容を入力してください。"),
-    E_CODE_EXIST("入力されたコードは既に使われています。"),
+    E_CODE_EXIST("入力されたログインIDは既に使われています。"),
     E_NOUSER_CODE("コードを入力してください。");
 
 

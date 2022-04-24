@@ -7,12 +7,15 @@ import java.util.stream.Stream;
 
 import javax.persistence.NoResultException;
 
+import actions.views.CustomerConverter;
+import actions.views.CustomerView;
 import actions.views.UserConverter;
 import actions.views.UserView;
 import actions.views.ZooConverter;
 import actions.views.ZooView;
 import constants.JpaConst;
 import models.User;
+import models.validators.CustomerValidator;
 import models.validators.UserValidator;
 import models.validators.ZooValidator;
 import utils.EncryptUtil;
@@ -83,23 +86,23 @@ public class UserService extends ServiceBase {
      *
      * ※カリキュラムの方法
      */
-    public List<String> create(UserView uv, String pepper){
-
-        //パスワードをハッシュ化して設定
-        String pass = EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper);
-        uv.setPassword(pass);
-
-        //登録内容のバリデーションを行う
-        List<String> errors = UserValidator.validate(this, uv, true, true);
-
-        //バリデーションエラーがなければデータを登録する
-        if(errors.size() == 0) {
-            createInternal(uv);
-        }
-
-        //エラーを返却（エラーがなければ0件の空リスト）
-        return errors;
-    }
+//    public List<String> create(UserView uv, String pepper){
+//
+//        //パスワードをハッシュ化して設定
+//        String pass = EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper);
+//        uv.setPassword(pass);
+//
+//        //登録内容のバリデーションを行う
+//        List<String> errors = UserValidator.validate(this, uv, true, true);
+//
+//        //バリデーションエラーがなければデータを登録する
+//        if(errors.size() == 0) {
+//            createInternal(uv);
+//        }
+//
+//        //エラーを返却（エラーがなければ0件の空リスト）
+//        return errors;
+//    }
 
 
 /**
@@ -127,6 +130,37 @@ public class UserService extends ServiceBase {
         //バリデーションエラーがなければデータを登録する
         if(errors.size() == 0) {
             createInternal(uv,zv);
+        }
+
+        //エラーを返却（エラーがなければ0件の空リスト）
+        return errors;
+    }
+
+    /**
+     * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと顧客テーブルに登録する
+     * @param uv 画面から入力されたユーザーの登録内容
+     * @param pepper pepper文字列
+     * @param zv 画面から入力された動物園の登録内容
+     * @return
+     */
+    public List<String> create(UserView uv, String pepper, CustomerView cv){
+
+        //パスワードをハッシュ化して設定
+        String pass = EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper);
+        uv.setPassword(pass);
+
+        LocalDateTime ldt = LocalDateTime.now();
+        cv.setCreatedAt(ldt);
+        cv.setUpdatedAt(ldt);
+
+        //登録内容のバリデーションを行う
+        List<String> userErrors = UserValidator.validate(this, uv, true, true);
+        List<String> zooErrors = CustomerValidator.validate(cv);
+        List<String> errors = Stream.concat(userErrors.stream(), zooErrors.stream()).collect(Collectors.toList());
+
+        //バリデーションエラーがなければデータを登録する
+        if(errors.size() == 0) {
+            createInternal(uv,cv);
         }
 
         //エラーを返却（エラーがなければ0件の空リスト）
@@ -211,19 +245,6 @@ public class UserService extends ServiceBase {
 
 
     /**
-     * ユーザーデータを1件登録する
-     * @param uv ユーザーデータ
-     * @return 登録結果(成功:true 失敗:false)
-     */
-    private void createInternal(UserView uv) {
-
-        em.getTransaction().begin();
-        em.persist(UserConverter.toModel(uv));
-        em.getTransaction().commit();
-
-    }
-
-    /**
      * ユーザーデータと動物園データを同時に1件ずつ登録する
      * @param uv ユーザーデータ
      * @return 登録結果(成功:true 失敗:false)
@@ -234,6 +255,20 @@ public class UserService extends ServiceBase {
         User u = UserConverter.toModel(uv);
         em.persist(u);
         em.persist(ZooConverter.toModelForCreate(zv, u));
+        em.getTransaction().commit();
+    }
+
+    /**
+     * ユーザーデータと顧客データを同時に1件ずつ登録する
+     * @param uv ユーザーデータ
+     * @return 登録結果(成功:true 失敗:false)
+     */
+    private void createInternal(UserView uv, CustomerView cv) {
+
+        em.getTransaction().begin();
+        User u = UserConverter.toModel(uv);
+        em.persist(u);
+        em.persist(CustomerConverter.toModelForCreate(cv, u));
         em.getTransaction().commit();
     }
 

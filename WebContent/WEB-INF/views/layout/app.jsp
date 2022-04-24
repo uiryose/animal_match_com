@@ -16,7 +16,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title><c:out value="アニマルマッチドットコム：システム" /></title>
+<title><c:out value="アニマッチドットコム" /></title>
 
 <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
 <link rel="stylesheet" href="<c:url value='/css/style.css' />">
@@ -34,7 +34,7 @@
 
                 <div class="d-flex justify-content-end m-0">
                     <div class="row ">
-                        <div class="p-1 text-center" ><a class="list-group-item list-group-item-success list-group-item-action py-0 px-3 " href="<c:url value='?action=${actCust}&command=${commNew}' />">ご利用案内 <br>個人の方へ</a></div>
+                        <div class="p-1 text-center"><a class="list-group-item list-group-item-success list-group-item-action py-0 px-3 " href="<c:url value='?action=${actCust}&command=${commNew}' />">ご利用案内 <br>個人の方へ</a></div>
                         <div class="p-1 text-center" ><a class="list-group-item list-group-item-success list-group-item-action py-0 px-3" href="<c:url value='?action=${actZoo}&command=${commNew}' />">ご利用案内 <br>動物園へ</a></div>
                         <div class="p-1 text-center" ><a class="list-group-item list-group-item-success list-group-item-action py-2.3 px-2" href="<c:url value='?action=${a}&command=${a}' />">制作コメント</a></div>
                         <div class="p-1 text-center" ><a class="list-group-item list-group-item-success list-group-item-action py-2.3 px-2" href="<c:url value='?action=${a}&command=${a}' />">お問い合わせ</a></div>
@@ -59,7 +59,7 @@
                         <ul class="nav flex-column m-0 border border-dark">
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">トップページ</a></li>
                             <li class="nav-item mb-1"><a href="#" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">サイトの趣旨</a></li>
-                            <li class="nav-item mb-1"><a href="#" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">ご利用前に</a></li>
+                            <li class="nav-item mb-1"><a href="#" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">ご利用の前に</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commNew}' />" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">動物を掲載する</a></li>
                             <li class="nav-item mb-0"><a href="#" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">エサMatch.com</a></li>
                         </ul>
