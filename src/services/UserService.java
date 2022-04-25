@@ -37,6 +37,10 @@ public class UserService extends ServiceBase {
         User u = null;
         try {
             //パスワードのハッシュ化
+//pepperエラー
+    if(pepper == null ) {
+        pepper = "test";
+    }
             String pass = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
 
             //ユーザーコードとハッシュ化済パスワードを条件に未削除のユーザーを1件取得する
@@ -105,13 +109,13 @@ public class UserService extends ServiceBase {
 //    }
 
 
-/**
- * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと動物園テーブルに登録する
- * @param uv 画面から入力されたユーザーの登録内容
- * @param pepper pepper文字列
- * @param zv 画面から入力された動物園の登録内容
- * @return
- */
+    /**
+     * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと動物園テーブルに登録する
+     * @param uv 画面から入力されたユーザーの登録内容
+     * @param pepper pepper文字列
+     * @param zv 画面から入力された動物園の登録内容
+     * @return バリデーションエラーのリスト
+     */
     public List<String> create(UserView uv, String pepper, ZooView zv){
 
         //パスワードをハッシュ化して設定
@@ -229,6 +233,33 @@ public class UserService extends ServiceBase {
 
         //更新作業を行う
         updateInternal(savedUser);
+
+    }
+
+
+    /**
+     * ユーザーコードとパスワードを条件に検索し、データが取得できるかどうかで認証する
+     * @param code ユーザーコード
+     * @param plainPass パスワード
+     * @param pepper pepper文字列
+     * @return 認証結果を返却す(成功:true 失敗:false)
+     */
+    public Boolean validateLogin(String code, String plainPass, String pepper) {
+
+        boolean isValidUser = false;
+        if(code != null && !code.equals("") && plainPass != null && !plainPass.equals("")) {
+
+            UserView uv = findOne(code, plainPass, pepper);
+
+            if(uv !=null && uv.getId() != null) {
+
+                //データが取得できた場合、認証成功
+                isValidUser = true;
+            }
+        }
+
+        //認証結果を返却する
+        return isValidUser;
 
     }
 

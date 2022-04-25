@@ -3,12 +3,15 @@
 <%@ page import="constants.ForwardConst" %>
 <%@ page import="constants.AttributeConst" %>
 
+<c:set var="actAuth" value="${ForwardConst.ACT_AUTH.getValue()}" />
 <c:set var="actBase" value="${ForwardConst.ACT_BASE.getValue()}" />
 <c:set var="actZoo" value="${ForwardConst.ACT_ZOO.getValue()}" />
 <c:set var="actCust" value="${ForwardConst.ACT_CUST.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commLogin" value="${ForwardConst.CMD_LOGIN.getValue()}" />
+<c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
 
 
 
@@ -31,6 +34,8 @@
     <div class="container">
 
 <header class="jumbotron">
+                <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログイン</a></div>
+
 
                 <div class="d-flex justify-content-end m-0">
                     <div class="row ">
