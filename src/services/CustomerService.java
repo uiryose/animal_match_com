@@ -5,6 +5,7 @@ import java.util.List;
 
 import actions.views.CustomerConverter;
 import actions.views.CustomerView;
+import constants.JpaConst;
 import models.Customer;
 import models.validators.CustomerValidator;
 
@@ -24,6 +25,19 @@ public class CustomerService extends ServiceBase {
         return CustomerConverter.toView(c);
     }
 
+
+    /**
+     * Userのidを元に顧客情報を取得し、Viewモデルで返却する
+     * @param id Userのid
+     * @return CustomerViewのインスタンス
+     */
+    public CustomerView findOneByUserId(int id) {
+        Customer c = (Customer) em.createNamedQuery(JpaConst.Q_CUST_GET_BY_USER_ID, Customer.class)
+                .setParameter(JpaConst.JPQL_PARM_ID, id)
+                .getSingleResult();
+
+        return CustomerConverter.toView(c);
+    }
 
     /**
      * 画面から入力された顧客の登録内容を元に、顧客データを更新する

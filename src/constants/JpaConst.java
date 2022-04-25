@@ -192,7 +192,10 @@ public interface JpaConst {
     String Q_ANI_COUNT_ALL_MINE_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.animalBase = :" + JPQL_PARM_ANIMALBASE;
 
 
-
+//Customerクラス
+    //指定したUserのidで顧客情報を取得する
+    String Q_CUST_GET_BY_USER_ID = ENTITY_CUST + "getByUserId";
+    String Q_CUST_GET_BY_USER_ID_DEF = "SELECT c FROM Customer AS c WHERE c.user.id = :" + JPQL_PARM_ID;
 
 
     /**

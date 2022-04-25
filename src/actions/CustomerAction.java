@@ -113,4 +113,41 @@ public class CustomerAction extends ActionBase {
 
 
 
+    public void edit() throws ServletException, IOException {
+
+        //セッションからログイン中のユーザー情報を取得
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+
+        if (uv == null || uv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+            //データが取得できなかった、または論理削除されている場合はエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return;
+
+        } else {
+            //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得
+            CustomerView cv = customerService.findOneByUserId(uv.getId());
+
+            if (cv == null) {
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+                return;
+
+            } else {
+
+                //編集画面に反映させるためリクエストスコープに保存
+                putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                putRequestScope(AttributeConst.USER, uv); //取得したユーザー情報
+                putRequestScope(AttributeConst.CUSTOMER, cv); //取得した顧客情報
+
+                //編集画面を表示する
+                forward(ForwardConst.FW_CUST_EDIT);
+            }
+
+        }
+
+    }
+
+
+
+
+
 }

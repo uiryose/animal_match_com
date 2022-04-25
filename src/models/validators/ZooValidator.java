@@ -80,7 +80,7 @@ public class ZooValidator {
      * @return
      */
     private static String validatePhone(String phone) {
-        if(phone.matches("^[0-9]+$")) {
+        if(!phone.matches("^[0-9]+$")) {
 //        if(phone == null || phone.equals("")) {
         return MessageConst.E_NOPHONE.getMessage();
         }
