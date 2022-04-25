@@ -14,6 +14,7 @@ import actions.views.UserView;
 import actions.views.ZooConverter;
 import actions.views.ZooView;
 import constants.JpaConst;
+import models.Customer;
 import models.User;
 import models.validators.CustomerValidator;
 import models.validators.UserValidator;
@@ -159,8 +160,8 @@ public class UserService extends ServiceBase {
 
         //登録内容のバリデーションを行う
         List<String> userErrors = UserValidator.validate(this, uv, true, true);
-        List<String> zooErrors = CustomerValidator.validate(cv);
-        List<String> errors = Stream.concat(userErrors.stream(), zooErrors.stream()).collect(Collectors.toList());
+        List<String> customerErrors = CustomerValidator.validate(cv);
+        List<String> errors = Stream.concat(userErrors.stream(), customerErrors.stream()).collect(Collectors.toList());
 
         //バリデーションエラーがなければデータを登録する
         if(errors.size() == 0) {
@@ -173,12 +174,12 @@ public class UserService extends ServiceBase {
 
 
     /**
-     * 画面から入力されたユーザーの更新内容を元にデータを1件作成し、ユーザーテーブルを更新する
+     * 画面から入力されたユーザーと顧客の更新内容を元にデータを1件作成し、ユーザーテーブルと顧客テーブルを更新する
      * @param uv 画面から入力されたユーザーの登録内容
      * @param pepper pepper文字列
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
-    public List<String> update(UserView uv, String pepper){
+    public List<String> update(UserView uv, String pepper, CustomerView cv){
 
         //idを条件に登録済のユーザー情報を取得する
         UserView savedUser = findOne(uv.getId());
@@ -205,14 +206,21 @@ public class UserService extends ServiceBase {
         }
 
         //更新内容についてバリデーションを行う
-        List<String> errors = UserValidator.validate(this, savedUser, validateCode, validatePass);
+        List<String> userErrors = UserValidator.validate(this, savedUser, validateCode, validatePass);
+        List<String> customerErrors = CustomerValidator.validate(cv);
+        List<String> errors = Stream.concat(userErrors.stream(), customerErrors.stream()).collect(Collectors.toList());
+
 
         //バリデーションエラーがなければデータを更新する
         if (errors.size() == 0) {
-            updateInternal(savedUser);
+
+            LocalDateTime ldt = LocalDateTime.now();
+            cv.setUpdatedAt(ldt);
+
+            updateInternal(savedUser, cv);
         }
 
-        //エラーを返却（エラーがなければ0件の空リスト）
+        //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
         return errors;
 
 
@@ -223,18 +231,18 @@ public class UserService extends ServiceBase {
      * 論理削除を行う
      * @param id
      */
-    public void destroy(Integer id) {
-
-        //idを条件に登録済みのユーザー情報を取得する
-        UserView savedUser = findOne(id);
-
-        //論理削除フラグを立てる
-        savedUser.setDeleteFlag(JpaConst.USER_DEL_TRUE);
-
-        //更新作業を行う
-        updateInternal(savedUser);
-
-    }
+//    public void destroy(Integer id) {
+//
+//        //idを条件に登録済みのユーザー情報を取得する
+//        UserView savedUser = findOne(id);
+//
+//        //論理削除フラグを立てる
+//        savedUser.setDeleteFlag(JpaConst.USER_DEL_TRUE);
+//
+//        //更新作業を行う
+//        updateInternal(savedUser);
+//
+//    }
 
 
     /**
@@ -304,17 +312,33 @@ public class UserService extends ServiceBase {
     }
 
     /**
-     * ユーザーデータを更新する
+     * ユーザーデータを顧客データを同時に1件ずつ更新する
      * @param uv 画面から入力されたユーザーの登録内容
+     * @return 登録結果(成功:true 失敗:false)
      */
-    private void updateInternal(UserView uv) {
+    private void updateInternal(UserView uv, CustomerView cv) {
 
         em.getTransaction().begin();
         User u = findOneInternal(uv.getId());
         UserConverter.copyViewToModel(u, uv);
+
+        Customer c = findOneCustomerInternal(cv.getId());
+        CustomerConverter.copyViewToModel(c, cv);
+
         em.getTransaction().commit();
     }
 
+
+
+    /**
+     * idを条件にデータを1件取得し、Customerのインスタンスで返却する
+     * @param id
+     * @return 取得データのインスタンス
+     */
+    private Customer findOneCustomerInternal(int id) {
+        Customer z = em.find(Customer.class, id);
+        return z;
+    }
 
 
 

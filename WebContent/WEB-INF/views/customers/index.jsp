@@ -17,7 +17,9 @@
     <div class="row">
         <div class="col-4"><c:out value="${customer.customerName}" />さん</div><br>
         <div class="col-8"><a class="float-right" href="<c:url value='?action=${actCust}&command=${commEdit}' />">個人情報を修正する</a></div>
-    </div><br>
+    </div>
+        <div class="col-12 pr-0"><a class="float-right" href="<c:url value='?action=${actAuth}&command=${commLogout}' />">ログアウト</a></div>
+    <br>
 
     <div class="">やり取りしている動物一覧</div>
     <div class="row">

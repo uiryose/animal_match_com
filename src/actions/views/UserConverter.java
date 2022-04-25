@@ -77,7 +77,7 @@ public class UserConverter {
     }
 
     /**
-     * DTOモデルのリストからViewモデルのリストを作成する
+     * ViewモデルのリストからDTOモデルのリストを作成する
      * @param list DTOモデルのリスト
      * @return Viewモデルのリスト
      */

@@ -34,6 +34,31 @@ public class CustomerAction extends ActionBase {
     }
 
 
+    /**
+     * 顧客ページのトップ画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void index() throws ServletException, IOException{
+
+        //セッションスコープからログイン中のUserを取得する
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+        //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得
+        CustomerView cv = customerService.findOneByUserId(uv.getId());
+        putRequestScope(AttributeConst.CUSTOMER, cv);
+
+        //チャット中の動物情報を取得する
+        //リクエストスコープに保存する。
+
+        if(uv != null && uv.getUserFlag() == AttributeConst.USER_CUST.getIntegerValue()) {
+            //顧客マイページ画面を表示
+            forward(ForwardConst.FW_CUST_INDEX);
+
+        } else {
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+        }
+    }
+
 
     /**
      * 顧客向けの案内ページを表示する。顧客の新規作成画面を兼ねる
@@ -103,16 +128,18 @@ public class CustomerAction extends ActionBase {
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
-                //一覧画面にリダイレクト
-                redirect(ForwardConst.ACT_BASE, ForwardConst.CMD_INDEX);
+                //顧客マイページにリダイレクト
+                redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_INDEX);
             }
         }
     }
 
 
-
-
-
+    /**
+     * 顧客情報の変更画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
     public void edit() throws ServletException, IOException {
 
         //セッションからログイン中のユーザー情報を取得
@@ -141,12 +168,58 @@ public class CustomerAction extends ActionBase {
                 //編集画面を表示する
                 forward(ForwardConst.FW_CUST_EDIT);
             }
-
         }
-
     }
 
 
+    /**
+     * ユーザーと顧客情報を更新する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update() throws ServletException, IOException {
+
+        if (checkToken()) {
+
+            //idを条件にログインしているユーザーの顧客情報を取得
+            UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+            CustomerView cv = customerService.findOneByUserId(uv.getId());
+
+            //パラメータから情報を取得し、
+            uv.setCode(getRequestParam(AttributeConst.USER_CODE));
+            uv.setPassword(getRequestParam(AttributeConst.USER_PASSWORD));
+            cv.setCustomerName(getRequestParam(AttributeConst.CUST_NAME));
+
+            String pepper = getContextScope(PropertyConst.PEPPER);
+//ペッパー取得エラー
+if (pepper == null) {
+    pepper = "test";
+}
+            List<String> errors = userService.update(uv, pepper, cv);
+
+            if (errors.size() > 0) {
+                //更新中にエラーが発生した場合
+
+                //入力フォームとエラー内容をリクエストスコープに保存する
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.USER, uv);
+                putRequestScope(AttributeConst.CUSTOMER, cv);
+                putRequestScope(AttributeConst.ERR, errors);
+
+                //編集画面を再表示する
+                forward(ForwardConst.FW_CUST_EDIT);
+
+            } else {
+                //更新中にエラーがなかった場合
+
+                //セッションスコープに更新完了のメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+
+                //顧客のマイページにリダイレクト
+                redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_INDEX);
+            }
+        }
+    }
 
 
 
