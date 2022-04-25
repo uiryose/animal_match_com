@@ -40,7 +40,7 @@
                     <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログイン</a></div>
                 </c:if>
                 <c:if test="${sessionScope.login_user != null}">
-                    <div class="login"><a href="<c:url value='?action=${actUser}&command=${commIndex}' />">マイページ</a></div>
+                    <div class="login"><a href="<c:url value='?action=${actCust}&command=${commIdx}' />">マイページ</a></div>
                 </c:if>
 
                 <div class="d-flex justify-content-end m-0">

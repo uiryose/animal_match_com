@@ -24,14 +24,14 @@
         </c:if>
 
 
-        <h3 class="my-4 py-1 col-10 text-white text-center bg-primary rounded">ユーザー情報の変更</h3>
+        <h3 class="my-4 py-1 col-12 text-white text-center bg-primary rounded">ユーザー情報の変更</h3>
 
         <form method="POST"
             action="<c:url value='?action=${actCust}&command=${commUpd}'/>">
             <div class="form-group row">
                 <label for="${AttributeConst.USER_CODE.getValue()}"
                     class="col-2 col-form-label">ログインID</label>
-                <div class="col-8">
+                <div class="col-10">
                     <input type="text" class="form-control"
                         name="${AttributeConst.USER_CODE.getValue()}"
                         placeholder="ログインで必要になります" value="${user.code}">
@@ -40,7 +40,7 @@
             <div class="form-group row">
                 <label for="${AttributeConst.CUST_NAME.getValue()}"
                     class="col-2 col-form-label">氏名</label>
-                <div class="col-8">
+                <div class="col-10">
                     <input type="text" class="form-control"
                         name="${AttributeConst.CUST_NAME.getValue()}"
                         placeholder="氏名を入力してください" value="${customer.customerName}">
@@ -49,10 +49,11 @@
             <div class="form-group row">
                 <label for="${AttributeConst.USER_PASSWORD.getValue()}"
                     class="col-2 col-form-label">パスワード</label>
-                <div class="col-8">
+                <div class="col-10">
                     <input type="password" class="form-control"
                         name="${AttributeConst.USER_PASSWORD.getValue()}"
                         placeholder="パスワードを入力してください">
+                 <small class="form-text text-muted">※パスワードは変更する場合のみ入力してください</small>
                 </div>
             </div>
 
@@ -61,7 +62,7 @@
                 type="hidden" name="${AttributeConst.TOKEN.getValue()}"
                 value="${_token}" />
             <div class="form-group row">
-                <div class="col-10 text-center">
+                <div class="col-12 text-center">
                     <button type="submit" class="btn btn-primary">変更する</button>
                 </div>
             </div>

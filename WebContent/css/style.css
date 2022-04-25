@@ -2,13 +2,13 @@ body {
     color: #333333;
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
 }
-
+/*
 #content {
     width: 100%;
     margin-top: 15px;
-/*     padding-left: 3%; */
+    padding-left: 3%;
 }
-
+ */
 .jumbotron {
     padding: 1rem 1rem;
 }
@@ -46,6 +46,8 @@ h1 {
  .card-body{
     height: 187px;
  }
+
+
 
 #footer {
     text-align: center;
