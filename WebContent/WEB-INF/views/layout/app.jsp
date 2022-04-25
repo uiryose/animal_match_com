@@ -12,6 +12,7 @@
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commLogin" value="${ForwardConst.CMD_LOGIN.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
+<c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
 
 
 
@@ -34,8 +35,13 @@
     <div class="container">
 
 <header class="jumbotron">
-                <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログイン</a></div>
 
+                <c:if test="${sessionScope.login_user == null}">
+                    <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログイン</a></div>
+                </c:if>
+                <c:if test="${sessionScope.login_user != null}">
+                    <div class="login"><a href="<c:url value='?action=${actUser}&command=${commIndex}' />">マイページ</a></div>
+                </c:if>
 
                 <div class="d-flex justify-content-end m-0">
                     <div class="row ">
@@ -46,13 +52,6 @@
                     </div>
                 </div>
 
-<%--                 <c:if test="${sessionScope.login_employee != null}">
-                    <div id="user_name">
-                        <c:out value="${sessionScope.login_user.name}" />
-                        &nbsp;さん&nbsp;&nbsp;&nbsp; <a
-                            href="<c:url value='?action=${a}&command=${a}' />">ログアウト</a>
-                    </div>
-                </c:if> --%>
 
 </header>
 <!-- hedderここまで -->
@@ -76,15 +75,15 @@
             </div>
         </div>
 
-<footer class="py-3 mt-5 bg-secondary text-dark">
-  <div class="container text-center">
+        <footer class="py-3 mt-5 bg-secondary text-dark">
+          <div class="container text-center">
 
-    <div>アニマッチドットコム
-    <small>東京都台東区上野中野下野9-9-9</small></div>
-    <small>Copyright &copy;2022 Animal Match.com, All Rights Reserved.</small>
-  </div>
-</footer>
-
+            <div>アニマッチドットコム
+            <small>東京都台東区上野中野下野9-9-9</small></div>
+            <small>Copyright &copy;2022 Animal Match.com, All Rights Reserved.</small>
+          </div>
+        </footer>
+                    <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commLogout}' />">ログアウト</a></div>
     </div>
 </body>
 </html>

@@ -18,6 +18,11 @@
              <h5>ログインIDかパスワードが間違っています。</h5>
          </div>
      </c:if>
+     <c:if test="${flush != null}">
+          <div class="alert alert-success py-4 col-10">
+                <c:out value="${flush}" />
+          </div>
+     </c:if>
 
      <h3 class="mb-5 py-1 col-10 text-white text-center bg-primary rounded">Login Page</h3>
 
@@ -45,7 +50,6 @@
       </form>
 
       <div class="col-10 text-center"><small>※ユーザー登録がまだの方はご利用案内からユーザー登録をお願いします。</small></div>
-
 
 
   </c:param>

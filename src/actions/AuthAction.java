@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.MessageConst;
 import constants.PropertyConst;
 import services.UserService;
 
@@ -50,6 +51,13 @@ public class AuthAction extends ActionBase {
         forward(ForwardConst.FW_LOGIN);
     }
 
+
+
+    /**
+     * ユーザーのログイン処理を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void login() throws ServletException, IOException {
 
         //ログインフォームから情報を取得
@@ -67,7 +75,7 @@ public class AuthAction extends ActionBase {
                 //ログインしたユーザーのDBデータを取得
                 UserView uv = userService.findOne(code, plainPass, pepper);
                 //セッションにログインしたユーザーを設定
-                putRequestScope(AttributeConst.LOGIN_USER, uv);
+                putSessionScope(AttributeConst.LOGIN_USER, uv);
 
                 //マイペページへリダイレクト。ユーザーフラグで顧客ページか動物園専用ページに分岐する
                 Integer userFlag = uv.getUserFlag();
@@ -99,5 +107,25 @@ public class AuthAction extends ActionBase {
 
         }
     }
+
+
+    /**
+     * ユーザーのログアウト処理を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void logout() throws ServletException, IOException {
+
+        //セッションからログインユーザーのパラメータを削除
+        removeSessionScope(AttributeConst.LOGIN_USER);
+
+        //セッションにログアウト時のフラッシュメッセージを追加
+        putSessionScope(AttributeConst.FLUSH, MessageConst.I_LOGOUT.getMessage());
+
+        //顧客・動物園共通のログイン画面にリダイレクト
+        redirect(ForwardConst.ACT_AUTH, ForwardConst.CMD_SHOW_LOGIN);
+
+    }
+
 
 }
