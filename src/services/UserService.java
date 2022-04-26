@@ -16,6 +16,7 @@ import actions.views.ZooView;
 import constants.JpaConst;
 import models.Customer;
 import models.User;
+import models.Zoo;
 import models.validators.CustomerValidator;
 import models.validators.UserValidator;
 import models.validators.ZooValidator;
@@ -174,7 +175,7 @@ public class UserService extends ServiceBase {
 
 
     /**
-     * 画面から入力されたユーザーと顧客の更新内容を元にデータを1件作成し、ユーザーテーブルと顧客テーブルを更新する
+     * 画面から入力されたユーザーと顧客の更新内容を元にデータを作成し、ユーザーテーブルと顧客テーブルを更新する
      * @param uv 画面から入力されたユーザーの登録内容
      * @param pepper pepper文字列
      * @return バリデーションや更新処理中に発生したエラーのリスト
@@ -222,8 +223,58 @@ public class UserService extends ServiceBase {
 
         //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
         return errors;
+    }
 
 
+    /**
+     * 画面から入力されたユーザーと動物園の更新内容を元にデータを作成し、ユーザーテーブルと動物園テーブルを更新する
+     * @param uv 画面から入力されたユーザーの登録内容
+     * @param pepper pepper文字列
+     * @return バリデーションや更新処理中に発生したエラーのリスト
+     */
+    public List<String> update(UserView uv, String pepper, ZooView zv){
+
+        //idを条件に登録済のユーザー情報を取得する
+        UserView savedUser = findOne(uv.getId());
+
+        boolean validateCode = false;
+        if(!savedUser.getCode().equals(uv.getCode())) {
+            //ユーザーコードを更新する場合
+
+            //ユーザーコードのバリデーションを行う
+            validateCode = true;
+            //変更後のコードを設定する
+            savedUser.setCode(uv.getCode());
+        }
+
+        boolean validatePass = false;
+        if(uv.getPassword() != null && !uv.getPassword().equals("")) {
+            //パスワードに入力がある場合
+
+            //パスワードについてのバリデーションを行う
+            validatePass = true;
+            //変更後のパスワードをハッシュ化し設定する
+            savedUser.setPassword(EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper));
+
+        }
+
+        //更新内容についてバリデーションを行う
+        List<String> userErrors = UserValidator.validate(this, savedUser, validateCode, validatePass);
+        List<String> zooErrors = ZooValidator.validate(zv);
+        List<String> errors = Stream.concat(userErrors.stream(), zooErrors.stream()).collect(Collectors.toList());
+
+
+        //バリデーションエラーがなければデータを更新する
+        if (errors.size() == 0) {
+
+            LocalDateTime ldt = LocalDateTime.now();
+            zv.setUpdatedAt(ldt);
+
+            updateInternal(savedUser, zv);
+        }
+
+        //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
+        return errors;
     }
 
 
@@ -319,6 +370,8 @@ public class UserService extends ServiceBase {
     private void updateInternal(UserView uv, CustomerView cv) {
 
         em.getTransaction().begin();
+
+        //取得kしたDTOモデルを変更することで、commit時にDBへ反映される
         User u = findOneInternal(uv.getId());
         UserConverter.copyViewToModel(u, uv);
 
@@ -328,7 +381,24 @@ public class UserService extends ServiceBase {
         em.getTransaction().commit();
     }
 
+    /**
+     * ユーザーデータを動物園データを同時に1件ずつ更新する
+     * @param uv 画面から入力されたユーザーの登録内容
+     * @return 登録結果(成功:true 失敗:false)
+     */
+    private void updateInternal(UserView uv, ZooView zv) {
 
+        em.getTransaction().begin();
+
+        //取得kしたDTOモデルを変更することで、commit時にDBへ反映される
+        User u = findOneInternal(uv.getId());
+        UserConverter.copyViewToModel(u, uv);
+
+        Zoo z = findOneZooInternal(zv.getId());
+        ZooConverter.copyViewToModel(z, zv);
+
+        em.getTransaction().commit();
+    }
 
     /**
      * idを条件にデータを1件取得し、Customerのインスタンスで返却する
@@ -336,10 +406,19 @@ public class UserService extends ServiceBase {
      * @return 取得データのインスタンス
      */
     private Customer findOneCustomerInternal(int id) {
-        Customer z = em.find(Customer.class, id);
-        return z;
+        Customer c = em.find(Customer.class, id);
+        return c;
     }
 
+    /**
+     * idを条件にデータを1件取得し、Zooのインスタンスで返却する
+     * @param id
+     * @return 取得データのインスタンス
+     */
+    private Zoo findOneZooInternal(int id) {
+        Zoo z = em.find(Zoo.class, id);
+        return z;
+    }
 
 
 }

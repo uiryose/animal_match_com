@@ -172,7 +172,56 @@ public class ZooAction extends ActionBase {
     }
 
 
+    /**
+     * ユーザーと動物園情報を更新する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update() throws ServletException, IOException {
 
+        if (checkToken()) {
+
+            //idを条件にログインしているユーザーの顧客情報を取得
+            UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+            ZooView zv = zooService.findOneByUserId(uv.getId());
+
+            //パラメータから情報を取得し、
+            uv.setCode(getRequestParam(AttributeConst.USER_CODE));
+            uv.setPassword(getRequestParam(AttributeConst.USER_PASSWORD));
+            zv.setZooName(getRequestParam(AttributeConst.ZOO_NAME));
+            zv.setRegion(getRequestParam(AttributeConst.ZOO_REGION));
+            zv.setPhone(getRequestParam(AttributeConst.ZOO_PHONE));
+
+            String pepper = getContextScope(PropertyConst.PEPPER);
+//ペッパー取得エラー
+if (pepper == null) {
+    pepper = "test";
+}
+            List<String> errors = userService.update(uv, pepper, zv);
+
+            if (errors.size() > 0) {
+                //更新中にエラーが発生した場合
+
+                //入力フォームとエラー内容をリクエストスコープに保存する
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.USER, uv);
+                putRequestScope(AttributeConst.ZOO, zv);
+                putRequestScope(AttributeConst.ERR, errors);
+
+                //編集画面を再表示する
+                forward(ForwardConst.FW_ZOO_EDIT);
+
+            } else {
+                //更新中にエラーがなかった場合
+
+                //セッションスコープに更新完了のメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+
+                //動物園のマイページにリダイレクト
+                redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
+            }
+        }
+    }
 
 
 

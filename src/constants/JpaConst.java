@@ -194,9 +194,15 @@ public interface JpaConst {
 
 //Customerクラス
     //指定したUserのidで顧客情報を取得する
-    String Q_CUST_GET_BY_USER_ID = ENTITY_CUST + "getByUserId";
+    String Q_CUST_GET_BY_USER_ID = ENTITY_CUST + ".getByUserId";
     String Q_CUST_GET_BY_USER_ID_DEF = "SELECT c FROM Customer AS c WHERE c.user.id = :" + JPQL_PARM_ID;
 
+
+
+//Zooクラス
+    //指定したUserのidで顧客情報を取得する
+    String Q_ZOO_GET_BY_USER_ID = ENTITY_ZOO + ".getByUserId";
+    String Q_ZOO_GET_BY_USER_ID_DEF = "SELECT z FROM Zoo AS z WHERE z.user.id = :" + JPQL_PARM_ID;
 
     /**
     //全ての従業員をidの降順に取得する

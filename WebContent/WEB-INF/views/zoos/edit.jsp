@@ -4,6 +4,7 @@
 <%@ page import="constants.ForwardConst"%>
 <%@ page import="constants.AttributeConst"%>
 
+<c:set var="actZoo" value="${ForwardConst.ACT_ZOO.getValue()}" />
 <c:set var="actCust" value="${ForwardConst.ACT_CUST.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
@@ -27,7 +28,7 @@
         <h3 class="my-4 py-1 col-12 text-white text-center bg-primary rounded">動物園情報の変更</h3>
 
         <form method="POST"
-            action="<c:url value='?action=${actCust}&command=${commUpd}'/>">
+            action="<c:url value='?action=${actZoo}&command=${commUpd}'/>">
             <div class="form-group row">
                 <label for="${AttributeConst.USER_CODE.getValue()}"
                     class="col-2 col-form-label">ログインID</label>
