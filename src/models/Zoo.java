@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import constants.JpaConst;
@@ -26,6 +27,9 @@ import lombok.Setter;
  */
 @Table(name = JpaConst.TABLE_ZOO)
 @NamedQueries({
+    @NamedQuery(
+            name = JpaConst.Q_ZOO_GET_BY_USER_ID,
+            query = JpaConst.Q_ZOO_GET_BY_USER_ID_DEF)
 
 
 

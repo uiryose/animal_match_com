@@ -34,6 +34,30 @@ public class ZooAction extends ActionBase {
     }
 
 
+    /**
+     * 動物園専用ページのトップ画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void index() throws ServletException, IOException{
+
+        //セッションスコープからログイン中のUserを取得する
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+        //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得
+        ZooView zv = zooService.findOneByUserId(uv.getId());
+        putRequestScope(AttributeConst.ZOO, zv);
+
+        //チャット中の動物情報を取得する
+        //リクエストスコープに保存する。
+
+        if(uv != null && uv.getUserFlag() == AttributeConst.USER_ZOO.getIntegerValue()) {
+            //動物園専用ページ画面を表示
+            forward(ForwardConst.FW_ZOO_INDEX);
+
+        } else {
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+        }
+    }
 
     /**
      * 動物園向けの案内ページを表示する。動物園の新規作成画面を兼ねる
@@ -106,12 +130,57 @@ public class ZooAction extends ActionBase {
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
                 //一覧画面にリダイレクト
-                redirect(ForwardConst.ACT_BASE, ForwardConst.CMD_INDEX);
-
+                redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
             }
-
         }
-
     }
+
+
+    /**
+     * 動物園情報の変更画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void edit() throws ServletException, IOException {
+        //セッションからログイン中のユーザー情報を取得
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+
+        if (uv == null || uv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+            //データが取得できなかった、または論理削除されている場合はエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return;
+
+        } else {
+            //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得
+            ZooView zv = zooService.findOneByUserId(uv.getId());
+
+            if (zv == null) {
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+                return;
+
+            } else {
+
+                //編集画面に反映させるためリクエストスコープに保存
+                putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                putRequestScope(AttributeConst.USER, uv); //取得したユーザー情報
+                putRequestScope(AttributeConst.ZOO, zv); //取得した動物園情報
+
+                //編集画面を表示する
+                forward(ForwardConst.FW_ZOO_EDIT);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

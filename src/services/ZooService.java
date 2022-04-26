@@ -5,6 +5,7 @@ import java.util.List;
 
 import actions.views.ZooConverter;
 import actions.views.ZooView;
+import constants.JpaConst;
 import models.Zoo;
 import models.validators.ZooValidator;
 
@@ -22,6 +23,20 @@ public class ZooService extends ServiceBase {
      */
     public ZooView findOne(int id) {
         Zoo z = findOneInternal(id);
+        return ZooConverter.toView(z);
+    }
+
+
+    /**
+     * Userのidを元に動物園情報を取得し、Viewモデルで返却する
+     * @param id Userのid
+     * @return CustomerViewのインスタンス
+     */
+    public ZooView findOneByUserId(int id) {
+        Zoo z = (Zoo) em.createNamedQuery(JpaConst.Q_ZOO_GET_BY_USER_ID, Zoo.class)
+                .setParameter(JpaConst.JPQL_PARM_ID, id)
+                .getSingleResult();
+
         return ZooConverter.toView(z);
     }
 
