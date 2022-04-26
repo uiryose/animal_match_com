@@ -44,11 +44,20 @@
                     <c:when test="${sessionScope.login_user == null}" >
                         <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログイン</a></div>
                     </c:when>
+                    <c:when test="${login_user.userFlag == 0 }">
+                        <div class="login"><a href="<c:url value='?action=${actCust}&command=${commIdx}' />">顧客 マイページ</a></div>
+                    </c:when>
+                    <c:when test="${login_user.userFlag == 1 }">
+                        <div class="login"><a href="<c:url value='?action=${actZoo}&command=${commIdx}' />">動物園 マイページ</a></div>
+                    </c:when>
                 </c:choose>
-                        <div class="login"><a href="<c:url value='?action=${actCust}&command=${commIdx}' />">C マイページ</a>
-                        <a href="<c:url value='?action=${actZoo}&command=${commIdx}' />">D マイページ</a></div>
 
-                <div class="d-flex justify-content-end m-0">
+<%--
+    メモ                  <div class="login"><a href="<c:url value='?action=${actCust}&command=${commIdx}' />">顧客 マイページ</a>
+                        <a href="<c:url value='?action=${actZoo}&command=${commIdx}' />">動物園 マイページ</a></div>
+
+ --%>
+                    <div class="d-flex justify-content-end m-0">
                     <div class="row ">
                         <div class="p-1 text-center"><a class="list-group-item list-group-item-success list-group-item-action py-0 px-3 " href="<c:url value='?action=${actCust}&command=${commNew}' />">ご利用案内 <br>個人の方へ</a></div>
                         <div class="p-1 text-center" ><a class="list-group-item list-group-item-success list-group-item-action py-0 px-3" href="<c:url value='?action=${actZoo}&command=${commNew}' />">ご利用案内 <br>動物園へ</a></div>
@@ -75,7 +84,7 @@
                     </nav>
                 </div>
             </div>
-            <div id="content" class="col-10">
+            <div class="col-10  mt-3">
                  ${param.content}
             </div>
         </div>

@@ -83,14 +83,11 @@ public class AuthAction extends ActionBase {
 
                     //顧客のマイページにリダイレクト
                     redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_INDEX);
-//     forward(ForwardConst.FW_TOP_INDEX);
 
                 } else if (userFlag == AttributeConst.USER_ZOO.getIntegerValue()) {
 
                     //動物園のマイページにリダイレクト
                     redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
-//      forward(ForwardConst.FW_ZOO_NEW);
-
                 }
             }
 

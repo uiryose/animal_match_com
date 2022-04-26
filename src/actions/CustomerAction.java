@@ -97,10 +97,10 @@ public class CustomerAction extends ActionBase {
             //アプリケーションスコープからpepper文字列を取得
             String pepper = getContextScope(PropertyConst.PEPPER);
 
-            System.out.println("PEPPEのテスト:"+ pepper);
-            if (pepper == null) {
-                pepper = "test";
-            }
+    System.out.println("PEPPEのテスト:"+ pepper);
+    if (pepper == null) {
+        pepper = "test";
+    }
 
             CustomerView cv = new CustomerView(
                     null,
@@ -127,6 +127,11 @@ public class CustomerAction extends ActionBase {
 
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+System.out.println("テストクリエイト成功1:"+uv.getCode());
+System.out.println("テストクリエイト成功2:"+uv.getId());
+System.out.println("テストクリエイト成功3:"+cv.getCustomerName());
+        //作成したユーザー情報をログイン状態としてセッションスコープに保存する
+                putSessionScope(AttributeConst.LOGIN_USER, uv);
 
                 //顧客マイページにリダイレクト
                 redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_INDEX);

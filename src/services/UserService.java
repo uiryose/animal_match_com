@@ -85,33 +85,6 @@ public class UserService extends ServiceBase {
 
 
     /**
-     * 画面から入力されたユーザーの登録内容を元にデータを1件作成し、ユーザーテーブルに登録する
-     * @param ev 画面から入力されたユーザーの登録内容
-     * @param pepper pepper文字列
-     * @return バリデーションや登録処理中に発生したエラーのリスト
-     *
-     * ※カリキュラムの方法
-     */
-//    public List<String> create(UserView uv, String pepper){
-//
-//        //パスワードをハッシュ化して設定
-//        String pass = EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper);
-//        uv.setPassword(pass);
-//
-//        //登録内容のバリデーションを行う
-//        List<String> errors = UserValidator.validate(this, uv, true, true);
-//
-//        //バリデーションエラーがなければデータを登録する
-//        if(errors.size() == 0) {
-//            createInternal(uv);
-//        }
-//
-//        //エラーを返却（エラーがなければ0件の空リスト）
-//        return errors;
-//    }
-
-
-    /**
      * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと動物園テーブルに登録する
      * @param uv 画面から入力されたユーザーの登録内容
      * @param pepper pepper文字列
@@ -136,10 +109,13 @@ public class UserService extends ServiceBase {
         //バリデーションエラーがなければデータを登録する
         if(errors.size() == 0) {
             createInternal(uv,zv);
+//createと同時にセッションスコープにユーザー情報をもたせる手段の１つに、この戻り値をHashMapでエラーとUserViewにする
         }
 
         //エラーを返却（エラーがなければ0件の空リスト）
         return errors;
+
+
     }
 
     /**
@@ -360,6 +336,7 @@ public class UserService extends ServiceBase {
         em.persist(u);
         em.persist(CustomerConverter.toModelForCreate(cv, u));
         em.getTransaction().commit();
+
     }
 
 
