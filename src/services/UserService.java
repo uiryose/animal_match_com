@@ -282,18 +282,18 @@ public class UserService extends ServiceBase {
      * 論理削除を行う
      * @param id
      */
-//    public void destroy(Integer id) {
-//
-//        //idを条件に登録済みのユーザー情報を取得する
-//        UserView savedUser = findOne(id);
-//
-//        //論理削除フラグを立てる
-//        savedUser.setDeleteFlag(JpaConst.USER_DEL_TRUE);
-//
-//        //更新作業を行う
-//        updateInternal(savedUser);
-//
-//    }
+    public void destroy(Integer id) {
+
+        //idを条件に登録済みのユーザー情報を取得する
+        UserView savedUser = findOne(id);
+
+        //論理削除フラグを立てる
+        savedUser.setDeleteFlag(JpaConst.USER_DEL_TRUE);
+
+        //更新作業を行う
+        updateInternal(savedUser);
+
+    }
 
 
     /**
@@ -362,6 +362,22 @@ public class UserService extends ServiceBase {
         em.getTransaction().commit();
     }
 
+
+    /**
+     * ユーザーデータを1件更新する
+     * @param uv
+     * @param cv
+     */
+    private void updateInternal(UserView uv) {
+
+        em.getTransaction().begin();
+        //取得したDTOモデルを変更することで、commit時にDBへ反映される
+        User u = findOneInternal(uv.getId());
+        UserConverter.copyViewToModel(u, uv);
+        em.getTransaction().commit();
+    }
+
+
     /**
      * ユーザーデータを顧客データを同時に1件ずつ更新する
      * @param uv 画面から入力されたユーザーの登録内容
@@ -371,7 +387,7 @@ public class UserService extends ServiceBase {
 
         em.getTransaction().begin();
 
-        //取得kしたDTOモデルを変更することで、commit時にDBへ反映される
+        //取得したDTOモデルを変更することで、commit時にDBへ反映される
         User u = findOneInternal(uv.getId());
         UserConverter.copyViewToModel(u, uv);
 

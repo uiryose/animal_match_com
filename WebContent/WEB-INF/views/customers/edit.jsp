@@ -8,6 +8,7 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commUpd" value="${ForwardConst.CMD_UPDATE.getValue()}" />
+<c:set var="commDst" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 
 <c:import url="../layout/app.jsp">
@@ -49,7 +50,7 @@
             <div class="form-group row">
                 <label for="${AttributeConst.USER_PASSWORD.getValue()}"
                     class="col-2 col-form-label">パスワード</label>
-                <div class="col-10">
+                <div class="col-10 mb-3">
                     <input type="password" class="form-control"
                         name="${AttributeConst.USER_PASSWORD.getValue()}"
                         placeholder="パスワードを入力してください">
@@ -57,16 +58,29 @@
                 </div>
             </div>
 
-            <input type="hidden" name="${AttributeConst.USER_FLAG.getValue()}"
-                value="${AttributeConst.USER_CUST.getIntegerValue()}" /> <input
-                type="hidden" name="${AttributeConst.TOKEN.getValue()}"
-                value="${_token}" />
+            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
             <div class="form-group row">
-                <div class="col-12 text-center">
+                <div class="col-7 text-right">
                     <button type="submit" class="btn btn-primary">変更する</button>
+                </div>
+                <div class="col-5 text-right">
+                    <a href="#" class="btn btn-danger" onclick="confirmDestroy();">ユーザーアカウントを削除する</a>
                 </div>
             </div>
         </form>
+
+        <form method="POST"
+            action="<c:url value='?action=${actCust}&command=${commDst}'/>">
+            <input type="hidden" name="${AttributeConst.USER_ID.getValue()}" value="${user.id}" />
+            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+        </form>
+        <script>
+            function confirmDestroy() {
+                if (confirm("本当に削除してよろしいですか？")) {
+                    document.forms[1].submit();
+                }
+            }
+        </script>
 
 
     </c:param>

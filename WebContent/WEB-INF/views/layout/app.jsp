@@ -35,13 +35,18 @@
     <div class="container">
 
 <header class="jumbotron">
-
+<%--
                 <c:if test="${sessionScope.login_user == null}">
                     <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログイン</a></div>
                 </c:if>
-                <c:if test="${sessionScope.login_user != null}">
-                    <div class="login"><a href="<c:url value='?action=${actCust}&command=${commIdx}' />">マイページ</a></div>
-                </c:if>
+ --%>
+                <c:choose>
+                    <c:when test="${sessionScope.login_user == null}" >
+                        <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログイン</a></div>
+                    </c:when>
+                </c:choose>
+                        <div class="login"><a href="<c:url value='?action=${actCust}&command=${commIdx}' />">C マイページ</a>
+                        <a href="<c:url value='?action=${actZoo}&command=${commIdx}' />">D マイページ</a></div>
 
                 <div class="d-flex justify-content-end m-0">
                     <div class="row ">

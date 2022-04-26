@@ -224,6 +224,26 @@ if (pepper == null) {
     }
 
 
+    /**
+     * 動物園の論理削除を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void destroy() throws ServletException, IOException {
+
+        if(checkToken()) {
+
+            //Userのidを条件に動物園データを論理削除する
+            userService.destroy(toNumber(getRequestParam(AttributeConst.USER_ID)));
+
+            //セッションに削除完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+
+            //動物園新規登録画面にリダイレクト
+            redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_NEW);
+
+        }
+    }
 
 
 

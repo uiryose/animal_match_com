@@ -221,6 +221,25 @@ if (pepper == null) {
         }
     }
 
+    /**
+     * 顧客の論理削除を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void destroy() throws ServletException, IOException {
 
+        if(checkToken()) {
+
+            //Userのidを条件に顧客データを論理削除する
+            userService.destroy(toNumber(getRequestParam(AttributeConst.USER_ID)));
+
+            //セッションに削除完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+
+            //顧客新規登録画面にリダイレクト
+            redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_NEW);
+
+        }
+    }
 
 }

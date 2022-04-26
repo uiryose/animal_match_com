@@ -19,6 +19,11 @@
             </c:forEach>
         </div>
     </c:if>
+    <c:if test="${flush != null}">
+        <div class="alert alert-success py-4">
+            <c:out value="${flush}" />
+        </div>
+    </c:if>
 
     <h4>ご利用方法</h4>
     <div>このサイトでは動物園が販売している動物を探すことができます。<br>

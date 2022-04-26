@@ -9,6 +9,7 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commUpd" value="${ForwardConst.CMD_UPDATE.getValue()}" />
+<c:set var="commDst" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 
 <c:import url="../layout/zooapp.jsp">
@@ -40,27 +41,27 @@
             </div>
             <div class="form-group row">
               <label for="${AttributeConst.ZOO_NAME.getValue()}" class="col-2 col-form-label">動物園名</label>
-              <div class="col-8">
+              <div class="col-10">
                 <input type="text" class="form-control" name="${AttributeConst.ZOO_NAME.getValue()}" placeholder="動物園名を入力してください" value="${zoo.zooName}">
               </div>
             </div>
             <div class="form-group row">
               <label for="${AttributeConst.ZOO_REGION.getValue()}" class="col-2 col-form-label">所在地</label>
-              <div class="col-8">
+              <div class="col-10">
                 <input type="text" class="form-control" name="${AttributeConst.ZOO_REGION.getValue()}" placeholder="都道府県名を入力してください" value="${zoo.region}">
                 <small id="helpRegion" class="form-text text-muted">※正しく入力しないとエラーになります。入力例：大阪府・長野県・東京都</small>
               </div>
             </div>
             <div class="form-group row">
               <label for="${AttributeConst.ZOO_PHONE.getValue()}" class="col-2 col-form-label">電話番号</label>
-              <div class="col-8">
+              <div class="col-10">
                 <input type="text" class="form-control" name="${AttributeConst.ZOO_PHONE.getValue()}" placeholder="数字のみで電話番号を入力してください" value="${zoo.phone}">
               </div>
             </div>
             <div class="form-group row">
                 <label for="${AttributeConst.USER_PASSWORD.getValue()}"
                     class="col-2 col-form-label">パスワード</label>
-                <div class="col-10">
+                <div class="col-10 mb-3">
                     <input type="password" class="form-control"
                         name="${AttributeConst.USER_PASSWORD.getValue()}"
                         placeholder="パスワードを入力してください">
@@ -70,11 +71,29 @@
 
             <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
             <div class="form-group row">
-                <div class="col-12 text-center">
+                <div class="col-7 text-right">
                     <button type="submit" class="btn btn-primary">変更する</button>
+                </div>
+                <div class="col-5 text-right">
+                    <a href="#" class="btn btn-danger" onclick="confirmDestroy();">ユーザーアカウントを削除する</a>
                 </div>
             </div>
         </form>
+
+
+        <form method="POST"
+            action="<c:url value='?action=${actZoo}&command=${commDst}'/>">
+            <input type="hidden" name="${AttributeConst.USER_ID.getValue()}" value="${user.id}" />
+            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+        </form>
+        <script>
+            function confirmDestroy() {
+                if (confirm("本当に削除してよろしいですか？")) {
+                    document.forms[1].submit();
+                }
+            }
+        </script>
+
 
 
     </c:param>

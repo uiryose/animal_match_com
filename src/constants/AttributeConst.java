@@ -26,6 +26,7 @@ public enum AttributeConst {
     //ユーザーUser管理
     USER("user"),
     USERS("users"),
+    USER_ID("id"),
     USER_CODE("code"),
     USER_PASSWORD("password"),
     USER_FLAG("user_flag"),

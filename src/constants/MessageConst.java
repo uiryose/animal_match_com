@@ -14,7 +14,8 @@ public enum MessageConst {
     //DB更新
     I_REGISTERED("登録が完了しました。"),
     I_UPDATED("更新が完了しました。"),
-    I_DELETED("削除が完了しました。"),
+    I_DELETED("アカウントを削除しました。"),
+    I_DELETED_ANIMAL("掲載動物を削除しました。"),
 
     //バリデーション
     E_NONAME("氏名を入力してください。"),
