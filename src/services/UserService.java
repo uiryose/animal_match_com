@@ -42,10 +42,6 @@ public class UserService extends ServiceBase {
         User u = null;
         try {
             //パスワードのハッシュ化
-//pepperエラー
-    if(pepper == null ) {
-        pepper = "test";
-    }
             String pass = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
 
             //ユーザーコードとハッシュ化済パスワードを条件に未削除のユーザーを1件取得する
@@ -94,7 +90,8 @@ public class UserService extends ServiceBase {
      * @param zv 画面から入力された動物園の登録内容
      * @return バリデーションエラーのリスト
      */
-    public List<String> create(UserView uv, String pepper, ZooView zv){
+//    @SuppressWarnings("unchecked")
+    public Map<Integer, Object> create(UserView uv, String pepper, ZooView zv){
 
         //パスワードをハッシュ化して設定
         String pass = EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper);
@@ -109,14 +106,19 @@ public class UserService extends ServiceBase {
         List<String> zooErrors = ZooValidator.validate(zv);
         List<String> errors = Stream.concat(userErrors.stream(), zooErrors.stream()).collect(Collectors.toList());
 
-        //バリデーションエラーがなければデータを登録する
-        if(errors.size() == 0) {
-            createInternal(uv,zv);
-            //createと同時にセッションスコープにユーザー情報をもたせる手段の１つに、この戻り値をHashMapでエラーとUserViewにする
-        }
 
-        //エラーを返却（エラーがなければ0件の空リスト）
-        return errors;
+        HashMap<Integer, Object> userIdAndErrorsap = new HashMap<Integer, Object>();
+        //２番目にエラーリストを格納
+        userIdAndErrorsap.put(2, errors);
+
+        if(errors.size() == 0) {
+            //バリデーションエラーがなければ、ユーザー登録行い、mapの１番目にユーザーIDを格納
+            Integer userId = createInternal(uv,zv);
+            userIdAndErrorsap.put(1, userId);
+        }
+        //返却（エラーがなければuserIdと0件の空リスト）
+        //返却（エラーがあればエラーリストのみ）
+        return userIdAndErrorsap;
 
 
     }
@@ -333,13 +335,15 @@ public class UserService extends ServiceBase {
      * @param uv ユーザーデータ
      * @return 登録結果(成功:true 失敗:false)
      */
-    private void createInternal(UserView uv, ZooView zv) {
+    private Integer createInternal(UserView uv, ZooView zv) {
 
         em.getTransaction().begin();
         User u = UserConverter.toModel(uv);
         em.persist(u);
         em.persist(ZooConverter.toModelForCreate(zv, u));
         em.getTransaction().commit();
+
+        return(u.getId());
     }
 
     /**

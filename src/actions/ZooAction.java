@@ -2,6 +2,7 @@ package actions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -111,7 +112,10 @@ public class ZooAction extends ActionBase {
                     null);
 
             //User情報の登録
-            List<String> errors = userService.create(uv, pepper, zv);
+            Map<Integer, Object> createdUser = userService.create(uv, pepper, zv);
+
+            @SuppressWarnings("unchecked")
+            List<String> errors = (List<String>) createdUser.get(2);
 
             if (errors.size() > 0) {
 
@@ -125,6 +129,10 @@ public class ZooAction extends ActionBase {
 
             } else {
                 //登録中にエラーがなかった場合
+
+                //新規作成したユーザーのセッションスコープに保存する
+                UserView createdUv = userService.findOne((int) createdUser.get(1));
+                putSessionScope(AttributeConst.LOGIN_USER, createdUv);
 
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
