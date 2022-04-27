@@ -92,6 +92,15 @@ public enum AttributeConst {
     SEX_FEMALE(1), //メス
     SEX_UNKNOWN(2), //不明
 
+    //動物サイズ
+    SIZE_L(0), //大型
+    SIZE_M(1), //中型
+    SIZE_S(2), //小型
+
+    //個人飼育フラグ
+    BREED_FLAG_TURE(0),//飼育可能
+    BREED_FLAG_FALSE(1),
+
     //販売済みフラグ
     SOLD_FLAG_FALSE(0),
     SOLD_FLAG_TRUE(1), //販売済み

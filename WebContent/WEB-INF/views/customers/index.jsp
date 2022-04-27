@@ -12,7 +12,7 @@
 <c:import url="../layout/app.jsp">
   <c:param name ="content">
 
-    <h3 class="my-4 py-1 col-12 text-white text-center bg-primary rounded">マイページ(個人向け)</h3>
+    <h3 class="mb-4 py-1 col-12 text-white text-center bg-primary rounded">マイページ(個人向け)</h3>
 
     <div class="row">
         <div class="col-4"><c:out value="${customer.customerName}" />さん</div><br>
@@ -22,7 +22,7 @@
     <br>
 
     <div class="">やり取りしている動物一覧</div>
-    <div class="row">
+    <div class="row mx-0">
 
         <table class="table table-striped">
             <thead>

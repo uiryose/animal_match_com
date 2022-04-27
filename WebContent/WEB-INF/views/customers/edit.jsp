@@ -25,7 +25,7 @@
         </c:if>
 
 
-        <h3 class="my-4 py-1 col-12 text-white text-center bg-primary rounded">ユーザー情報の変更</h3>
+        <h3 class="mb-4 py-1 col-12 text-white text-center bg-primary rounded">ユーザー情報の変更</h3>
 
         <form method="POST"
             action="<c:url value='?action=${actCust}&command=${commUpd}'/>">

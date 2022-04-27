@@ -2,13 +2,11 @@ body {
     color: #333333;
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
 }
-/*
-#content {
-    width: 100%;
-    margin-top: 15px;
-    padding-left: 3%;
+.container {
+  min-width: 1000px !important;
+  max-width: 1000px !important;
 }
- */
+
 .jumbotron {
     padding: 1rem 1rem;
 }
@@ -16,6 +14,14 @@ body {
     margin-bottom: -6px;
 }
 
+header.jumbotron {
+  background: url("../image/topimage.jpg");
+  background-position: left left;
+  background-size: cover;
+  color: #fff;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
 .login {
     margin-top: -50px;
     padding-bottom: 40px;
@@ -25,14 +31,7 @@ body {
 h1 {
     display: inline;
 }
-     header.jumbotron {
-       background: url("../image/topimage.jpg");
-       background-position: left left;
-       background-size: cover;
-       color: #fff;
-       padding-bottom: 5px;
-       margin-bottom: 10px;
-     }
+
 
 .base {
     height: 250px;
@@ -46,35 +45,23 @@ h1 {
  .card-body{
     height: 187px;
  }
-
-
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+table td{
+    overflow-wrap : break-word;
+}
+table td pre {
+    white-space: pre-wrap ;
+    font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
+    margin-bottom: 2px;
+}
 
 #footer {
     text-align: center;
     margin-top: auto;
 }
-
-#flush_success {
-    width: 100%;
-    padding-top: 28px;
-    padding-left: 2%;
-    padding-bottom: 28px;
-    margin-bottom: 15px;
-    color: #155724;
-    background-color: #d4edda;
-}
-#flush_error {
-    width: 100%;
-    padding-top: 28px;
-    padding-left: 2%;
-    padding-bottom: 28px;
-    margin-bottom: 15px;
-    color: #721c24;
-    background-color: #f8d7da;
-}
-
-
-
 
 pre {
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
@@ -83,39 +70,4 @@ pre {
 
 
 
-
-
-
-
-
-
-
-
-.container {
-  min-width: 1000px !important;
-  max-width: 1000px !important;
-}
-
-/*
-.navbar-collapse {
-  display: block !important;
-  height: auto !important;
-  padding-bottom: 0;
-  overflow: visible !important;
-}
-
-.navbar-toggle {
-  display: none;
-}
-
-.navbar-brand {
-  margin-left: -15px;
-}
- */
-
-
-/*  li {
-    height: 50px;
- }
- */
 
