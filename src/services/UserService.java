@@ -1,7 +1,10 @@
 package services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -109,7 +112,7 @@ public class UserService extends ServiceBase {
         //バリデーションエラーがなければデータを登録する
         if(errors.size() == 0) {
             createInternal(uv,zv);
-//createと同時にセッションスコープにユーザー情報をもたせる手段の１つに、この戻り値をHashMapでエラーとUserViewにする
+            //createと同時にセッションスコープにユーザー情報をもたせる手段の１つに、この戻り値をHashMapでエラーとUserViewにする
         }
 
         //エラーを返却（エラーがなければ0件の空リスト）
@@ -122,10 +125,10 @@ public class UserService extends ServiceBase {
      * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと顧客テーブルに登録する
      * @param uv 画面から入力されたユーザーの登録内容
      * @param pepper pepper文字列
-     * @param zv 画面から入力された動物園の登録内容
+     * @param cv 画面から入力された顧客の登録内容
      * @return
      */
-    public List<String> create(UserView uv, String pepper, CustomerView cv){
+    public Map<Integer, List<String>> create(UserView uv, String pepper, CustomerView cv){
 
         //パスワードをハッシュ化して設定
         String pass = EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper);
@@ -138,17 +141,32 @@ public class UserService extends ServiceBase {
         //登録内容のバリデーションを行う
         List<String> userErrors = UserValidator.validate(this, uv, true, true);
         List<String> customerErrors = CustomerValidator.validate(cv);
-        List<String> errors = Stream.concat(userErrors.stream(), customerErrors.stream()).collect(Collectors.toList());
 
-        //バリデーションエラーがなければデータを登録する
-        if(errors.size() == 0) {
-            createInternal(uv,cv);
+        List<String> errors = new ArrayList<String>();
+        errors = Stream.concat(userErrors.stream(), customerErrors.stream()).collect(Collectors.toList());
+
+        //ユーザーIDとエラーをmapに格納するための準備
+        Map<Integer, List<String>> userIdAndErrors = new HashMap<Integer, List<String>>();
+        List<String> userId = new ArrayList<String>();
+
+        if (errors.size() == 0) {
+            //バリデーションエラーがなければデータを登録する
+
+            //mapの１番目にユーザーIDをリストとして格納
+            userId.add(createInternal(uv, cv).toString());
+            userIdAndErrors.put(1, userId);
+            //mapの２番目にエラーリスト(0件の空リスト)を格納
+            userIdAndErrors.put(2, errors);
+
+        } else {
+            //バリデーションエラーがある場合はエラーリストのみmapに格納
+            userIdAndErrors.put(2, errors);
         }
 
-        //エラーを返却（エラーがなければ0件の空リスト）
-        return errors;
+        //返却（エラーがなければuserIdと0件の空リスト）
+        //返却（エラーがあればエラーリストのみ）
+        return userIdAndErrors;
     }
-
 
     /**
      * 画面から入力されたユーザーと顧客の更新内容を元にデータを作成し、ユーザーテーブルと顧客テーブルを更新する
@@ -329,7 +347,7 @@ public class UserService extends ServiceBase {
      * @param uv ユーザーデータ
      * @return 登録結果(成功:true 失敗:false)
      */
-    private void createInternal(UserView uv, CustomerView cv) {
+    private Integer createInternal(UserView uv, CustomerView cv) {
 
         em.getTransaction().begin();
         User u = UserConverter.toModel(uv);
@@ -337,6 +355,7 @@ public class UserService extends ServiceBase {
         em.persist(CustomerConverter.toModelForCreate(cv, u));
         em.getTransaction().commit();
 
+        return(u.getId());
     }
 
 

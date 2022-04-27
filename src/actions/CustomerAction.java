@@ -2,6 +2,7 @@ package actions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -97,11 +98,6 @@ public class CustomerAction extends ActionBase {
             //アプリケーションスコープからpepper文字列を取得
             String pepper = getContextScope(PropertyConst.PEPPER);
 
-    System.out.println("PEPPEのテスト:"+ pepper);
-    if (pepper == null) {
-        pepper = "test";
-    }
-
             CustomerView cv = new CustomerView(
                     null,
                     null,
@@ -109,8 +105,10 @@ public class CustomerAction extends ActionBase {
                     null,
                     null);
 
-            //User情報の登録
-            List<String> errors = userService.create(uv, pepper, cv);
+            //Userと顧客情報のDB登録
+            Map<Integer, List<String>> createdUser = userService.create(uv, pepper, cv);
+
+            List<String> errors = createdUser.get(2);
 
             if (errors.size() > 0) {
 
@@ -125,13 +123,14 @@ public class CustomerAction extends ActionBase {
             } else {
                 //登録中にエラーがなかった場合
 
+                List<String> userId = createdUser.get(1);
+
+                //新規作成したユーザーのセッションスコープに保存する
+                UserView createdUv = userService.findOne(toNumber(userId.get(0)));
+                putSessionScope(AttributeConst.LOGIN_USER, createdUv);
+
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
-System.out.println("テストクリエイト成功1:"+uv.getCode());
-System.out.println("テストクリエイト成功2:"+uv.getId());
-System.out.println("テストクリエイト成功3:"+cv.getCustomerName());
-        //作成したユーザー情報をログイン状態としてセッションスコープに保存する
-                putSessionScope(AttributeConst.LOGIN_USER, uv);
 
                 //顧客マイページにリダイレクト
                 redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_INDEX);
