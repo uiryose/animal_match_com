@@ -52,14 +52,14 @@ public class Animal {
      * AnimalBaseクラス
      */
     @ManyToOne
-    @JoinColumn(name = JpaConst.ANI_COL_BASE, nullable = true)
+    @JoinColumn(name = JpaConst.ANI_COL_BASE, nullable = false)
     private AnimalBase animalBase;
 
     /**
      * 動物を掲載したZooクラス
      */
     @ManyToOne
-    @JoinColumn(name = JpaConst.ANI_COL_ZOO, nullable = true)
+    @JoinColumn(name = JpaConst.ANI_COL_ZOO, nullable = false)
     private Zoo zoo;
 
     /**
@@ -109,7 +109,7 @@ public class Animal {
      * 販売済みかどうか(0:現役、1:販売済み)
      */
     @Column(name = JpaConst.ANI_COL_SOLD_FLAG, nullable = false)
-    private Integer SoldFlag;
+    private Integer soldFlag;
 
     /**
      *登録日時

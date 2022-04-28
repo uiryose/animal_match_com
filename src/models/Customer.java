@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 動物園データのDTOモデル
+ * 顧客データのDTOモデル
  *
  */
 @Table(name = JpaConst.TABLE_CUSTOMER)
