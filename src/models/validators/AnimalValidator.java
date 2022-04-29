@@ -12,7 +12,7 @@ import constants.MessageConst;
  * 販売動物インスタンスに設定されている値のバリデーションを行うクラス
  *
  */
-public class Animal {
+public class AnimalValidator {
 
 
     /**
@@ -22,6 +22,7 @@ public class Animal {
      */
     public static List<String> validate(AnimalView av){
         List<String> errors = new ArrayList<String>();
+
 
         //動物園名のチェック
         String nicknameError = validateNickname(av.getNickname());

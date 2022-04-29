@@ -170,7 +170,7 @@ public interface JpaConst {
 //AnimalaBaseクラス
     //全ての基本動物情報を名前順に取得する
     String Q_BASE_GET_ALL = ENTITY_BASE + ".getAll";
-    String Q_BASE_GET_ALL_DEF = "SELECT b FROM AnimalBase AS b ORDER BY b.id"; //id==baseNameに変更する
+    String Q_BASE_GET_ALL_DEF = "SELECT b FROM AnimalBase AS b ORDER BY b.baseName";
 
     //全ての基本動物情報を件数を取得する
     String Q_BASE_COUNT = ENTITY_BASE + ".count";

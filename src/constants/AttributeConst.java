@@ -19,6 +19,8 @@ public enum AttributeConst {
 
     //ログイン中のユーザー
     LOGIN_USER("login_user"),
+    LOGIN_ZOO("login_zoo"),
+    LOGIN_CUSTOMER("login_customer"),
 
     //ログイン画面
     LOGIN_ERR("loginError"),

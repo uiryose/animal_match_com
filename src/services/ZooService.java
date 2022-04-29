@@ -30,7 +30,7 @@ public class ZooService extends ServiceBase {
     /**
      * Userのidを元に動物園情報を取得し、Viewモデルで返却する
      * @param id Userのid
-     * @return CustomerViewのインスタンス
+     * @return ZooViewのインスタンス
      */
     public ZooView findOneByUserId(int id) {
         Zoo z = (Zoo) em.createNamedQuery(JpaConst.Q_ZOO_GET_BY_USER_ID, Zoo.class)

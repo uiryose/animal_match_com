@@ -4,16 +4,22 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import actions.views.CustomerView;
 import actions.views.UserView;
+import actions.views.ZooView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
 import constants.PropertyConst;
+import services.CustomerService;
 import services.UserService;
+import services.ZooService;
 
 public class AuthAction extends ActionBase {
 
     private UserService userService;
+    private ZooService zooService;
+    private CustomerService customerService;
 
     /**
      * メソッドを実行する
@@ -22,10 +28,14 @@ public class AuthAction extends ActionBase {
     public void process() throws ServletException, IOException {
 
         userService = new UserService();
+        zooService = new ZooService();
+        customerService = new CustomerService();
 
         invoke();
 
         userService.close();
+        zooService.close();
+        customerService.close();
 
     }
 
@@ -81,11 +91,17 @@ public class AuthAction extends ActionBase {
                 Integer userFlag = uv.getUserFlag();
                 if (userFlag == AttributeConst.USER_CUST.getIntegerValue()) {
 
+                    //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得しセッションスコープに保存する
+                    CustomerView cv = customerService.findOneByUserId(uv.getId());
+                    putSessionScope(AttributeConst.LOGIN_CUSTOMER, cv);
                     //顧客のマイページにリダイレクト
                     redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_INDEX);
 
                 } else if (userFlag == AttributeConst.USER_ZOO.getIntegerValue()) {
 
+                    //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得しセッションスコープに保存する
+                    ZooView zv = zooService.findOneByUserId(uv.getId());
+                    putSessionScope(AttributeConst.LOGIN_ZOO, zv);
                     //動物園のマイページにリダイレクト
                     redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
                 }
@@ -115,6 +131,8 @@ public class AuthAction extends ActionBase {
 
         //セッションからログインユーザーのパラメータを削除
         removeSessionScope(AttributeConst.LOGIN_USER);
+        removeSessionScope(AttributeConst.LOGIN_CUSTOMER);
+        removeSessionScope(AttributeConst.LOGIN_ZOO);
 
         //セッションにログアウト時のフラッシュメッセージを追加
         putSessionScope(AttributeConst.FLUSH, MessageConst.I_LOGOUT.getMessage());

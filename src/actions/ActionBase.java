@@ -21,7 +21,7 @@ import constants.PropertyConst;
  * 各Actionクラスの親クラス。共通処理を設定しておく
  *
  */
-@MultipartConfig(location="C:/tmp", maxFileSize=1048576, maxRequestSize=1048576, fileSizeThreshold=1048576)
+@MultipartConfig(location="C:/tmp", maxFileSize=2097152, maxRequestSize=2097152, fileSizeThreshold=2097152)
 public abstract class ActionBase {
 
     protected ServletContext context;
@@ -194,6 +194,7 @@ public abstract class ActionBase {
         }
         return number;
     }
+
 
     /**
      * 文字列をLocalDate型に変換する

@@ -15,7 +15,7 @@ import actions.UnknownAction;
 import constants.ForwardConst;
 
 @WebServlet("/")
-@MultipartConfig(location="C:/tmp", maxFileSize=1048576, maxRequestSize=1048576, fileSizeThreshold=1048576)
+@MultipartConfig(location="C:/tmp", maxFileSize=2097152, maxRequestSize=2097152, fileSizeThreshold=2097152)
 public class FrontController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

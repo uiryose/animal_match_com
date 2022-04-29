@@ -6,6 +6,7 @@
 <c:set var="actAuth" value="${ForwardConst.ACT_AUTH.getValue()}" />
 <c:set var="actBase" value="${ForwardConst.ACT_BASE.getValue()}" />
 <c:set var="actZoo" value="${ForwardConst.ACT_ZOO.getValue()}" />
+<c:set var="actAni" value="${ForwardConst.ACT_ANI.getValue()}" />
 <c:set var="actCust" value="${ForwardConst.ACT_CUST.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
@@ -47,11 +48,11 @@
         <div class="row">
             <div class="col-2 mt-3">
                 <div class=" fixed-left">
-                    <nav class="bg-dark">
+                    <nav class="bg-secondary">
                         <ul class="nav flex-column m-0 border border-white">
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">ホーム</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">掲載中の動物</a></li>
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物の新規登録</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commNew}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物の新規登録</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">購入検討中の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">売約済みの動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commEdit}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物園情報の変更</a></li>

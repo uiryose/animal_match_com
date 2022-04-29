@@ -67,7 +67,14 @@ pre {
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
 }
 
+.custom-select {
+    margin-left : 15px;
 
+}
+
+.custom-file {
+    margin-left : 15px;
+}
 
 
 

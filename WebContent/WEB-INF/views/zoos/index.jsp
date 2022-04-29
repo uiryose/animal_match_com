@@ -24,7 +24,7 @@
         </c:if>
 <h1>動物園indexの予定</h1>
 
-        <h3 class="my-4 py-1 col-12 text-white text-center bg-primary rounded">動物掲載情報</h3>
+        <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">動物掲載情報</h3>
 
 
 

@@ -133,6 +133,8 @@ public class ZooAction extends ActionBase {
                 //新規作成したユーザーのセッションスコープに保存する
                 UserView createdUv = userService.findOne((int) createdUser.get(1));
                 putSessionScope(AttributeConst.LOGIN_USER, createdUv);
+                //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得しセッションスコープに保存する
+                putSessionScope(AttributeConst.LOGIN_ZOO, zooService.findOneByUserId(createdUv.getId()));
 
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
@@ -221,6 +223,11 @@ if (pepper == null) {
 
             } else {
                 //更新中にエラーがなかった場合
+
+                //ログインセッション情報の更新
+                putSessionScope(AttributeConst.LOGIN_USER, uv);
+                //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得しセッションスコープに保存する
+                putSessionScope(AttributeConst.LOGIN_ZOO, zooService.findOneByUserId(uv.getId()));
 
                 //セッションスコープに更新完了のメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());

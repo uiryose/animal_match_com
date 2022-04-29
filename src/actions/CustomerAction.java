@@ -128,6 +128,8 @@ public class CustomerAction extends ActionBase {
                 //新規作成したユーザーのセッションスコープに保存する
                 UserView createdUv = userService.findOne(toNumber(userId.get(0)));
                 putSessionScope(AttributeConst.LOGIN_USER, createdUv);
+                //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得しセッションスコープに保存する
+                putSessionScope(AttributeConst.LOGIN_CUSTOMER, customerService.findOneByUserId(createdUv.getId()));
 
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
@@ -195,10 +197,7 @@ public class CustomerAction extends ActionBase {
             cv.setCustomerName(getRequestParam(AttributeConst.CUST_NAME));
 
             String pepper = getContextScope(PropertyConst.PEPPER);
-//ペッパー取得エラー
-if (pepper == null) {
-    pepper = "test";
-}
+
             List<String> errors = userService.update(uv, pepper, cv);
 
             if (errors.size() > 0) {
@@ -215,6 +214,11 @@ if (pepper == null) {
 
             } else {
                 //更新中にエラーがなかった場合
+
+                //ログインセッション情報の更新
+                putSessionScope(AttributeConst.LOGIN_USER, uv);
+                //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得しセッションスコープに保存する
+                putSessionScope(AttributeConst.LOGIN_CUSTOMER, customerService.findOneByUserId(uv.getId()));
 
                 //セッションスコープに更新完了のメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
@@ -237,8 +241,10 @@ if (pepper == null) {
             //Userのidを条件に顧客データを論理削除する
             userService.destroy(toNumber(getRequestParam(AttributeConst.USER_ID)));
 
-            //セッションに削除完了のフラッシュメッセージを設定
-            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+            //ログインセッション情報を破棄する
+            removeSessionScope(AttributeConst.LOGIN_USER);
+            removeSessionScope(AttributeConst.LOGIN_CUSTOMER);
+            removeSessionScope(AttributeConst.LOGIN_ZOO);
 
             //顧客新規登録画面にリダイレクト
             redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_NEW);
