@@ -34,6 +34,7 @@ public enum ForwardConst {
     CMD_ALL("all"),
     CMD_LIKE("like"),
     CMD_REMOVE("remove"),
+    CMD_SELLING("showSelling"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -43,6 +44,7 @@ public enum ForwardConst {
     FW_ZOO_SHOW("zoos/show"),
     FW_ZOO_NEW("zoos/new"),
     FW_ZOO_EDIT("zoos/edit"),
+    FW_ZOO_SELLING("zoos/selling"),
     FW_CUST_INDEX("customers/index"),
     FW_CUST_SHOW("customers/show"),
     FW_CUST_NEW("customers/new"),

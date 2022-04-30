@@ -12,6 +12,7 @@
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commSell" value="${ForwardConst.CMD_SELLING.getValue()}" />
 <c:set var="commLogin" value="${ForwardConst.CMD_LOGIN.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
 <c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
@@ -51,7 +52,7 @@
                     <nav class="bg-secondary">
                         <ul class="nav flex-column m-0 border border-white">
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">ホーム</a></li>
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">掲載中の動物</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSell}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">掲載中の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commNew}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物の新規登録</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">購入検討中の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">売約済みの動物</a></li>

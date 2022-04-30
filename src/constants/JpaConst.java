@@ -144,6 +144,7 @@ public interface JpaConst {
 
     //JPQL内パラメータ
     String JPQL_PARM_ID = "id"; //id
+    String JPQL_PARM_ZOO = "zoo"; //Zoo
     String JPQL_PARM_CODE = "code"; //code
     String JPQL_PARM_NAME = "name";
     String JPQL_PARM_PASSWORD = "password";
@@ -151,6 +152,7 @@ public interface JpaConst {
     String JPQL_PARM_ANIMAL = "animal";
     String JPQL_PARM_LIKE = "like";
     String JPQL_PARM_IMAGE ="image";
+    String JPQL_PARM_SOLD_FLG = "sold_flag"; //販売済みフラグ
     String JPQL_PARM_DELET_FLG = "delete_flag"; //削除フラグ
 
 
@@ -190,6 +192,14 @@ public interface JpaConst {
     //指定した基本動物情報の販売動物の件数を取得する
     String Q_ANI_COUNT_ALL_MINE = ENTITY_ANI + ".countAllMine";
     String Q_ANI_COUNT_ALL_MINE_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.animalBase = :" + JPQL_PARM_ANIMALBASE;
+    //指定した動物園が販売中の動物の一覧を取得する
+    String Q_ANI_GET_MY_SELLING = ENTITY_ANI + ".getMySelling";
+    String Q_ANI_GET_MY_SELLING_DEF = "SELECT a FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG + " ORDER BY a.animalBase.baseName";
+    //指定した動物園が販売中の動物の件数を取得する
+    String Q_ANI_COUNT_MY_SELLING = ENTITY_ANI + ".countMySelling";
+    String Q_ANI_COUNT_MY_SELLING_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG ;
+
+
 
 
 //Customerクラス

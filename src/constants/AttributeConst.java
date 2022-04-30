@@ -66,7 +66,7 @@ public enum AttributeConst {
     //動物基本情報管理AnimalBase
     ANIMALBASE("animalbase"),
     ANIMALBASES("animalbases"),
-    BASE_COUNT("base_count"),
+    BASE_COUNT("bases_count"),
     BASE_ID("id"),
     BASE_NAME("base_name"),
     BASE_IMAGE("base_image"),
@@ -78,7 +78,7 @@ public enum AttributeConst {
     //動物販売情報管理
     ANIMAL("animal"),
     ANIMALS("animals"),
-    ANI_COUNT("animal_count"),
+    ANI_COUNT("animals_count"),
     ANI_ID("id"),
     ANI_NICKNAME("animal_nickname"),
     ANI_IMAGE("animal_image"),

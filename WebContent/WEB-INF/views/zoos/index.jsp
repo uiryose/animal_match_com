@@ -26,7 +26,47 @@
 
         <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">動物掲載情報</h3>
 
+    <div class="row mx-0">
 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-1">No.</th>
+                    <th class="col-2">名称</th>
+                    <th class="col-2">愛称</th>
+                    <th class="col-2">性別</th>
+                    <th class="col-2">取引相手</th>
+                    <th class="col-2">チャット画面</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12</td>
+                    <td>アカカンガルー</td>
+                    <td>ユキちゃん</td>
+                    <td>オス</td>
+                    <td>上山の動物園</td>
+                    <td>チャット画面</td>
+                </tr>
+                <tr>
+                    <td>データ</td>
+                    <td>データ</td>
+                    <td>データ</td>
+                    <td>データ</td>
+                    <td>データ</td>
+                    <td>データ</td>
+                </tr>
+                <tr>
+                    <td>データ</td>
+                    <td>データセル</td>
+                    <td>データ</td>
+                    <td>データセル</td>
+                    <td>データ</td>
+                    <td>データセル</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
     </c:param>

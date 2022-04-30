@@ -12,7 +12,7 @@
 <c:import url="../layout/zooapp.jsp">
   <c:param name ="content">
 
-  <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">動物新規登録画面</h3>
+  <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">動物変更登録画面</h3>
 
   <c:if test="${errors != null}">
       <div class="alert alert-danger">
@@ -24,7 +24,7 @@
       </div>
   </c:if>
 
-  <form method="POST" enctype="multipart/form-data" action="<c:url value='?action=${actAni}&command=${commCrt}'/>">
+  <form method="POST" enctype="multipart/form-data" action="<c:url value='?action=${actAni}&command=${commUpd}'/>">
             <div class="form-group row">
                 <label for="${AttributeConst.BASE_ID.getValue()}" class="col-3 col-form-label">動物の種類</label>
                     <select	class="custom-select col-7 " name="${AttributeConst.BASE_ID.getValue()}" required="required">
@@ -65,7 +65,6 @@
       <div class="col-7">
         <input type="number" class="form-control" name="${AttributeConst.PRICE_FOR_CUST.getValue()}" placeholder="数字で入力してください"  value="${animal.priceForCust}" required>
         <small id="helpPriceForCust" class="form-text text-muted">※個人の方に販売したくない場合は、-1 を入力してください</small>
-
       </div>
     </div>
     <div class="form-group row">
@@ -100,7 +99,6 @@
       </div>
     </fieldset>
 
-
     <div class="form-group row">
       <label for="${AttributeConst.ZOO_COMMENT.getValue()}" class="col-3 col-form-label">メッセージ</label>
       <div class="col-7">
@@ -118,12 +116,29 @@
 
     <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
     <div class="form-group row">
-      <div class="col-12 text-center">
-        <button type="submit" class="btn btn-info">動物の新規登録</button>
+      <div class="col-7 text-center">
+        <button type="submit" class="btn btn-info">動物の更新</button>
+
+        <div class="col-5 text-right">
+           <a href="#" class="btn btn-danger" onclick="confirmDestroy();">この動物を削除する</a>
+        </div>
+
       </div>
     </div>
   </form>
 
+
+  <form method="POST" action="<c:url value='?action=${actAni}&command=${commDst}'/>">
+      <input type="hidden" name="${AttributeConst.ANI_ID.getValue()}" value="${animal.id}" />
+      <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+  </form>
+  <script>
+      function confirmDestroy() {
+          if (confirm("本当に削除してよろしいですか？")) {
+              document.forms[1].submit();
+          }
+      }
+  </script>
 
    </c:param>
 </c:import>

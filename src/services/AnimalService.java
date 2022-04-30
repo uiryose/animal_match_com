@@ -5,6 +5,9 @@ import java.util.List;
 
 import actions.views.AnimalConverter;
 import actions.views.AnimalView;
+import actions.views.ZooConverter;
+import actions.views.ZooView;
+import constants.AttributeConst;
 import constants.JpaConst;
 import models.Animal;
 import models.validators.AnimalValidator;
@@ -34,11 +37,11 @@ public class AnimalService extends ServiceBase {
      */
  //要修正
     public AnimalView findAllByBaseId(int id) {
-        Animal z = (Animal) em.createNamedQuery(JpaConst.Q_ZOO_GET_BY_USER_ID, Animal.class)
+        Animal a = (Animal) em.createNamedQuery(JpaConst.Q_ZOO_GET_BY_USER_ID, Animal.class)
                 .setParameter(JpaConst.JPQL_PARM_ID, id)
                 .getSingleResult();
 
-        return AnimalConverter.toView(z);
+        return AnimalConverter.toView(a);
     }
 
 
@@ -52,7 +55,34 @@ public class AnimalService extends ServiceBase {
     }
 
 
+    /**
+     * 指定した動物園の販売中の動物一覧を取得し、AnimalViewリストで返却する
+     * @param zv 動物園情報
+     * @return 指定した動物園が販売する動物情報（販売済みは除く）
+     */
+    public List<AnimalView> getMySelling(ZooView zv) {
+        List<Animal> animals = em.createNamedQuery(JpaConst.Q_ANI_GET_MY_SELLING, Animal.class)
+                .setParameter(JpaConst.JPQL_PARM_ZOO, ZooConverter.toModel(zv))
+                .setParameter(JpaConst.JPQL_PARM_SOLD_FLG, AttributeConst.SOLD_FLAG_FALSE.getIntegerValue())
+                .getResultList();
 
+        return AnimalConverter.toViewList(animals);
+    }
+
+
+    /**
+     * 指定した動物園の販売中動物の件数を取得し、返却する
+     * @param zv
+     * @return 指定した動物園の販売中の動物件数
+     */
+    public long countMySelling(ZooView zv) {
+        Long animalCount = em.createNamedQuery(JpaConst.Q_ANI_COUNT_MY_SELLING, Long.class)
+                .setParameter(JpaConst.JPQL_PARM_ZOO, ZooConverter.toModel(zv))
+                .setParameter(JpaConst.JPQL_PARM_SOLD_FLG, AttributeConst.SOLD_FLAG_FALSE.getIntegerValue())
+                .getSingleResult();
+
+        return animalCount;
+    }
 
 
 
@@ -131,5 +161,7 @@ public class AnimalService extends ServiceBase {
         AnimalConverter.copyViewToModel(a, av);
         em.getTransaction().commit();
     }
+
+
 
 }

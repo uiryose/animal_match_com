@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import constants.JpaConst;
@@ -22,11 +23,17 @@ import lombok.Setter;
 
 
 /**
- * 動物基本情報データのDTOモデル
+ * 動物データのDTOモデル
  *
  */
 @Table(name = JpaConst.TABLE_ANIMAL)
 @NamedQueries({
+    @NamedQuery(
+            name = JpaConst.Q_ANI_GET_MY_SELLING,
+            query = JpaConst.Q_ANI_GET_MY_SELLING_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_ANI_COUNT_MY_SELLING,
+            query = JpaConst.Q_ANI_COUNT_MY_SELLING_DEF)
 
 
 

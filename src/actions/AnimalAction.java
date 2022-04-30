@@ -52,22 +52,12 @@ public class AnimalAction extends ActionBase {
         //基本動物情報を全て取得し、リクエストスコープに保存する
         putRequestScope(AttributeConst.ANIMALBASES, animalBaseService.getAllOrderByName());
 
-  /*ログインせっしょに保存したため不要？
-        //セッションからログイン中のユーザー情報を取得
-        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
-        //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得
-        ZooView zv = zooService.findOneByUserId(uv.getId());
-
-        putRequestScope(AttributeConst.ZOO, zv);
-  */
-
         putRequestScope(AttributeConst.TOKEN, getTokenId());
         putRequestScope(AttributeConst.ANIMAL, new AnimalView());
 
         //動物新規登録画面を表示
         forward(ForwardConst.FW_ANI_NEW);
     }
-
 
 
     /**
@@ -90,7 +80,7 @@ public class AnimalAction extends ActionBase {
         Part part = request.getPart(AttributeConst.ANI_IMAGE.getValue());
         //画像の名前を重複なく作成する（動物園名＋乱数＋ファイル名とする）
         Random rnd = new Random();
-        String imageName = zv.getZooName() + rnd.nextInt() + part.getSubmittedFileName();;
+        String imageName = zv.getZooName() + rnd.nextInt() + part.getSubmittedFileName();
 
         if(checkToken()) {
 
@@ -136,21 +126,102 @@ public class AnimalAction extends ActionBase {
                 if(part != null) {
                     //フォルダに画像の書き込み
                     part.write(context.getRealPath("/image/animal") + "/" + imageName);
-
                 }
-
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
             }
-
         }
+    }
+
+
+    /**
+     * 動物園マイページの販売中動物の一覧ページを表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void showSelling() throws ServletException, IOException {
+
+        //ログインしている動物園のidを元に。販売中の動物一覧と件数を取得する
+        ZooView zv = (ZooView) getSessionScope(AttributeConst.LOGIN_ZOO);
+        List<AnimalView> animals =  animalService.getMySelling(zv);
+        Long animalCount = animalService.countMySelling(zv);
+
+        putRequestScope(AttributeConst.ANIMALS, animals);
+        putRequestScope(AttributeConst.ANI_COUNT, animalCount);
+
+        //一覧画面を表示
+        forward(ForwardConst.FW_ZOO_SELLING);
+    }
+
+
+    /**
+     * 動物園マイページの販売済み動物の一覧ページを表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void showSold() throws ServletException, IOException {
+
 
 
 
     }
+
+
+    /**
+     * 動物の詳細画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void show() throws ServletException, IOException {
+
+        //パラメータのidを元に、動物データを取得する
+        AnimalView animal = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+        putRequestScope(AttributeConst.ANIMAL, animal);
+
+        if(animal == null ) {
+
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+        } else {
+
+            //動物詳細画面を表示する
+            forward(ForwardConst.FW_ANI_SHOW);
+        }
+    }
+
+
+    /**
+     * 動物の修正画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void edit() throws ServletException, IOException {
+
+        //パラメータのidを元に、動物データを取得する
+        AnimalView animal = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+        putRequestScope(AttributeConst.ANIMAL, animal);
+
+        //セッションからログイン中の動物園情報を取得する
+        ZooView zoo = (ZooView) getSessionScope(AttributeConst.LOGIN_ZOO);
+
+        if(animal == null || animal.getZoo() != zoo) {
+            //該当の動物データが存在しない、または
+            //ログインしている動物園と動物登録者が一致しない場合はエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+
+        } else {
+
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            putRequestScope(AttributeConst.ANIMAL, animal);
+
+            //編集画面を表示
+            forward(ForwardConst.FW_ANI_EDIT);
+        }
+    }
+
+
 
 
 
