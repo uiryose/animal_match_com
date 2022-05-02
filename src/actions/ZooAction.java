@@ -209,10 +209,6 @@ public class ZooAction extends ActionBase {
             zv.setPhone(getRequestParam(AttributeConst.ZOO_PHONE));
 
             String pepper = getContextScope(PropertyConst.PEPPER);
-//ペッパー取得エラー
-if (pepper == null) {
-    pepper = "test";
-}
             List<String> errors = userService.update(uv, pepper, zv);
 
             if (errors.size() > 0) {
@@ -232,8 +228,7 @@ if (pepper == null) {
 
                 //ログインセッション情報の更新
                 putSessionScope(AttributeConst.LOGIN_USER, uv);
-                //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得しセッションスコープに保存する
-                putSessionScope(AttributeConst.LOGIN_ZOO, zooService.findOneByUserId(uv.getId()));
+                putSessionScope(AttributeConst.LOGIN_ZOO, zv);
 
                 //セッションスコープに更新完了のメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());

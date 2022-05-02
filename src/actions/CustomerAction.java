@@ -217,8 +217,7 @@ public class CustomerAction extends ActionBase {
 
                 //ログインセッション情報の更新
                 putSessionScope(AttributeConst.LOGIN_USER, uv);
-                //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得しセッションスコープに保存する
-                putSessionScope(AttributeConst.LOGIN_CUSTOMER, customerService.findOneByUserId(uv.getId()));
+                putSessionScope(AttributeConst.LOGIN_CUSTOMER, cv);
 
                 //セッションスコープに更新完了のメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());

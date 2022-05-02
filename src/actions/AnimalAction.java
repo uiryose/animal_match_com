@@ -100,7 +100,9 @@ public class AnimalAction extends ActionBase {
                         : null,
                     toNumber(getRequestParam(AttributeConst.ANI_AGE)),
                     toNumber(getRequestParam(AttributeConst.ANI_SEX)),
-                    toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)),
+                    bv.getBaseBreedFlag() == AttributeConst.BREED_FLAG_FALSE.getIntegerValue()
+                        ? -1     //個人飼育不可の動物は、個人向け価格-1円とする
+                        : toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)),
                     toNumber(getRequestParam(AttributeConst.PRICE_FOR_ZOO)),
                     getRequestParam(AttributeConst.ZOO_COMMENT),
                     AttributeConst.SOLD_FLAG_FALSE.getIntegerValue(),

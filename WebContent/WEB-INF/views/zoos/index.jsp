@@ -25,17 +25,20 @@
 
     <h3 class="mt-3 mb-3 py-1 col-12 text-white text-center bg-info rounded">動物園マイページ</h3>
     <div class="row">
+            <div class="col-3 font-weight-bold"><c:out value="${login_zoo.zooName}" />さん</div>
             <div class="col-2 pr-0">掲載中の動物：</div><div class="col-1 text-right px-0"><c:out value="${selling_count}" /></div><div class="col-5"> 件</div>
     </div>
     <div class="row">
+            <div class="col-3"></div>
             <div class="col-2 pr-0">販売済の動物：</div><div class="col-1 text-right px-0"><c:out value="${sold_count}" /></div><div class="col-5"> 件</div>
     </div>
     <div class="row">
+            <div class="col-3"></div>
             <div class="col-2 pr-0">取引中の動物：</div><div class="col-1 text-right px-0">99</div><div class="col-5"> 件</div>&nbsp;
     </div>
 
 
-    <h4 class="mb-0 mt-4 py-1 col-12 text-white text-center bg-secondary rounded">販売取引中一覧</h4>
+    <h4 class="mb-0 mt-3 py-1 col-12 text-white text-center bg-secondary rounded">販売取引中一覧</h4>
 
     <div class="row mx-0">
         <table class="table table-striped">

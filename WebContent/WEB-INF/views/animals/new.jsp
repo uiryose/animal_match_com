@@ -32,6 +32,7 @@
                     <c:forEach var="animalbase" items="${animalbases}">
                         <option value="${animalbase.id}">
                             <c:out value="${animalbase.baseName}" />
+                            <c:if test="${animalbase.baseBreedFlag == AttributeConst.BREED_FLAG_FALSE.getIntegerValue()}">(個人販売不可)</c:if>
                         </option>
                     </c:forEach>
                 </select>

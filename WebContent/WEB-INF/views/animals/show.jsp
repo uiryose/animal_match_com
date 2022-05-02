@@ -93,6 +93,7 @@
                           <th class="col-2">個人価格</th>
                           <td class="col-6">
                             <c:choose>
+                                <c:when test="${animal.animalBase.baseBreedFlag == AttributeConst.BREED_FLAG_FALSE.getIntegerValue()}" >飼育不可</c:when>
                                 <c:when test="${animal.priceForCust < 0}" >販売しない</c:when>
                                 <c:otherwise><c:out value="${animal.priceForCust}" />&nbsp;円</c:otherwise>
                             </c:choose>
