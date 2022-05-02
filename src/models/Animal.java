@@ -33,9 +33,16 @@ import lombok.Setter;
             query = JpaConst.Q_ANI_GET_MY_SELLING_DEF),
     @NamedQuery(
             name = JpaConst.Q_ANI_COUNT_MY_SELLING,
-            query = JpaConst.Q_ANI_COUNT_MY_SELLING_DEF)
-
-
+            query = JpaConst.Q_ANI_COUNT_MY_SELLING_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_ANI_GET_MY_SOLD,
+            query = JpaConst.Q_ANI_GET_MY_SOLD_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_ANI_COUNT_MY_SOLD,
+            query = JpaConst.Q_ANI_COUNT_MY_SOLD_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_ANI_GET_BY_BASE_ID,
+            query = JpaConst.Q_ANI_GET_BY_BASE_ID_DEF)
 
 
 })

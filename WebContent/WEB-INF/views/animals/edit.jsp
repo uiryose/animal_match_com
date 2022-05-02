@@ -7,6 +7,8 @@
 <c:set var="actAni" value="${ForwardConst.ACT_ANI.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commUpd" value="${ForwardConst.CMD_UPDATE.getValue()}" />
+<c:set var="commDst" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 
 <c:import url="../layout/zooapp.jsp">
@@ -24,19 +26,14 @@
       </div>
   </c:if>
 
-  <form method="POST" enctype="multipart/form-data" action="<c:url value='?action=${actAni}&command=${commUpd}'/>">
-            <div class="form-group row">
-                <label for="${AttributeConst.BASE_ID.getValue()}" class="col-3 col-form-label">動物の種類</label>
-                    <select	class="custom-select col-7 " name="${AttributeConst.BASE_ID.getValue()}" required="required">
-                    <option selected disabled value="">選択してください</option>
-                    <c:forEach var="animalbase" items="${animalbases}">
-                        <option value="${animalbase.id}">
-                            <c:out value="${animalbase.baseName}" />
-                        </option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="form-group row">
+  <form method="POST" enctype="multipart/form-data" action="<c:url value='?action=${actAni}&command=${commUpd}&id=${animal.id}' />">
+      <div class="form-group row">
+      <label for="name" class="col-3 col-form-label pt-0">動物の種類</label>
+      <div class="col-7">
+        <c:out value="${animal.animalBase.baseName}" />
+      </div>
+      </div>
+      <div class="form-group row">
       <label for="name" class="col-3 col-form-label pt-0">売り主</label>
       <div class="col-7">
         <c:out value="${login_zoo.zooName}" />
@@ -78,19 +75,19 @@
         <label class="col-form-label col-3 pt-0" for="${AttributeConst.ANI_SEX.getValue()}" >性別</label>
         <div class="col-7">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="${AttributeConst.ANI_SEX.getValue()}" id="radios1" value="${AttributeConst.SEX_MALE.getIntegerValue()}" required>
+            <input class="form-check-input" type="radio" name="${AttributeConst.ANI_SEX.getValue()}" id="radios1" value="${AttributeConst.SEX_MALE.getIntegerValue()}"  <c:if test="${animal.animalSex == AttributeConst.SEX_MALE.getIntegerValue()}"> checked</c:if> required>
             <label class="form-check-label" for="radios1">
               オス
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="${AttributeConst.ANI_SEX.getValue()}" id="radios2" value="${AttributeConst.SEX_FEMALE.getIntegerValue()}">
+            <input class="form-check-input" type="radio" name="${AttributeConst.ANI_SEX.getValue()}" id="radios2" value="${AttributeConst.SEX_FEMALE.getIntegerValue()}" <c:if test="${animal.animalSex == AttributeConst.SEX_FEMALE.getIntegerValue()}"> checked</c:if>>
             <label class="form-check-label" for="radios2">
               メス
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="${AttributeConst.ANI_SEX.getValue()}" id="radios3" value="${AttributeConst.SEX_UNKNOWN.getIntegerValue()}">
+            <input class="form-check-input" type="radio" name="${AttributeConst.ANI_SEX.getValue()}" id="radios3" value="${AttributeConst.SEX_UNKNOWN.getIntegerValue()}" <c:if test="${animal.animalSex == AttributeConst.SEX_UNKNOWN.getIntegerValue()}"> checked</c:if>>
             <label class="form-check-label" for="radios3">
               不明
             </label>
@@ -116,14 +113,14 @@
 
     <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
     <div class="form-group row">
-      <div class="col-7 text-center">
-        <button type="submit" class="btn btn-info">動物の更新</button>
-
-        <div class="col-5 text-right">
+        <div class="col-3">
+        </div>
+        <div class="col-4">
+            <button type="submit" class="btn btn-info">動物の更新</button>
+        </div>
+        <div class="col-2 text-right">
            <a href="#" class="btn btn-danger" onclick="confirmDestroy();">この動物を削除する</a>
         </div>
-
-      </div>
     </div>
   </form>
 

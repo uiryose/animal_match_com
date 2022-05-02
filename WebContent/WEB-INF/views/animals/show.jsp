@@ -77,15 +77,15 @@
                       </tr>
                       <tr>
                           <th class="col-2">年齢</th>
-                          <td class="col-6"><c:out value="${animal.animalAge}" />才</td>
+                          <td class="col-6"><c:out value="${animal.animalAge}" />&nbsp;才</td>
                       </tr>
                       <tr>
                           <th class="col-2">性別</th>
                           <td class="col-6">
                             <c:choose>
-                                <c:when test="${animalbase.animalSex == AttributeConst.SEX_MALE.getIntegerValue()}" >オス</c:when>
-                                <c:when test="${animalbase.animalSex == AttributeConst.SEX_FEMALE.getIntegerValue()}" >メス</c:when>
-                                <c:when test="${animalbase.animalSex == AttributeConst.SEX_UNKNOWN.getIntegerValue()}" >不明</c:when>
+                                <c:when test="${animal.animalSex == AttributeConst.SEX_MALE.getIntegerValue()}" >オス</c:when>
+                                <c:when test="${animal.animalSex == AttributeConst.SEX_FEMALE.getIntegerValue()}" >メス</c:when>
+                                <c:when test="${animal.animalSex == AttributeConst.SEX_UNKNOWN.getIntegerValue()}" >不明</c:when>
                             </c:choose>
                           </td>
                       </tr>
@@ -129,7 +129,9 @@
     <div class="row mt-3">
         <div class="col-4"></div>
         <div class="col-5 ">
-           <h3><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actAni}&command=${commEdit}&id=${animal.id}' />">登録内容を編集</a></h3>
+            <c:if test="${animal.soldFlag == AttributeConst.SOLD_FLAG_FALSE.getIntegerValue()}">
+                <h3><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actAni}&command=${commEdit}&id=${animal.id}' />">登録内容を編集</a></h3>
+            </c:if>
         </div>
         <div class="col-3 text-center">
            <h3><a class="badge badge-info font-weight-normal"  href="<c:url value='?action=${actAni}&command=${commSell}' />">一覧に戻る</a></h3>

@@ -17,7 +17,7 @@
     <c:param name="content">
 
 
-    <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">掲載中の動物一覧</h3>
+    <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">販売済の動物一覧</h3>
     <div class="">&nbsp;全&nbsp;<c:out value="${animals_count}" />&nbsp;件</div>
     <div class="row mx-0">
         <table class="table table-striped">
@@ -48,9 +48,8 @@
                         <td><c:out value="${animal.animalAge}" />&nbsp;才</td>
                         <fmt:parseDate value="${animal.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
                         <td><fmt:formatDate value="${createDay}" pattern="yyyy-MM-dd" /></td>
-                        <td><h5><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">確認・編集</a></h5></td>
-<%--                         <a href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">確認</a></td>
- --%>                    </tr>
+                        <td><h5><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">確認画面</a></h5></td>
+                    </tr>
                 </c:forEach>
             </tbody>
         </table>

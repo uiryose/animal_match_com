@@ -82,6 +82,10 @@ public class AnimalAction extends ActionBase {
         Random rnd = new Random();
         String imageName = zv.getZooName() + rnd.nextInt() + part.getSubmittedFileName();
 
+
+        System.out.println("テスト販売PART：" +  part);
+        System.out.println("テスト販売フラグ：" + AttributeConst.SOLD_FLAG_FALSE.getIntegerValue());
+
         if(checkToken()) {
 
             //パラメータの値を元にAnimalインスタンスを作成する
@@ -98,9 +102,7 @@ public class AnimalAction extends ActionBase {
                     toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)),
                     toNumber(getRequestParam(AttributeConst.PRICE_FOR_ZOO)),
                     getRequestParam(AttributeConst.ZOO_COMMENT),
-                    toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)) < 0
-                        ? AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()
-                        : AttributeConst.SOLD_FLAG_FALSE.getIntegerValue(),
+                    AttributeConst.SOLD_FLAG_FALSE.getIntegerValue(),
                     null,
                     null);
 
@@ -152,7 +154,7 @@ public class AnimalAction extends ActionBase {
         putRequestScope(AttributeConst.ANIMALS, animals);
         putRequestScope(AttributeConst.ANI_COUNT, animalCount);
 
-        //一覧画面を表示
+        //販売中一覧画面を表示
         forward(ForwardConst.FW_ZOO_SELLING);
     }
 
@@ -164,9 +166,16 @@ public class AnimalAction extends ActionBase {
      */
     public void showSold() throws ServletException, IOException {
 
+        //ログインしている動物園のidを元に。販売済みの動物一覧と件数を取得する
+        ZooView zv = (ZooView) getSessionScope(AttributeConst.LOGIN_ZOO);
+        List<AnimalView> animals =  animalService.getMySold(zv);
+        Long animalCount = animalService.countMySold(zv);
 
+        putRequestScope(AttributeConst.ANIMALS, animals);
+        putRequestScope(AttributeConst.ANI_COUNT, animalCount);
 
-
+        //販売中一覧画面を表示
+        forward(ForwardConst.FW_ZOO_SOLD);
     }
 
 
@@ -178,10 +187,10 @@ public class AnimalAction extends ActionBase {
     public void show() throws ServletException, IOException {
 
         //パラメータのidを元に、動物データを取得する
-        AnimalView animal = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
-        putRequestScope(AttributeConst.ANIMAL, animal);
+        AnimalView av = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+        putRequestScope(AttributeConst.ANIMAL, av);
 
-        if(animal == null ) {
+        if(av == null ) {
 
             forward(ForwardConst.FW_ERR_UNKNOWN);
         } else {
@@ -200,13 +209,13 @@ public class AnimalAction extends ActionBase {
     public void edit() throws ServletException, IOException {
 
         //パラメータのidを元に、動物データを取得する
-        AnimalView animal = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
-        putRequestScope(AttributeConst.ANIMAL, animal);
+        AnimalView animalView = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+        putRequestScope(AttributeConst.ANIMAL, animalView);
 
         //セッションからログイン中の動物園情報を取得する
         ZooView zoo = (ZooView) getSessionScope(AttributeConst.LOGIN_ZOO);
 
-        if(animal == null || animal.getZoo() != zoo) {
+        if(animalView == null || animalView.getZoo().getId() != zoo.getId()) {
             //該当の動物データが存在しない、または
             //ログインしている動物園と動物登録者が一致しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
@@ -214,7 +223,7 @@ public class AnimalAction extends ActionBase {
         } else {
 
             putRequestScope(AttributeConst.TOKEN, getTokenId());
-            putRequestScope(AttributeConst.ANIMAL, animal);
+            putRequestScope(AttributeConst.ANIMAL, animalView);
 
             //編集画面を表示
             forward(ForwardConst.FW_ANI_EDIT);
@@ -222,7 +231,61 @@ public class AnimalAction extends ActionBase {
     }
 
 
+    /**
+     * 動物の更新処理を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update() throws ServletException, IOException {
 
+        if(checkToken()) {
+
+            //パラメータのidを元に、動物データを取得する
+            AnimalView av = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+
+            //name属性がANI_IMAGEのファイルをPartオブジェクトとして取得
+            Part part = request.getPart(AttributeConst.ANI_IMAGE.getValue());
+
+            //画像の名前を重複なく作成する（動物園名＋乱数＋ファイル名とする）
+            Random rnd = new Random();
+            String namamaa = part.getSubmittedFileName();
+            System.out.println("テストファイル名前："+namamaa);
+            String imageName = av.getZoo().getZooName() + rnd.nextInt() + part.getSubmittedFileName();
+
+            //画面入力されてた内容を上書きする
+            av.setNickname(getRequestParam(AttributeConst.ANI_NICKNAME));
+            av.setAnimalAge(toNumber(getRequestParam(AttributeConst.ANI_AGE)));
+            av.setAnimalSex(toNumber(getRequestParam(AttributeConst.ANI_SEX)));
+            av.setPriceForCust(toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)));
+            av.setPriceForZoo(toNumber(getRequestParam(AttributeConst.PRICE_FOR_ZOO)));
+            av.setAnimalComment(getRequestParam(AttributeConst.ZOO_COMMENT));
+            if(part.getSubmittedFileName() != null || !part.getSubmittedFileName().equals("")) {
+                av.setAnimalImage(imageName);
+            }
+            //動物の更新処理を行う
+            List<String> errors = animalService.update(av);
+
+            if(errors.size() > 0) {
+
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.ANIMAL, av); //入力された動物情報
+                putRequestScope(AttributeConst.ERR, errors);
+
+                //編集画面を再表示
+                forward(ForwardConst.FW_ANI_EDIT);
+            } else {
+                //更新中にエラーがなかった場合
+                //フォルダに画像の書き込み
+                part.write(context.getRealPath("/image/animal") + "/" + imageName);
+
+                //セッションに更新完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+
+                //詳細確認画面にリダイレクト
+                redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SHOW, av.getId());
+            }
+        }
+    }
 
 
 }

@@ -186,18 +186,25 @@ public interface JpaConst {
     //全ての販売動物の件数を取得する
     String Q_ANI_COUNT = ENTITY_ANI + ".count";
     String Q_ANI_COUNT_DEF = "SELECT COUNT(a) FROM Animal AS a";
-    //指定した基本動物情報の販売動物を全件idの降順で取得する
-    String Q_ANI_GET_ALL_MINE = ENTITY_ANI + ".getAllMine";
-    String Q_ANI_GET_ALL_MINE_DEF = "SELECT a FROM Animal AS a WHERE a.animalBase = :" + JPQL_PARM_ANIMALBASE + " ORDER BY a.id DESC";
-    //指定した基本動物情報の販売動物の件数を取得する
-    String Q_ANI_COUNT_ALL_MINE = ENTITY_ANI + ".countAllMine";
-    String Q_ANI_COUNT_ALL_MINE_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.animalBase = :" + JPQL_PARM_ANIMALBASE;
-    //指定した動物園が販売中の動物の一覧を取得する
+   ///指定した基本動物情報の販売動物を全件idの降順で取得する
+    String Q_ANI_GET_BY_BASE_ID = ENTITY_ANI + ".getByBaseId";
+    String Q_ANI_GET_BY_BASE_ID_DEF = "SELECT a FROM Animal AS a WHERE a.animalBase = : " + JPQL_PARM_ANIMALBASE + " ORDER BY a.id DESC";
+   ///指定した基本動物情報の販売動物の件数を取得する
+    String Q_ANI_COUNT_BY_BASE_ID = ENTITY_ANI + ".countByBaseId";
+    String Q_ANI_COUNT_BY_BASE_ID_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.animalBase = : " + JPQL_PARM_ANIMALBASE;
+
+   ///指定した動物園が販売中の動物の一覧を取得する
     String Q_ANI_GET_MY_SELLING = ENTITY_ANI + ".getMySelling";
     String Q_ANI_GET_MY_SELLING_DEF = "SELECT a FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG + " ORDER BY a.animalBase.baseName";
-    //指定した動物園が販売中の動物の件数を取得する
+   ///指定した動物園が販売中の動物の件数を取得する
     String Q_ANI_COUNT_MY_SELLING = ENTITY_ANI + ".countMySelling";
     String Q_ANI_COUNT_MY_SELLING_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG ;
+    ///指定した動物園が販売済みの動物の一覧を取得する
+    String Q_ANI_GET_MY_SOLD = ENTITY_ANI + ".getMySold";
+    String Q_ANI_GET_MY_SOLD_DEF = "SELECT a FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG + " ORDER BY a.animalBase.baseName";
+    ///指定した動物園が販売済の動物の件数を取得する
+    String Q_ANI_COUNT_MY_SOLD = ENTITY_ANI + ".countMySold";
+    String Q_ANI_COUNT_MY_SOLD_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG ;
 
 
 

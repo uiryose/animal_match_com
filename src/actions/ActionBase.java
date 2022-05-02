@@ -125,7 +125,7 @@ public abstract class ActionBase {
      */
     protected void redirect(ForwardConst action, ForwardConst command, int id)throws ServletException, IOException{
 
-        //URLを構築             //daily_report_system/?action=、     actionは引数から
+        //URLを構築                   //animal_match_com/?action=、 actionは引数から
         String redirectUrl = request.getContextPath()+"/?action="+action.getValue();
         if (command != null) {
             redirectUrl = redirectUrl + "&command=" + command.getValue();

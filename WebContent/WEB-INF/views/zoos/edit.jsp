@@ -72,7 +72,7 @@
             <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
             <div class="form-group row">
                 <div class="col-7 text-right">
-                    <button type="submit" class="btn btn-primary">変更する</button>
+                   <button type="submit" class="btn btn-primary">変更する</button>
                 </div>
                 <div class="col-5 text-right">
                     <a href="#" class="btn btn-danger" onclick="confirmDestroy();">ユーザーアカウントを削除する</a>

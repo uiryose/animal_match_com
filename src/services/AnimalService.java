@@ -3,6 +3,8 @@ package services;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import actions.views.AnimalBaseConverter;
+import actions.views.AnimalBaseView;
 import actions.views.AnimalConverter;
 import actions.views.AnimalView;
 import actions.views.ZooConverter;
@@ -69,6 +71,20 @@ public class AnimalService extends ServiceBase {
         return AnimalConverter.toViewList(animals);
     }
 
+    /**
+     * 指定した動物園の販売済の動物一覧を取得し、AnimalViewリストで返却する
+     * @param zv 動物園情報
+     * @return 指定した動物園が販売した動物情報（販売中は除く）
+     */
+    public List<AnimalView> getMySold(ZooView zv) {
+        List<Animal> animals = em.createNamedQuery(JpaConst.Q_ANI_GET_MY_SOLD, Animal.class)
+                .setParameter(JpaConst.JPQL_PARM_ZOO, ZooConverter.toModel(zv))
+                .setParameter(JpaConst.JPQL_PARM_SOLD_FLG, AttributeConst.SOLD_FLAG_TRUE.getIntegerValue())
+                .getResultList();
+
+        return AnimalConverter.toViewList(animals);
+    }
+
 
     /**
      * 指定した動物園の販売中動物の件数を取得し、返却する
@@ -84,6 +100,33 @@ public class AnimalService extends ServiceBase {
         return animalCount;
     }
 
+    /**
+     * 指定した動物園の販売済動物の件数を取得し、返却する
+     * @param zv
+     * @return 指定した動物園の販売済の動物件数
+     */
+    public long countMySold(ZooView zv) {
+        Long animalCount = em.createNamedQuery(JpaConst.Q_ANI_COUNT_MY_SOLD, Long.class)
+                .setParameter(JpaConst.JPQL_PARM_ZOO, ZooConverter.toModel(zv))
+                .setParameter(JpaConst.JPQL_PARM_SOLD_FLG, AttributeConst.SOLD_FLAG_TRUE.getIntegerValue())
+                .getSingleResult();
+
+        return animalCount;
+    }
+
+
+    /**
+     * 指定した基本動物情報の販売動物一覧を取得し、返却する
+     * @param bv 基本動物情報のデータ
+     * @return 販売動物のリスト
+     */
+    public List<AnimalView> getByBaseId(AnimalBaseView bv) {
+        List<Animal> animals = em.createNamedQuery(JpaConst.Q_ANI_GET_BY_BASE_ID, Animal.class)
+                .setParameter(JpaConst.JPQL_PARM_ANIMALBASE, AnimalBaseConverter.toModel(bv))
+                .getResultList();
+
+        return AnimalConverter.toViewList(animals);
+    }
 
 
     /**

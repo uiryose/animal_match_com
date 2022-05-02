@@ -6,25 +6,30 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import actions.views.AnimalBaseView;
+import actions.views.AnimalView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import services.AnimalBaseService;
+import services.AnimalService;
 
 public class AnimalBaseAction extends ActionBase {
 
 
     private AnimalBaseService animalBaseService;
+    private AnimalService animalService;
 
     @Override
     public void process() throws ServletException, IOException {
 
         animalBaseService = new AnimalBaseService();
+        animalService = new AnimalService();
 
         //メソッドの実行
         invoke();
 
         animalBaseService.close();
+        animalService.close();
     }
 
 
@@ -72,8 +77,12 @@ public class AnimalBaseAction extends ActionBase {
         AnimalBaseView bv = animalBaseService.findOne(toNumber(getRequestParam(AttributeConst.BASE_ID)));
         putRequestScope(AttributeConst.ANIMALBASE, bv);
 
+        //基本動物データのidと同じ販売動物の一覧を取得する
+        List<AnimalView> avl = animalService.getByBaseId(bv);
+        putRequestScope(AttributeConst.ANIMALS, avl);
 
-
+        //基本動物データのidと同じ販売動物の件数を取得する
+        //
 
         //動物詳細ページ画面を表示
         forward(ForwardConst.FW_BASE_SHOW);

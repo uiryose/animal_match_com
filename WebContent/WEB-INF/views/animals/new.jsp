@@ -111,7 +111,7 @@
     <div class="form-group row mb-5">
     <div class="col-3">動物の画像</div>
     <div class="custom-file col-7">
-        <input type="file" class="custom-file-input" name="${AttributeConst.ANI_IMAGE.getValue()}" lang="ja">
+        <input type="file" class="custom-file-input" name="${AttributeConst.ANI_IMAGE.getValue()}" lang="ja" />
         <label class="custom-file-label" for="${AttributeConst.ANI_IMAGE.getValue()}">画像を選択...</label>
     </div>
     </div>
@@ -127,4 +127,5 @@
 
    </c:param>
 </c:import>
+
 

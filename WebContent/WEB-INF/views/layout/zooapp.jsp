@@ -13,6 +13,7 @@
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commSell" value="${ForwardConst.CMD_SELLING.getValue()}" />
+<c:set var="commSold" value="${ForwardConst.CMD_SOLD.getValue()}" />
 <c:set var="commLogin" value="${ForwardConst.CMD_LOGIN.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
 <c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
@@ -55,7 +56,7 @@
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSell}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">掲載中の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commNew}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物の新規登録</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">購入検討中の動物</a></li>
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">売約済みの動物</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSold}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">売約済みの動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commEdit}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物園情報の変更</a></li>
                             <li class="nav-item mb-0"><a href="<c:url value='?action=${actAuth}&command=${commLogout}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">ログアウト</a></li>
                         </ul>
@@ -74,5 +75,10 @@
           </div>
         </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <script>
+      bsCustomFileInput.init();
+    </script>
 </body>
 </html>

@@ -67,34 +67,31 @@
         <div>検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行</div>
         <div>検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行</div>
 
-<%--
+
 
 <!-- 販売個体 -->
-        <div class="animal">
-
             <div class="row">
                 <c:forEach var="animal" items="${animals}">
                     <div class="col-3 mt-3 base">
-                        <a
-                            href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">
-                            <div class="card-body p-0 border h-75 bg-light">
+                        <a href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">
+                        </a>
+                            <div class="card-body p-0 border h-30 bg-light">
                                 <img class="card-img-top"
                                     src="<c:url value='/image/animal/${animal.animalImage}' /> "
                                     alt="${animal.nickname}の画像">
 
                             </div>
                             <div class="card-footer p-2 border h-25">
-                                <small class="text-muted"><c:out
-                                        value="${animal.nickname}" /></small><br> <small
-                                    class="text-muted">コメントZZZ: xxx件</small>
+                                <small class="text-muted"><c:out value="${animal.zoo.zooName}" />&nbsp;(<c:out value="${animal.zoo.region}" />)</small><br>
+                                <small class="text-muted">個人価格  :<c:out value="${animal.priceForCust}" />&nbsp;円</small><br>
+                                <small class="text-muted">動物園価格:<c:out value="${animal.priceForZoo}" />&nbsp;円</small><br>
+                                <small class="text-muted">掲載時年齢:<c:out value="${animal.animalAge}" />&nbsp;才</small><br>
                             </div>
-                        </a>
                     </div>
                 </c:forEach>
             </div>
-        </div>
 
-
+<%--
         <!-- ここからページネーション -->
         <nav aria-label="ページネーションです" class = "mt-5 " >
             <ul class="pagination justify-content-center">
