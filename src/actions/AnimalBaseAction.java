@@ -52,14 +52,12 @@ public class AnimalBaseAction extends ActionBase {
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
-        /*
-        //セッションにフラッシュメッセージが設定されている場合はセッションからは削除する
-        String flush = getSessionScope(AttributeConst.FLUSH);
-        if (flush != null) {
-            removeSessionScope(AttributeConst.FLUSH);
-        }
+        //各基本動物毎の掲載実績の件数を取得
+        List<Object[]> sellCountList = animalService.getCountByBaseId();
 
-        */
+        System.out.println("テスト：" + animalService.getCountByBaseId());
+        putRequestScope(AttributeConst.ANI_COUNT, sellCountList);
+
         //一覧画面を表示
         forward(ForwardConst.FW_TOP_INDEX);
     }

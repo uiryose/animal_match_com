@@ -199,13 +199,17 @@ public interface JpaConst {
    ///指定した動物園が販売中の動物の件数を取得する
     String Q_ANI_COUNT_MY_SELLING = ENTITY_ANI + ".countMySelling";
     String Q_ANI_COUNT_MY_SELLING_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG ;
-    ///指定した動物園が販売済みの動物の一覧を取得する
+   ///指定した動物園が販売済みの動物の一覧を取得する
     String Q_ANI_GET_MY_SOLD = ENTITY_ANI + ".getMySold";
     String Q_ANI_GET_MY_SOLD_DEF = "SELECT a FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG + " ORDER BY a.animalBase.baseName";
-    ///指定した動物園が販売済の動物の件数を取得する
+   ///指定した動物園が販売済の動物の件数を取得する
     String Q_ANI_COUNT_MY_SOLD = ENTITY_ANI + ".countMySold";
     String Q_ANI_COUNT_MY_SOLD_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG ;
 
+///基本動物ごとの販売件数を取得する
+String Q_ANI_COUNT_GROUP_BY_BASE_ID = ENTITY_ANI + ".countGroupByBaseId";
+String Q_ANI_COUNT_GROUP_BY_BASE_ID_DEF = "SELECT a.animalBase.id, count(a) FROM Animal AS a GROUP BY a.animalBase.id ORDER BY a.animalBase.id";
+//String Q_ANI_COUNT_GROUP_BY_BASE_ID_DEF = "SELECT base_id, count(*) FROM animals GROUP BY base_id ORDER BY base_id";
 
 
 

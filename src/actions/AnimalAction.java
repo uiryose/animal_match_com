@@ -15,6 +15,7 @@ import actions.views.ZooView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
+import models.Animal;
 import services.AnimalBaseService;
 import services.AnimalService;
 import services.ZooService;
@@ -152,7 +153,7 @@ public class AnimalAction extends ActionBase {
         Long animalCount = animalService.countMySelling(zv);
 
         putRequestScope(AttributeConst.ANIMALS, animals);
-        putRequestScope(AttributeConst.ANI_COUNT, animalCount);
+        putRequestScope(AttributeConst.ANI_SELLING_COUNT, animalCount);
 
         //販売中一覧画面を表示
         forward(ForwardConst.FW_ZOO_SELLING);
@@ -172,7 +173,7 @@ public class AnimalAction extends ActionBase {
         Long animalCount = animalService.countMySold(zv);
 
         putRequestScope(AttributeConst.ANIMALS, animals);
-        putRequestScope(AttributeConst.ANI_COUNT, animalCount);
+        putRequestScope(AttributeConst.ANI_SOLD_COUNT, animalCount);
 
         //販売中一覧画面を表示
         forward(ForwardConst.FW_ZOO_SOLD);
@@ -285,6 +286,29 @@ public class AnimalAction extends ActionBase {
                 redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SHOW, av.getId());
             }
         }
+    }
+
+
+    /**
+     * 動物を1件削除する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void destroy() throws ServletException, IOException {
+
+        //削除する動物データを取得する
+        Animal a = animalService.findOneModel(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+
+        if(a == null) {
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return;
+        }
+
+        //DBから動物情報を削除する
+        animalService.destory(a);
+
+        //販売動物一覧に移動する
+        redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SELLING);
     }
 
 

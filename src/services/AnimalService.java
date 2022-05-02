@@ -22,7 +22,7 @@ public class AnimalService extends ServiceBase {
 
 
     /**
-     * idを条件に取得したデータをAnimalのインスタンスで返却する
+     * idを条件に取得したデータをAnimalViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -31,6 +31,15 @@ public class AnimalService extends ServiceBase {
         return AnimalConverter.toView(a);
     }
 
+    /**
+     * idを条件に取得したデータをAnimalのインスタンスで返却する
+     * @param id
+     * @return 取得データのインスタンス
+     */
+    public Animal findOneModel(int id) {
+        Animal a = findOneInternal(id);
+        return a;
+    }
 
     /**
      * AnimalBaseのidを元に動物情報を取得し、Viewモデルで返却する
@@ -128,6 +137,16 @@ public class AnimalService extends ServiceBase {
         return AnimalConverter.toViewList(animals);
     }
 
+/** エラーが出る
+ * 指定した基本動物情報の販売動物の件数を取得し、返却する
+ * @return 販売動物の件数
+ */
+    public List<Object[]> getCountByBaseId() {
+        List<Object[]> animalCount = em.createNamedQuery(JpaConst.Q_ANI_COUNT_GROUP_BY_BASE_ID, Object[].class)
+                .getResultList();
+
+        return animalCount;
+    }
 
     /**
      * 画面から入力された動物の登録内容を元にデータを1件作成し、動物テーブルに登録する
@@ -170,6 +189,17 @@ public class AnimalService extends ServiceBase {
 
     }
 
+    /**
+     * 動物データを１件削除する
+     * @param a 削除する動物データ
+     */
+    public void destory(Animal a) {
+        //動物テーブルから引数のレコードを削除する
+
+        em.getTransaction().begin();
+        em.remove(a);
+        em.getTransaction().commit();
+    }
 
 
     /**

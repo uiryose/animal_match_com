@@ -12,6 +12,7 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
 import constants.PropertyConst;
+import services.AnimalService;
 import services.UserService;
 import services.ZooService;
 
@@ -19,6 +20,7 @@ public class ZooAction extends ActionBase {
 
     private ZooService zooService;
     private UserService userService;
+    private AnimalService animalService;
 
 
     @Override
@@ -26,12 +28,14 @@ public class ZooAction extends ActionBase {
 
         zooService = new ZooService();
         userService = new UserService();
+        animalService = new AnimalService();
 
         //メソッドの実行
         invoke();
 
         zooService.close();
         userService.close();
+        animalService.close();
     }
 
 
@@ -42,16 +46,18 @@ public class ZooAction extends ActionBase {
      */
     public void index() throws ServletException, IOException{
 
-        //セッションスコープからログイン中のUserを取得する
-        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
-        //ログイン中のユーザーIDを元に、動物園テーブルから情報を取得
-        ZooView zv = zooService.findOneByUserId(uv.getId());
-        putRequestScope(AttributeConst.ZOO, zv);
+        //セッションスコープからログイン中のZooを取得する
+        ZooView zv = (ZooView) getSessionScope(AttributeConst.LOGIN_ZOO);
+        //動物園ごとの動物件数を取得しリクエストスコープに保存する
+        Long animalSellingCount = animalService.countMySelling(zv);
+        Long animalSoldCount = animalService.countMySold(zv);
+        putRequestScope(AttributeConst.ANI_SELLING_COUNT, animalSellingCount);
+        putRequestScope(AttributeConst.ANI_SOLD_COUNT, animalSoldCount);
 
         //チャット中の動物情報を取得する
         //リクエストスコープに保存する。
 
-        if(uv != null && uv.getUserFlag() == AttributeConst.USER_ZOO.getIntegerValue()) {
+        if(zv != null) {
             //動物園専用ページ画面を表示
             forward(ForwardConst.FW_ZOO_INDEX);
 

@@ -70,7 +70,7 @@
 
 
 <!-- 販売個体 -->
-            <div class="row">
+            <div class="row animal">
                 <c:forEach var="animal" items="${animals}">
                     <div class="col-3 mt-3 base">
                         <a href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">
@@ -83,38 +83,24 @@
                             </div>
                             <div class="card-footer p-2 border h-25">
                                 <small class="text-muted"><c:out value="${animal.zoo.zooName}" />&nbsp;(<c:out value="${animal.zoo.region}" />)</small><br>
-                                <small class="text-muted">個人価格  :<c:out value="${animal.priceForCust}" />&nbsp;円</small><br>
-                                <small class="text-muted">動物園価格:<c:out value="${animal.priceForZoo}" />&nbsp;円</small><br>
-                                <small class="text-muted">掲載時年齢:<c:out value="${animal.animalAge}" />&nbsp;才</small><br>
+                                <c:choose>
+                                    <c:when test="${animal.animalBase.baseBreedFlag == AttributeConst.BREED_FLAG_FALSE.getIntegerValue()}" >
+                                        <small class="text-muted">個人用価格&nbsp;:&nbsp;飼育不可</small><br>
+                                    </c:when>
+                                    <c:when test="${animal.priceForCust < 0}" >
+                                        <small class="text-muted">個人用価格&nbsp;:&nbsp;販売しません</small><br>
+                                    </c:when>
+                                    <c:when test="${animal.animalBase.baseBreedFlag == AttributeConst.BREED_FLAG_TURE.getIntegerValue()}" >
+                                        <small class="text-muted">個人用価格&nbsp;:&nbsp;<c:out value="${animal.priceForCust}" />&nbsp;円</small><br>
+                                    </c:when>
+                                </c:choose>
+                                <small class="text-muted">動物園価格&nbsp;:&nbsp;<c:out value="${animal.priceForZoo}" />&nbsp;円</small><br>
+                                <small class="text-muted">掲載時年齢&nbsp;:&nbsp;<c:out value="${animal.animalAge}" />&nbsp;才</small><br>
                             </div>
                     </div>
                 </c:forEach>
             </div>
 
-<%--
-        <!-- ここからページネーション -->
-        <nav aria-label="ページネーションです" class = "mt-5 " >
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">前</a></li>
-
-                <c:forEach var="i" begin="1" end="${((ani_count - 1) / maxRow) + 1}" step="1">
-                    <c:choose>
-                        <c:when test="${i == page}">
-                            <li class="page-item page-link disabled"><c:out value="${i}" /></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="<c:url value='?action=${actBase}&command=${commIdx}&page=${i}' />"></a>
-                                <c:out value="${i}" />
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-
-                <li class="page-item"><a class="page-link" href="<c:url value='?action=${actBase}&command=${commIdx}&page=${page+1}' />">次</a></li>
-            </ul>
-        </nav>
-
- --%>
     </c:param>
 </c:import>
 

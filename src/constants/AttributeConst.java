@@ -79,6 +79,8 @@ public enum AttributeConst {
     ANIMAL("animal"),
     ANIMALS("animals"),
     ANI_COUNT("animals_count"),
+    ANI_SELLING_COUNT("selling_count"),
+    ANI_SOLD_COUNT("sold_count"),
     ANI_ID("id"),
     ANI_NICKNAME("animal_nickname"),
     ANI_IMAGE("animal_image"),

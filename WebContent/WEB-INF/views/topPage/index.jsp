@@ -23,17 +23,25 @@
             <div class="row">
                 <c:forEach var="animalbase" items="${animalbases}">
                     <div class="col-3 mt-3 base">
-                        <a href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
-                            <div class="card-body p-0 border h-75 bg-light">
+                        <a
+                            href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
+                            <div class="card-body p-0 border h-45 bg-light">
                                 <img class="card-img-top"
                                     src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
                                     alt="${animalbase.baseName}の画像">
 
                             </div>
                             <div class="card-footer p-2 border h-25">
-                                <small class="text-muted"><c:out
-                                        value="${animalbase.baseName}" /></small><br> <small
-                                    class="text-muted">掲載実績: xxx件</small>
+                                <c:set var="Exist" scope="request" value="false" />
+                                <small class="text-muted"><c:out value="${animalbase.baseName}" /></small><br>
+                                <small class="text-muted">掲載実績：
+                                    <c:forEach var="count" items="${animals_count}">
+                                        <c:if test="${count[0] == animalbase.id}">
+                                            <c:out value="${count[1] }" />
+                                            <c:set var="Exist" scope="request" value="true" />
+                                        </c:if>
+                                    </c:forEach> <c:if test="${Exist == false}">0</c:if> 件
+                                </small>
                             </div>
                         </a>
                     </div>

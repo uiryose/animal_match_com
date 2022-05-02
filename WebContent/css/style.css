@@ -42,9 +42,15 @@ h1 {
      max-height: 187;
     width: auto;
  }
- .card-body{
+.card-body{
     height: 187px;
  }
+
+.card-footer {
+ line-height: 1.1rem;
+}
+
+
 table {
   width: 100%;
   table-layout: fixed;

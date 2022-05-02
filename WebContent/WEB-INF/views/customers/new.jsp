@@ -68,8 +68,8 @@
           <div class="col-2"></div>
           <div class="col-10">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="check1">
               <label class="form-check-label" for="check1">
+              <input class="form-check-input Iread" type="checkbox" id="check1"  onclick="clickBtn1()">
                 <a href="">「ご利用の前に」</a>を確認しました。
               </label>
             </div>
@@ -82,13 +82,23 @@
         <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
         <div class="form-group row">
           <div class="col-10 text-center">
-            <button type="submit" class="btn btn-primary">アカウント作成</button>
+            <button type="submit" class="btn btn-primary" disabled id="b1">アカウント作成</button>
           </div>
         </div>
       </form>
 
 
-
+    <script>
+    function clickBtn1(){
+        if (document.getElementById("b1").disabled === true){
+            // disabled属性を削除
+            document.getElementById("b1").removeAttribute("disabled");
+        }else{
+            // disabled属性を設定
+            document.getElementById("b1").setAttribute("disabled", true);
+        }
+    }
+    </script>
   </c:param>
 </c:import>
 

@@ -18,7 +18,7 @@
 
 
     <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">掲載中の動物一覧</h3>
-    <div class="">&nbsp;全&nbsp;<c:out value="${animals_count}" />&nbsp;件</div>
+    <div class="">&nbsp;全&nbsp;<c:out value="${selling_count}" />&nbsp;件</div>
     <div class="row mx-0">
         <table class="table table-striped">
             <thead>
