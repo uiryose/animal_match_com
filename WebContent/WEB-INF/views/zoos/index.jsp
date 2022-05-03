@@ -23,7 +23,7 @@
         </div>
     </c:if>
 
-    <h3 class="mt-3 mb-3 py-1 col-12 text-white text-center bg-info rounded">動物園マイページ</h3>
+    <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">動物園マイページ</h3>
     <div class="row">
             <div class="col-3 font-weight-bold"><c:out value="${login_zoo.zooName}" />さん</div>
             <div class="col-2 pr-0">掲載中の動物：</div><div class="col-1 text-right px-0"><c:out value="${selling_count}" /></div><div class="col-5"> 件</div>

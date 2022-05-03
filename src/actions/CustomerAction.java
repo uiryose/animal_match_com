@@ -72,6 +72,13 @@ public class CustomerAction extends ActionBase {
         putRequestScope(AttributeConst.USER, new UserView()); //空のUserインスタンス
         putRequestScope(AttributeConst.CUSTOMER, new CustomerView()); //空のCustomerインスタンス
 
+        //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
+        String flush = getSessionScope(AttributeConst.FLUSH);
+        if (flush != null) {
+            putRequestScope(AttributeConst.FLUSH, flush);
+            removeSessionScope(AttributeConst.FLUSH);
+        }
+
         //案内ページを表示
         forward(ForwardConst.FW_CUST_NEW);
     }
@@ -130,9 +137,6 @@ public class CustomerAction extends ActionBase {
                 putSessionScope(AttributeConst.LOGIN_USER, createdUv);
                 //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得しセッションスコープに保存する
                 putSessionScope(AttributeConst.LOGIN_CUSTOMER, customerService.findOneByUserId(createdUv.getId()));
-
-                //セッションに登録完了のフラッシュメッセージを設定
-                putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
                 //顧客マイページにリダイレクト
                 redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_INDEX);
@@ -244,6 +248,8 @@ public class CustomerAction extends ActionBase {
             removeSessionScope(AttributeConst.LOGIN_USER);
             removeSessionScope(AttributeConst.LOGIN_CUSTOMER);
             removeSessionScope(AttributeConst.LOGIN_ZOO);
+
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
 
             //顧客新規登録画面にリダイレクト
             redirect(ForwardConst.ACT_CUST, ForwardConst.CMD_NEW);

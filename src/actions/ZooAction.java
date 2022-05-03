@@ -103,11 +103,6 @@ public class ZooAction extends ActionBase {
             //アプリケーションスコープからpepper文字列を取得
             String pepper = getContextScope(PropertyConst.PEPPER);
 
-            System.out.println("PEPPEのテスト:"+ pepper);
-            if (pepper == null) {
-                pepper = "test";
-            }
-
             ZooView zv = new ZooView(
                     null,
                     null,

@@ -10,14 +10,13 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
+<c:set var="commShowSell" value="${ForwardConst.CMD_SHOWSELL.getValue()}" />
 
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
 
 <!-- 基本情報 -->
-
-          <!-- パネル01 -->
           <div class="" >
             <div class="row p-1">
               <div class="col-8 order-2 pl-0">
@@ -73,12 +72,12 @@
             <div class="row animal">
                 <c:forEach var="animal" items="${animals}">
                     <div class="col-3 mt-3 base">
-                        <a href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">
-                        </a>
+                        <a href="<c:url value='?action=${actBase}&command=${commShowSell}&id=${animal.id}' />">
                             <div class="card-body p-0 border h-30 bg-light">
                                 <img class="card-img-top"
                                     src="<c:url value='/image/animal/${animal.animalImage}' /> "
                                     alt="${animal.nickname}の画像">
+                        </a>
 
                             </div>
                             <div class="card-footer p-2 border h-25">

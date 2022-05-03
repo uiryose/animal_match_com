@@ -55,13 +55,11 @@ public class AnimalBaseAction extends ActionBase {
         //各基本動物毎の掲載実績の件数を取得
         List<Object[]> sellCountList = animalService.getCountByBaseId();
 
-        System.out.println("テスト：" + animalService.getCountByBaseId());
         putRequestScope(AttributeConst.ANI_COUNT, sellCountList);
 
         //一覧画面を表示
         forward(ForwardConst.FW_TOP_INDEX);
     }
-
 
 
     /**
@@ -87,10 +85,25 @@ public class AnimalBaseAction extends ActionBase {
 
     }
 
+    /**
+     * 動物の販売個体情報画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void showSell() throws ServletException, IOException {
+
+        //リクエストスコープからログイン情報、動物情報を取得する
+        AnimalView av = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+        putRequestScope(AttributeConst.ANIMAL, av);
+
+        //販売動物の詳細(チャットを促す画面)を表示
+        forward(ForwardConst.FW_BASE_SHOWSELL);
+    }
+
 
 
     //基本動物情報の新規登録、編集、削除等は個人ユーザー・動物園に権限はなく、サービス運営者のみ可能です。
-    //そのため、当アプリケーションでは実装まではせずアプリケーション管理人がデータベースにSQL文で直接操作するものとします。
+    //そのため、当アプリケーションでは上記機能の実装まではせずアプリケーション管理人がデータベースにSQL文で直接操作するものとします。
 
 
 

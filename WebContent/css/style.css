@@ -32,6 +32,13 @@ h1 {
     display: inline;
 }
 
+.title {
+  padding: 0.5em;/*文字周りの余白*/
+  color: #494949;/*文字色*/
+  background: #fffaf4;/*背景色*/
+  border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+}
+
 
 .base {
     height: 250px;
@@ -82,5 +89,19 @@ pre {
     margin-left : 15px;
 }
 
+/* ここからチャット画面 */
 
 
+.message-icon{
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  line-height: 48px;
+}
+
+.message-text{
+  display: inline-block;
+  max-width: 70%;
+  border-radius: 1rem;
+}
+/* ここまでチャット画面 */

@@ -26,7 +26,7 @@
         </c:if>
 
 
-        <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">動物園情報の変更</h3>
+        <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">動物園情報の変更</h3>
 
         <form method="POST"
             action="<c:url value='?action=${actZoo}&command=${commUpd}'/>">
