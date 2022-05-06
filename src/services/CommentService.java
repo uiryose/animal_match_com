@@ -82,6 +82,15 @@ public class CommentService extends ServiceBase {
 
     }
 
+    /**
+     * idを条件に取得したコメントデータをDTOモデルで返却する
+     * @param id
+     * @return
+     */
+    public Comment findOneDTO(int id) {
+
+        return findOneInternal(id);
+    }
 
     /**
      * 画面から入力されたコメント内容を元に、コメントデータを更新する
@@ -106,8 +115,16 @@ public class CommentService extends ServiceBase {
     }
 
 
+    /**
+     * コメントデータを削除する
+     * @param c コメントデータ
+     */
+    public void destroy(Comment c) {
 
-
+        em.getTransaction().begin();
+        em.remove(c);  //データ削除
+        em.getTransaction().commit();
+    }
 
 
     /**

@@ -56,7 +56,17 @@
        <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">チャット取引画面</h3>
     <div class="row">
         <div class="col-1"></div>
-        <div class="col-10 bg-light px-4 pt-4 border">
+        <div class="chat col-10 bg-light px-4 pt-4 pb-2 border ">
+
+            <div class="message d-flex flex-row align-items-start mb-2">
+                <div
+                    class="message-icon rounded-circle bg-secondary text-white fs-3">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p class="message-text ml-3 px-3 py-2 ms-2 mb-0 bg-warning align-self-center">
+                    お気軽にチャットを送ってください。
+                </p>
+            </div>
 
             <c:forEach var="comment" items="${comments}">
                 <c:choose>

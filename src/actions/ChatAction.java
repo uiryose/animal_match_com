@@ -10,6 +10,7 @@ import actions.views.CommentView;
 import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import models.Comment;
 import services.AnimalBaseService;
 import services.AnimalService;
 import services.ChatService;
@@ -216,6 +217,33 @@ public class ChatAction extends ActionBase {
     }
 
 
+    /**
+     * チャットコメントを削除する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void destroy() throws ServletException, IOException {
 
+        //リクエストパラメータの動物idから動物データを取得して保存する。
+        Integer animalId = toNumber(getRequestParam(AttributeConst.ANI_ID));
+        putRequestScope(AttributeConst.ANIMAL, animalService.findOne(animalId));
+
+        //リクエストスコープからチャット相手のユーザーIDを取得
+        Integer companionId = toNumber(getRequestParam(AttributeConst.CHAT_WITH));
+
+System.out.println("テストanimalId:"+ animalId);
+System.out.println("テストcompanionId:"+ companionId);
+
+            //編集削除するコメントのIDを元に、コメントデータを削除する
+            Comment c = commentService.findOneDTO(toNumber(getRequestParam(AttributeConst.COMMENT_EDIT)));
+            if(c != null) {
+                //DBからコメントデータを1行削除する
+                commentService.destroy(c);
+
+            //チャット画面を表示
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            redirect(ForwardConst.ACT_CHAT, ForwardConst.CMD_INDEX, animalId, companionId);
+        }
+    }
 
 }

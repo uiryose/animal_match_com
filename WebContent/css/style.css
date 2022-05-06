@@ -91,6 +91,10 @@ pre {
 
 /* ここからチャット画面 */
 
+.chat {
+    max-height: 400px;
+    overflow: scroll;
+}
 
 .message-icon{
   width: 48px;

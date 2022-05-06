@@ -40,20 +40,13 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-4 pl-1 pr-2">
-                <a class="btn btn-danger w-100" href="#" onclick="confirmDestroy();">このコメントを削除する</a>
+                <a class="btn btn-danger w-100" href="<c:url value='?action=${actChat}&command=${commDst}&id=${animal.id}&with=${animal.zoo.user.id}&comment_edit=${comment_edit.id}'/>" onclick="confirmDestroy();">このコメントを削除する</a>
             </div>
             <div class="col-4 pr-2 pl-1">
                 <a class="btn btn-info w-100"
                     href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">新規投稿に戻る</a>
             </div>
         </div>
-        <form method="POST"
-            action="<c:url value='?action=${actChat}&command=${commDst}&id=${comment.id}'/>">
-            <input type="hidden" name="${AttributeConst.COMMENT_EDIT.getValue()}"
-                value="${comment.id}" /> <input type="hidden"
-                name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
-        </form>
-
         <script>
             function confirmDestroy(){
                 if(confirm("本当に削除してよろしいですか？")){
