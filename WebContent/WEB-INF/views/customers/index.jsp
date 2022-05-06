@@ -4,6 +4,7 @@
 <%@ page import="constants.AttributeConst"%>
 
 <c:set var="actCust" value="${ForwardConst.ACT_CUST.getValue()}" />
+<c:set var="actChat" value="${ForwardConst.ACT_CHAT.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
@@ -23,7 +24,6 @@
 
     <div class="">やり取りしている動物一覧</div>
     <div class="row mx-0">
-
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -36,36 +36,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><c:out value="${trade.animal.nickname}" /></td>
-                    <td>ユキちゃん</td>
-                    <td>オス</td>
-                    <td>上山の動物園</td>
-                    <td>チャット画面</td>
-                </tr>
-                <tr>
-                    <td>データ</td>
-                    <td>データ</td>
-                    <td>データ</td>
-                    <td>データ</td>
-                    <td>データ</td>
-                    <td>データ</td>
-                </tr>
-                <tr>
-                    <td>データ</td>
-                    <td>データセル</td>
-                    <td>データ</td>
-                    <td>データセル</td>
-                    <td>データ</td>
-                    <td>データセル</td>
-                </tr>
+                <c:forEach var="trade" items="${trades}" varStatus="No">
+                     <tr>
+                        <td class="align-middle"><c:out value="${No.count}" /></td>
+                        <td class="align-middle"><c:out value="${trade.animal.animalBase.baseName}" /></td>
+                        <td class="align-middle"><c:out value="${trade.animal.nickname}" /></td>
+                        <td class="align-middle">
+                            <c:choose>
+                            <c:when test="${trade.animal.animalSex == AttributeConst.SEX_MALE.getIntegerValue()}">オス</c:when>
+                            <c:when test="${trade.animal.animalSex == AttributeConst.SEX_FEMALE.getIntegerValue()}">メス</c:when>
+                            <c:otherwise>不明</c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td class="align-middle"><c:out value="${trade.animal.zoo.zooName}" /></td>
+                        <td><a class="btn btn-info my-0 py-1" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${trade.animal.id}&with=${trade.animal.zoo.user.id}' />"> チャット画面</a></td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
     </div>
-
-
-
   </c:param>
 </c:import>
 

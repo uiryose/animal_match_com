@@ -68,7 +68,8 @@
                             <p class="message-text mr-3 px-3 py-2 ms-2 mb-0 bg-info align-self-center">
                                 <c:out value="${comment.content}" />
                             </p>
-                            <div class="mr-2 pb-1 align-self-end ">
+                            <div class="mr-2 pb-1 align-self-end" style="line-height:1.1rem">
+                                <div class="text-right"><a href="<c:url value='?action=${actChat}&command=${commEdit}&id=${animal.id}&with=${animal.zoo.user.id}&comment_edit=${comment.id}'/>">[編集]</a></div>
                                 <fmt:parseDate value="${comment.createdAt}"
                                     pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
                                 <fmt:formatDate value="${createDay}" pattern="yyyy/MM/dd" />
@@ -84,7 +85,8 @@
                             <p class="message-text ml-3 px-3 py-2 ms-2 mb-0 bg-warning align-self-center">
                                 <c:out value="${comment.content}" />
                             </p>
-                            <div class="ml-2 pb-1 align-self-end ">
+                            <div class="ml-2 pb-1 align-self-end" style="line-height:1.1rem">
+                                <div><a href="<c:url value='?action=${actChat}&command=${commEdit}&id=${animal.id}&with=${animal.zoo.user.id}&comment_edit=${comment.id}'/>">[編集]</a></div>
                                 <fmt:parseDate value="${comment.createdAt}"
                                     pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
                                 <fmt:formatDate value="${createDay}" pattern="yyyy/MM/dd" />
@@ -96,18 +98,4 @@
         </div>
     </div>
 
-    <form method="POST"	action="<c:url value='?action=${actChat}&command=${commCrt}&id=${animal.id}&with=${animal.zoo.user.id}'/>">
-        <div class="form-group row">
-            <div class="col-2"></div>
-            <div class="form-group col-8 pt-4 ">
-                <label class="mb-0" for="${AttributeConst.CHAT_CONTENT.getValue()}">新規メッセージ</label><br>
-                <textarea class="form-control "
-                    name="${AttributeConst.CHAT_CONTENT.getValue()}" rows="3" required>${chat.content}</textarea>
-            </div>
-            <input type="hidden" name="${AttributeConst.CHAT_WITH.getValue()}" value="${animal.zoo.user.id}" />
-            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
-            <div class="col-12 text-center">
-                <button type="submit" class="btn btn-info col-8">送信する</button>
-            </div>
-        </div>
-    </form>
+

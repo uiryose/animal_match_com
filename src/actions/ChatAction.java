@@ -126,7 +126,96 @@ public class ChatAction extends ActionBase {
             putRequestScope(AttributeConst.TOKEN, getTokenId());
             redirect(ForwardConst.ACT_CHAT, ForwardConst.CMD_INDEX, animalId, companionId);
         }
-
     }
+
+
+    /**
+     * チャットコメントの編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void edit() throws ServletException, IOException {
+
+        //リクエストパラメータの動物idから動物データを取得して保存する。
+        Integer animalId = toNumber(getRequestParam(AttributeConst.ANI_ID));
+        putRequestScope(AttributeConst.ANIMAL, animalService.findOne(animalId));
+
+        //セッション情報からログイン中のユーザーIDを取得
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+        Integer myId = uv.getId();
+
+        //リクエストスコープからチャット相手のユーザーIDを取得
+        Integer companionId = toNumber(getRequestParam(AttributeConst.CHAT_WITH));
+
+        //チャットコメント情報を取得する
+        List<CommentView> comments = commentService.getAllComment(animalId, myId, companionId);
+        putRequestScope(AttributeConst.COMMENTS, comments);
+
+        //リクエストスコープから編集するチャットコメントIDを取得
+        Integer commentId = toNumber(getRequestParam(AttributeConst.COMMENT_EDIT));
+        //コメントのIDを元にコメントインスタンスを取得する
+        CommentView comment = commentService.findOne(commentId);
+        putRequestScope(AttributeConst.COMMENT_EDIT, comment);
+
+        if(comment == null || myId != comment.getChat().getMyUser().getId()) {
+
+            //コメントが存在しない、または編集するコメントが自分の投稿でなければエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+
+        } else {
+
+            //変更用のチャット画面を表示する
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            forward(ForwardConst.FW_CHAT_EDIT);
+        }
+    }
+
+
+    /**
+     * チャットコメントの更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update() throws ServletException, IOException {
+
+        //リクエストパラメータの動物idから動物データを取得して保存する。
+        Integer animalId = toNumber(getRequestParam(AttributeConst.ANI_ID));
+        putRequestScope(AttributeConst.ANIMAL, animalService.findOne(animalId));
+
+        //リクエストスコープからチャット相手のユーザーIDを取得
+        Integer companionId = toNumber(getRequestParam(AttributeConst.CHAT_WITH));
+
+        if (checkToken()) {
+
+            //編集するコメントのIDを元に、コメントインスタンスを取得する
+            CommentView cv = commentService.findOne(toNumber(getRequestParam(AttributeConst.COMMENT_EDIT)));
+            //編集後のコメント内容を取得する
+            String newContent = getRequestParam(AttributeConst.COMMENT_CONTENT);
+
+            cv.setContent(newContent);
+            cv.setEditFlag(AttributeConst.EDIT_FLAG_TRUE.getIntegerValue());
+
+            //コメントの更新処理を行う
+            List<String> errors = commentService.update(cv);
+
+            if (errors.size() > 0) {
+
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.COMMENT, cv); //入力されたコメント情報
+                putRequestScope(AttributeConst.ERR, errors);
+                forward(ForwardConst.FW_CHAT_EDIT);
+
+            } else {
+                //更新中にエラーが無かった場合
+
+                //チャット画面を表示
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                redirect(ForwardConst.ACT_CHAT, ForwardConst.CMD_INDEX, animalId, companionId);
+            }
+        }
+    }
+
+
+
 
 }

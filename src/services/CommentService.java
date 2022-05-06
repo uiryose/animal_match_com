@@ -70,6 +70,43 @@ public class CommentService extends ServiceBase {
     }
 
 
+    /**
+     * idを条件に取得したコメントデータをCommentViewインスタンスで返却する
+     * @param id
+     * @return CommentViewインスタンス
+     */
+    public CommentView findOne(int id) {
+
+        Comment c = findOneInternal(id);
+        return CommentConverter.toView(c);
+
+    }
+
+
+    /**
+     * 画面から入力されたコメント内容を元に、コメントデータを更新する
+     * @param cv
+     * @return
+     */
+    public List<String> update(CommentView cv){
+
+        //バリデーションを行う
+        List<String> errors = CommentValidator.validate(cv);
+
+        if(errors.size() == 0) {
+
+            //更新日時を現在時刻に設定
+            LocalDateTime ldt = LocalDateTime.now();
+            cv.setUpdatedAt(ldt);
+            updateInternal(cv);
+        }
+        //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
+        return errors;
+
+    }
+
+
+
 
 
 
@@ -83,5 +120,29 @@ public class CommentService extends ServiceBase {
         em.persist(CommentConverter.toModel(cv));
         em.getTransaction().commit();
     }
+
+
+    /**
+     * コメントデータを更新する
+     * @param cv 画面から入力されたコメントデータ
+     */
+    private void updateInternal(CommentView cv) {
+        em.getTransaction().begin();
+        Comment a = findOneInternal(cv.getId());
+        CommentConverter.copyViewToModel(a, cv);
+        em.getTransaction().commit();
+    }
+
+
+    /**
+     * idを条件にデータを1件取得し、Commentのインスタンスで返却する
+     * @param id
+     * @return 取得データのインスタンス
+     */
+    private Comment findOneInternal(int id) {
+        Comment c = em.find(Comment.class, id);
+        return c;
+    }
+
 
 }

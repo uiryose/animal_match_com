@@ -15,9 +15,23 @@
 
 
 
-            <c:import url="_chatform.jsp" />
-
-
+    <c:import url="_chatform.jsp" />
+<!-- 個人ページ用のチャット送信 -->
+    <form method="POST" action="<c:url value='?action=${actChat}&command=${commCrt}&id=${animal.id}&with=${animal.zoo.user.id}'/>">
+        <div class="form-group row">
+            <div class="col-2"></div>
+            <div class="form-group col-8 pt-4 ">
+                <label class="mb-0" for="${AttributeConst.CHAT_CONTENT.getValue()}">新規メッセージ</label><br>
+                <textarea class="form-control "
+                    name="${AttributeConst.CHAT_CONTENT.getValue()}" rows="3" required>${chat.content}</textarea>
+            </div>
+            <input type="hidden" name="${AttributeConst.CHAT_WITH.getValue()}" value="${animal.zoo.user.id}" />
+            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-info col-8">送信する</button>
+            </div>
+        </div>
+    </form>
 
   </c:param>
 </c:import>

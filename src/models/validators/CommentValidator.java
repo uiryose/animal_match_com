@@ -16,14 +16,14 @@ public class CommentValidator {
 
     /**
      * コメントインスタンスの各項目についてバリデーションを行う
-     * @param cv 画面に入力された顧客インスタンス
+     * @param cv 画面に入力されたコメント内容
      * @return エラーのリスト
      */
     public static List<String> validate(CommentView cv){
         List<String> errors = new ArrayList<String>();
 
         //氏名のチェック
-        String contentError = validateName(cv.getContent());
+        String contentError = validateContent(cv.getContent());
         if(!contentError.equals("")) {
             errors.add(contentError);
         }
@@ -37,7 +37,7 @@ public class CommentValidator {
      * @param content
      * @return エラーメッセージ
      */
-    private static String validateName(String content) {
+    private static String validateContent(String content) {
         if(content == null || content.equals("")) {
             return  MessageConst.E_NOCONTENT.getMessage();
         }

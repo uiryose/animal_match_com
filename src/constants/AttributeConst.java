@@ -129,7 +129,9 @@ public enum AttributeConst {
     COMMENT("comment"),
     COMMENTS("comments"),
     COMMENT_ID("comment_id"),
-    COMMENT_TRADES("trades");
+    COMMENT_EDIT("comment_edit"),
+    COMMENT_TRADES("trades"),
+    COMMENT_CONTENT("content");
 
 
     private final String text;
