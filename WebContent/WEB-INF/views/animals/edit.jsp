@@ -14,7 +14,7 @@
 <c:import url="../layout/zooapp.jsp">
   <c:param name ="content">
 
-  <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">動物変更登録画面</h3>
+  <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">動物情報更新画面</h3>
 
   <c:if test="${errors != null}">
       <div class="alert alert-danger">
@@ -54,7 +54,8 @@
     <div class="form-group row">
       <label for="${AttributeConst.ANI_AGE.getValue()}" class="col-3 col-form-label">登録時の年齢</label>
       <div class="col-7">
-        <input type="number" class="form-control" name="${AttributeConst.ANI_AGE.getValue()}" placeholder="数字で入力してください" value="${animal.animalAge}" required maxlength="3">
+        <input type="number" class="form-control" name="${AttributeConst.ANI_AGE.getValue()}" placeholder="数字で入力してください" value="${animal.animalAge}" required
+        oninput="javascript:if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="3">
       </div>
     </div>
     <div class="form-group row">

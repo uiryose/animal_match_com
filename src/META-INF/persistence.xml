@@ -7,6 +7,8 @@
 		<class>models.Customer</class>
 		<class>models.AnimalBase</class>
 		<class>models.Animal</class>
+		<class>models.Chat</class>
+		<class>models.Comment</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/animal_match_com?useSSL=false&amp;allowPublicKeyRetrieval=true"/>

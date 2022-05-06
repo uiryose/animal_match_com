@@ -96,15 +96,15 @@
         <div class="col-5 ">
             <c:choose>
                 <c:when test="${login_user != null}">
-                    <h3><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}' />">チャットを始める</a></h3>
+                    <a class="btn btn-info" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">チャットを始める</a>
                 </c:when>
                 <c:otherwise>
-                    <h3><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログインしてチャットを始める</a></h3>
+                    <a class="btn btn-info" href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログインしてチャットを始める</a>
                 </c:otherwise>
             </c:choose>
         </div>
         <div class="col-3 text-center">
-           <h3><a class="badge badge-info font-weight-normal"  href="<c:url value='?action=${actBase}&command=${commShow}&id=${animal.animalBase.id}' />">一覧に戻る</a></h3>
+           <a class="btn btn-info"  href="<c:url value='?action=${actBase}&command=${commShow}&id=${animal.animalBase.id}' />">一覧に戻る</a>
         </div>
     </div>
 

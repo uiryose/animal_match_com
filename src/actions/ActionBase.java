@@ -138,6 +138,28 @@ public abstract class ActionBase {
     }
 
     /**
+     * URLを構築しリダイレクトを行う。idが必要な個別ベージ用＋チャットの相手を表示する
+     * @param action パラメータに設定する値
+     * @param command パラメータに設定する値
+     * @id パラメータに設定する値
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void redirect(ForwardConst action, ForwardConst command, int id, int with)throws ServletException, IOException{
+
+        //URLを構築                   //animal_match_com/?action=、 actionは引数から
+        String redirectUrl = request.getContextPath()+"/?action="+action.getValue();
+        if (command != null) {
+            redirectUrl = redirectUrl + "&command=" + command.getValue();
+        }
+        if (id > 0 && with > 0) {
+            redirectUrl = redirectUrl + "&id=" + id + "&with=" + with;
+        }
+        //URLへリダイレクト
+        response.sendRedirect(redirectUrl);
+    }
+
+    /**
      * CSRF対策 token不正の場合はエラー画面を表示
      * @return true: token有効 false: token不正
      * @throws ServletException

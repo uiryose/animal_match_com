@@ -122,7 +122,13 @@ public enum AttributeConst {
     CHAT_ANI_ID("ani_id"),
     CHAT_ZOO_ID("zoo_id"),
     CHAT_CUST_ID("cust_id"),
-    CHAT_CONTENT("content");
+    CHAT_CONTENT("content"),
+    CHAT_WITH("with"),
+
+    //コメント
+    COMMENT("comment"),
+    COMMENTS("comments"),
+    COMMENT_ID("comment_id");
 
 
     private final String text;

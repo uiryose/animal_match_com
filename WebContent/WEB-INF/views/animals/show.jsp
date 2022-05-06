@@ -17,7 +17,7 @@
 
 <c:import url="../layout/zooapp.jsp">
     <c:param name="content">
-    <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">動物詳細確認画面</h3>
+    <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">動物詳細確認画面</h3>
 
 <!-- 基本情報 -->
     <div class="" >
@@ -131,11 +131,11 @@
         <div class="col-4"></div>
         <div class="col-5 ">
             <c:if test="${animal.soldFlag == AttributeConst.SOLD_FLAG_FALSE.getIntegerValue()}">
-                <h3><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actAni}&command=${commEdit}&id=${animal.id}' />">登録内容を編集</a></h3>
+                <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commEdit}&id=${animal.id}' />">登録内容を編集</a>
             </c:if>
         </div>
         <div class="col-3 text-center">
-           <h3><a class="badge badge-info font-weight-normal"  href="<c:url value='?action=${actAni}&command=${commSell}' />">一覧に戻る</a></h3>
+           <a class="btn btn-info"  href="<c:url value='?action=${actAni}&command=${commSell}' />">一覧に戻る</a>
         </div>
     </div>
     </c:param>

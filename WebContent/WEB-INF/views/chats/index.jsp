@@ -14,11 +14,9 @@
   <c:param name ="content">
 
 
-        <form method="POST" action="<c:url value='?action=${actChat}&command=${commCrt}' />">
 
             <c:import url="_chatform.jsp" />
 
-        </form>
 
 
   </c:param>

@@ -105,8 +105,7 @@ public interface JpaConst {
     //チャットのコメントテーブルカラム
     String COM_COL_ID = "id"; //id
     String COM_COL_ANI = "ani_id"; //日報を作成した従業員のid
-    String COM_COL_USER = "user_id"; //チャットを送信したユーザーid
-    String COM_COL_CHAT = "chat_id"; //チャットを送信したユーザーid
+    String COM_COL_CHAT = "chat_id"; //チャットを送信ユーザーを管理するChatクラスのid
     String COM_COL_CONTENT = "content"; //チャットの内容
     String COM_COL_EDIT_FLAG = "edit_flag"; //編集フラグ
     String COM_COL_DELETE_FLAG = "delete_flag"; //削除フラグ
@@ -118,8 +117,8 @@ public interface JpaConst {
     String TABLE_CHAT = "chats";
     //チャットテーブルカラム
     String CHAT_COL_ID = "id"; //id
-    String CHAT_COL_MY_USER = "my_user_id"; //チャットを送信したユーザーid
-    String CHAT_COL_YOU_USER = "you_user_id"; //チャットを送信したユーザーid
+    String CHAT_COL_MY_USER = "my_id"; //チャットを送信したユーザーid
+    String CHAT_COL_COMPANION_USER = "companion_id"; //チャットを送信したユーザーid
 
 /**
     //お気に入りテーブル
@@ -140,6 +139,7 @@ public interface JpaConst {
     String ENTITY_ZOO = "zoo"; //動物園
     String ENTITY_LIKE = "like"; //お気に入り
     String ENTITY_CHAT = "chat"; //チャット
+    String ENTITY_COMMENT = "chat"; //コメント
 
 
     //JPQL内パラメータ
@@ -154,6 +154,10 @@ public interface JpaConst {
     String JPQL_PARM_IMAGE ="image";
     String JPQL_PARM_SOLD_FLG = "sold_flag"; //販売済みフラグ
     String JPQL_PARM_DELET_FLG = "delete_flag"; //削除フラグ
+    String JPQL_PARM_MY_ID = "my_id"; //自分のユーザーID
+    String JPQL_PARM_MY_ID2 = "my_id"; //自分のユーザーID
+    String JPQL_PARM_COMPANION_ID = "companion_id"; //相手のユーザーID
+    String JPQL_PARM_COMPANION_ID2 = "companion_id"; //相手のユーザーID
 
 
 
@@ -206,10 +210,9 @@ public interface JpaConst {
     String Q_ANI_COUNT_MY_SOLD = ENTITY_ANI + ".countMySold";
     String Q_ANI_COUNT_MY_SOLD_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG ;
 
-///基本動物ごとの販売件数を取得する
-String Q_ANI_COUNT_GROUP_BY_BASE_ID = ENTITY_ANI + ".countGroupByBaseId";
-String Q_ANI_COUNT_GROUP_BY_BASE_ID_DEF = "SELECT a.animalBase.id, count(a) FROM Animal AS a GROUP BY a.animalBase.id ORDER BY a.animalBase.id";
-//String Q_ANI_COUNT_GROUP_BY_BASE_ID_DEF = "SELECT base_id, count(*) FROM animals GROUP BY base_id ORDER BY base_id";
+   ///基本動物ごとの販売件数を取得する
+    String Q_ANI_COUNT_GROUP_BY_BASE_ID = ENTITY_ANI + ".countGroupByBaseId";
+    String Q_ANI_COUNT_GROUP_BY_BASE_ID_DEF = "SELECT a.animalBase.id, count(a) FROM Animal AS a GROUP BY a.animalBase.id ORDER BY a.animalBase.id";
 
 
 
@@ -224,6 +227,21 @@ String Q_ANI_COUNT_GROUP_BY_BASE_ID_DEF = "SELECT a.animalBase.id, count(a) FROM
     //指定したUserのidで顧客情報を取得する
     String Q_ZOO_GET_BY_USER_ID = ENTITY_ZOO + ".getByUserId";
     String Q_ZOO_GET_BY_USER_ID_DEF = "SELECT z FROM Zoo AS z WHERE z.user.id = :" + JPQL_PARM_ID;
+
+//Chatクラス
+    String Q_CHAT_GET_BY_OUR_ID = ENTITY_CHAT + ".getByOurId";
+    String Q_CHAT_GET_BY_OUR_ID_DEF = "SELECT c FROM Chat AS c WHERE c.myUser.id = :" + JPQL_PARM_MY_ID + " AND c.companionUser.id = :" +JPQL_PARM_COMPANION_ID ;
+
+
+
+//Commentクラス
+    String Q_COMMENT_GET_ALL_MINE = ENTITY_COMMENT + ".getALLMine";
+//    String Q_COMMENT_GET_ALL_MINE_DEF = "SELECT c FROM Comment AS c WHERE c.animal.id = :" + JPQL_PARM_ID + " AND (c.chat.myUser.id = :" + JPQL_PARM_MY_ID + " OR c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + " ) ORDER BY c.createdAt";
+    String Q_COMMENT_GET_ALL_MINE_DEF = "SELECT c FROM Comment AS c WHERE c.animal.id = :" + JPQL_PARM_ID
+            + " AND ((c.chat.myUser.id = :" + JPQL_PARM_MY_ID + " AND c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + " ) "
+            + " OR (c.chat.myUser.id = :" + JPQL_PARM_COMPANION_ID2 + " AND c.chat.companionUser.id = : " + JPQL_PARM_MY_ID2 + " )) "
+            + "ORDER BY c.createdAt";
+
 
     /**
     //全ての従業員をidの降順に取得する

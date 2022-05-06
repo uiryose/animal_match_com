@@ -52,12 +52,12 @@
                 <div class=" fixed-left">
                     <nav class="bg-secondary">
                         <ul class="nav flex-column m-0 border border-white">
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">ホーム</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">マイページ</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commNew}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物の新規登録</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSell}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">掲載中の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSold}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">売約済みの動物</a></li>
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">購入検討中の動物</a></li>
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commEdit}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物園情報の変更</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">購入候補の動物</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commEdit}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">アカウント情報</a></li>
                             <li class="nav-item mb-0"><a href="<c:url value='?action=${actAuth}&command=${commLogout}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">ログアウト</a></li>
                         </ul>
                     </nav>

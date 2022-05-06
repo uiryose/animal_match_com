@@ -96,6 +96,8 @@ public class AnimalBaseAction extends ActionBase {
         AnimalView av = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
         putRequestScope(AttributeConst.ANIMAL, av);
 
+        putRequestScope(AttributeConst.TOKEN, getTokenId());
+
         //販売動物の詳細(チャットを促す画面)を表示
         forward(ForwardConst.FW_BASE_SHOWSELL);
     }
