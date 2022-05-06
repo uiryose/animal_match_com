@@ -30,7 +30,10 @@ import lombok.Setter;
 @NamedQueries({
     @NamedQuery(
             name = JpaConst.Q_COMMENT_GET_ALL_MINE,
-            query = JpaConst.Q_COMMENT_GET_ALL_MINE_DEF)
+            query = JpaConst.Q_COMMENT_GET_ALL_MINE_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_COMMENT_GET_INDEX,
+            query = JpaConst.Q_COMMENT_GET_INDEX_DEF)
 
 
 

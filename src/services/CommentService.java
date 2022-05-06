@@ -55,6 +55,19 @@ public class CommentService extends ServiceBase {
     }
 
 
+    /**
+     * マイページに表示するために、チャット取引のある動物別一覧を取得する
+     * @param loginUserId ログインしているユーザーのID
+     * @return チャット取引中の動物一覧
+     */
+    public List<Object[]> getIndex(Integer loginUserId) {
+
+        List<Object[]> commentIndex = em.createNamedQuery(JpaConst.Q_COMMENT_GET_INDEX, Object[].class)
+                .setParameter(JpaConst.JPQL_PARM_MY_ID, loginUserId)
+                .getResultList();
+
+        return commentIndex;
+    }
 
 
 

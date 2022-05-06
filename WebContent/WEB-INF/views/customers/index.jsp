@@ -15,7 +15,7 @@
     <h3 class="mb-4 py-1 col-12 text-white text-center bg-primary rounded">マイページ(個人向け)</h3>
 
     <div class="row">
-        <div class="col-4"><c:out value="${customer.customerName}" />さん</div><br>
+        <div class="col-4"><c:out value="${login_customer.customerName}" />さん</div><br>
         <div class="col-8"><a class="float-right" href="<c:url value='?action=${actCust}&command=${commEdit}' />">個人情報を修正する</a></div>
     </div>
         <div class="col-12 pr-0"><a class="float-right" href="<c:url value='?action=${actAuth}&command=${commLogout}' />">ログアウト</a></div>
@@ -37,8 +37,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>12</td>
-                    <td>アカカンガルー</td>
+                    <td>1</td>
+                    <td><c:out value="${trade.animal.nickname}" /></td>
                     <td>ユキちゃん</td>
                     <td>オス</td>
                     <td>上山の動物園</td>

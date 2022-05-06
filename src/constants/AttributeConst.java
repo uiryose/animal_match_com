@@ -128,7 +128,8 @@ public enum AttributeConst {
     //コメント
     COMMENT("comment"),
     COMMENTS("comments"),
-    COMMENT_ID("comment_id");
+    COMMENT_ID("comment_id"),
+    COMMENT_TRADES("trades");
 
 
     private final String text;

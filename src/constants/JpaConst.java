@@ -236,11 +236,18 @@ public interface JpaConst {
 
 //Commentクラス
     String Q_COMMENT_GET_ALL_MINE = ENTITY_COMMENT + ".getALLMine";
-//    String Q_COMMENT_GET_ALL_MINE_DEF = "SELECT c FROM Comment AS c WHERE c.animal.id = :" + JPQL_PARM_ID + " AND (c.chat.myUser.id = :" + JPQL_PARM_MY_ID + " OR c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + " ) ORDER BY c.createdAt";
     String Q_COMMENT_GET_ALL_MINE_DEF = "SELECT c FROM Comment AS c WHERE c.animal.id = :" + JPQL_PARM_ID
             + " AND ((c.chat.myUser.id = :" + JPQL_PARM_MY_ID + " AND c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + " ) "
             + " OR (c.chat.myUser.id = :" + JPQL_PARM_COMPANION_ID2 + " AND c.chat.companionUser.id = : " + JPQL_PARM_MY_ID2 + " )) "
             + "ORDER BY c.createdAt";
+
+    String Q_COMMENT_GET_INDEX = ENTITY_COMMENT + ".getIndex";
+//    String Q_COMMENT_GET_INDEX_DEF = "SELECT c FROM Comment AS c WHERE ((c.chat.myUser.id = : " + JPQL_PARM_MY_ID +  " AND c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + ")"
+//            + " OR (c.chat.myUser.id = : " + JPQL_PARM_COMPANION_ID2 + " AND c.chat.companionUser.id = : " + JPQL_PARM_MY_ID2 +  " )) "
+//            + " GROUP BY c.chat.animal.id ORDER BY c.chat.animal.animalBase";
+    String Q_COMMENT_GET_INDEX_DEF = "SELECT c FROM Comment AS c WHERE c.chat.myUser.id = : " + JPQL_PARM_MY_ID
+            + " OR  c.chat.companionUser.id = : " + JPQL_PARM_MY_ID
+            + " GROUP BY c.animal.id ORDER BY c.animal.animalBase";
 
 
     /**

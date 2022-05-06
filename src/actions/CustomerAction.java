@@ -12,6 +12,7 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
 import constants.PropertyConst;
+import services.CommentService;
 import services.CustomerService;
 import services.UserService;
 
@@ -19,6 +20,7 @@ public class CustomerAction extends ActionBase {
 
     private CustomerService customerService;
     private UserService userService;
+    private CommentService commentService;
 
 
     @Override
@@ -26,12 +28,14 @@ public class CustomerAction extends ActionBase {
 
         customerService = new CustomerService();
         userService = new UserService();
+        commentService = new CommentService();
 
         //メソッドの実行
         invoke();
 
         customerService.close();
         userService.close();
+        commentService.close();
     }
 
 
@@ -42,14 +46,15 @@ public class CustomerAction extends ActionBase {
      */
     public void index() throws ServletException, IOException{
 
-        //セッションスコープからログイン中のUserを取得する
         UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+        /*        //セッションスコープからログイン中のUserを取得する
         //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得
         CustomerView cv = customerService.findOneByUserId(uv.getId());
-        putRequestScope(AttributeConst.CUSTOMER, cv);
+        putRequestScope(AttributeConst.CUSTOMER, cv);*/
 
-        //チャット中の動物情報を取得する
-        //リクエストスコープに保存する。
+        //チャット中の動物情報を取得し、リクエストスコープに保存する
+        List<Object[]> trades = commentService.getIndex(uv.getId());
+        putRequestScope(AttributeConst.COMMENT_TRADES, trades);
 
         if(uv != null && uv.getUserFlag() == AttributeConst.USER_CUST.getIntegerValue()) {
             //顧客マイページ画面を表示
