@@ -1,8 +1,8 @@
 package actions;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -94,6 +94,7 @@ public class CustomerAction extends ActionBase {
      * @throws ServletException
      * @throws IOException
      */
+    @SuppressWarnings("rawtypes")
     public void create() throws ServletException, IOException {
 
         //CSRF対策 tokenのチェック
@@ -118,9 +119,10 @@ public class CustomerAction extends ActionBase {
                     null);
 
             //Userと顧客情報のDB登録
-            Map<Integer, List<String>> createdUser = userService.create(uv, pepper, cv);
+            HashMap createdUser = userService.create(uv, pepper, cv);
 
-            List<String> errors = createdUser.get(2);
+            @SuppressWarnings("unchecked") //HashMapからエラーを取得
+            List<String> errors = (List<String>) createdUser.get(2);
 
             if (errors.size() > 0) {
 
@@ -135,10 +137,11 @@ public class CustomerAction extends ActionBase {
             } else {
                 //登録中にエラーがなかった場合
 
-                List<String> userId = createdUser.get(1);
+                //HashMapからユーザーIDを取得
+                Integer userId = (Integer) createdUser.get(1);
 
                 //新規作成したユーザーのセッションスコープに保存する
-                UserView createdUv = userService.findOne(toNumber(userId.get(0)));
+                UserView createdUv = userService.findOne(userId);
                 putSessionScope(AttributeConst.LOGIN_USER, createdUv);
                 //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得しセッションスコープに保存する
                 putSessionScope(AttributeConst.LOGIN_CUSTOMER, customerService.findOneByUserId(createdUv.getId()));

@@ -84,13 +84,12 @@ public class UserService extends ServiceBase {
 
 
     /**
-     * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと動物園テーブルに登録する
+     * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと動物園テーブルに登録する(Mapで実装)
      * @param uv 画面から入力されたユーザーの登録内容
      * @param pepper pepper文字列
      * @param zv 画面から入力された動物園の登録内容
      * @return バリデーションエラーのリスト
      */
-//    @SuppressWarnings("unchecked")
     public Map<Integer, Object> create(UserView uv, String pepper, ZooView zv){
 
         //パスワードをハッシュ化して設定
@@ -106,7 +105,6 @@ public class UserService extends ServiceBase {
         List<String> zooErrors = ZooValidator.validate(zv);
         List<String> errors = Stream.concat(userErrors.stream(), zooErrors.stream()).collect(Collectors.toList());
 
-
         HashMap<Integer, Object> userIdAndErrorsap = new HashMap<Integer, Object>();
         //２番目にエラーリストを格納
         userIdAndErrorsap.put(2, errors);
@@ -119,18 +117,18 @@ public class UserService extends ServiceBase {
         //返却（エラーがなければuserIdと0件の空リスト）
         //返却（エラーがあればエラーリストのみ）
         return userIdAndErrorsap;
-
-
     }
 
+
     /**
-     * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと顧客テーブルに登録する
+     * 画面から入力された登録内容を元にデータを1件作成し、ユーザーと顧客テーブルに登録する(HashMapで実装)
      * @param uv 画面から入力されたユーザーの登録内容
      * @param pepper pepper文字列
      * @param cv 画面から入力された顧客の登録内容
      * @return
      */
-    public Map<Integer, List<String>> create(UserView uv, String pepper, CustomerView cv){
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public HashMap create(UserView uv, String pepper, CustomerView cv){
 
         //パスワードをハッシュ化して設定
         String pass = EncryptUtil.getPasswordEncrypt(uv.getPassword(), pepper);
@@ -148,15 +146,13 @@ public class UserService extends ServiceBase {
         errors = Stream.concat(userErrors.stream(), customerErrors.stream()).collect(Collectors.toList());
 
         //ユーザーIDとエラーをmapに格納するための準備
-        Map<Integer, List<String>> userIdAndErrors = new HashMap<Integer, List<String>>();
-        List<String> userId = new ArrayList<String>();
+        HashMap userIdAndErrors = new HashMap();
 
         if (errors.size() == 0) {
             //バリデーションエラーがなければデータを登録する
 
             //mapの１番目にユーザーIDをリストとして格納
-            userId.add(createInternal(uv, cv).toString());
-            userIdAndErrors.put(1, userId);
+            userIdAndErrors.put(1, createInternal(uv, cv));
             //mapの２番目にエラーリスト(0件の空リスト)を格納
             userIdAndErrors.put(2, errors);
 
@@ -169,6 +165,7 @@ public class UserService extends ServiceBase {
         //返却（エラーがあればエラーリストのみ）
         return userIdAndErrors;
     }
+
 
     /**
      * 画面から入力されたユーザーと顧客の更新内容を元にデータを作成し、ユーザーテーブルと顧客テーブルを更新する
