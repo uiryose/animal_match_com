@@ -35,20 +35,20 @@
             <tbody>
                 <c:forEach var="animal" items="${animals}" varStatus="No">
                     <tr>
-                        <td><c:out value="${No.count}" /></td>
-                        <td><c:out value="${animal.animalBase.baseName}" /></td>
-                        <td><c:out value="${animal.nickname}" /></td>
-                        <td>
+                        <td class="align-middle"><c:out value="${No.count}" /></td>
+                        <td class="align-middle"><c:out value="${animal.animalBase.baseName}" /></td>
+                        <td class="align-middle"><c:out value="${animal.nickname}" /></td>
+                        <td class="align-middle">
                             <c:choose>
                             <c:when test="${animal.animalSex == AttributeConst.SEX_MALE.getIntegerValue()}">オス</c:when>
                             <c:when test="${animal.animalSex == AttributeConst.SEX_FEMALE.getIntegerValue()}">メス</c:when>
                             <c:otherwise>不明</c:otherwise>
                             </c:choose>
                         </td>
-                        <td><c:out value="${animal.animalAge}" />&nbsp;才</td>
+                        <td class="align-middle"><c:out value="${animal.animalAge}" />&nbsp;才</td>
                         <fmt:parseDate value="${animal.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
-                        <td><fmt:formatDate value="${createDay}" pattern="yyyy-MM-dd" /></td>
-                        <td><h5><a class="badge badge-info font-weight-normal" href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">確認画面</a></h5></td>
+                        <td class="align-middle"><fmt:formatDate value="${createDay}" pattern="yyyy-MM-dd" /></td>
+                        <td><a class="btn btn-info my-0 py-1"  href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">確認画面</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

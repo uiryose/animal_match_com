@@ -1,5 +1,7 @@
 package services;
 
+import java.util.List;
+
 import actions.views.CustomerConverter;
 import actions.views.CustomerView;
 import constants.JpaConst;
@@ -46,6 +48,15 @@ public class CustomerService extends ServiceBase {
         return z;
     }
 
+    /**
+     * 顧客データを全て取得し、CustomerViewのリストで返却する
+     * @return 顧客データのリスト
+     */
+    public List<CustomerView> getAll() {
 
+        List<Customer> customers = em.createNamedQuery(JpaConst.Q_CUST_GET_ALL, Customer.class)
+                .getResultList();
+        return CustomerConverter.toViewList(customers);
+    }
 
 }

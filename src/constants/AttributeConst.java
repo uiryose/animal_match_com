@@ -124,6 +124,7 @@ public enum AttributeConst {
     CHAT_CUST_ID("cust_id"),
     CHAT_CONTENT("content"),
     CHAT_WITH("with"),
+    BUY_USER_ID("buy_user_id"),
 
     //コメント
     COMMENT("comment"),
@@ -131,6 +132,7 @@ public enum AttributeConst {
     COMMENT_ID("comment_id"),
     COMMENT_EDIT("comment_edit"),
     COMMENT_TRADES("trades"),
+    TRADES_COUNT("trades_count"),
     COMMENT_CONTENT("content");
 
 

@@ -220,27 +220,36 @@ public interface JpaConst {
     //指定したUserのidで顧客情報を取得する
     String Q_CUST_GET_BY_USER_ID = ENTITY_CUST + ".getByUserId";
     String Q_CUST_GET_BY_USER_ID_DEF = "SELECT c FROM Customer AS c WHERE c.user.id = :" + JPQL_PARM_ID;
-
+    //全ての顧客をidの降順に取得する
+    String Q_CUST_GET_ALL = ENTITY_CUST + ".getAll";
+    String Q_CUST_GET_ALL_DEF = "SELECT c FROM Customer AS c ORDER BY c.id";
 
 
 //Zooクラス
     //指定したUserのidで顧客情報を取得する
     String Q_ZOO_GET_BY_USER_ID = ENTITY_ZOO + ".getByUserId";
     String Q_ZOO_GET_BY_USER_ID_DEF = "SELECT z FROM Zoo AS z WHERE z.user.id = :" + JPQL_PARM_ID;
+    //全ての動物園をidの降順に取得する
+    String Q_ZOO_GET_ALL = ENTITY_ZOO + ".getAll";
+    String Q_ZOO_GET_ALL_DEF = "SELECT z FROM Zoo AS z ORDER BY z.id";
+
 
 //Chatクラス
+    //チャットの送信元、送信先のIDの組み合わせを取得する
     String Q_CHAT_GET_BY_OUR_ID = ENTITY_CHAT + ".getByOurId";
     String Q_CHAT_GET_BY_OUR_ID_DEF = "SELECT c FROM Chat AS c WHERE c.myUser.id = :" + JPQL_PARM_MY_ID + " AND c.companionUser.id = :" +JPQL_PARM_COMPANION_ID ;
 
 
 
 //Commentクラス
+    //特定の動物におけるチャット履歴を取得する
     String Q_COMMENT_GET_ALL_MINE = ENTITY_COMMENT + ".getALLMine";
     String Q_COMMENT_GET_ALL_MINE_DEF = "SELECT c FROM Comment AS c WHERE c.animal.id = :" + JPQL_PARM_ID
             + " AND ((c.chat.myUser.id = :" + JPQL_PARM_MY_ID + " AND c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + " ) "
             + " OR (c.chat.myUser.id = :" + JPQL_PARM_COMPANION_ID2 + " AND c.chat.companionUser.id = : " + JPQL_PARM_MY_ID2 + " )) "
             + "ORDER BY c.createdAt";
 
+    //顧客マイページに表示する取引中の動物を取得する
     String Q_COMMENT_GET_INDEX = ENTITY_COMMENT + ".getIndex";
 //    String Q_COMMENT_GET_INDEX_DEF = "SELECT c FROM Comment AS c WHERE ((c.chat.myUser.id = : " + JPQL_PARM_MY_ID +  " AND c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + ")"
 //            + " OR (c.chat.myUser.id = : " + JPQL_PARM_COMPANION_ID2 + " AND c.chat.companionUser.id = : " + JPQL_PARM_MY_ID2 +  " )) "
@@ -248,6 +257,11 @@ public interface JpaConst {
     String Q_COMMENT_GET_INDEX_DEF = "SELECT c FROM Comment AS c WHERE c.chat.myUser.id = : " + JPQL_PARM_MY_ID
             + " OR  c.chat.companionUser.id = : " + JPQL_PARM_MY_ID
             + " GROUP BY c.animal.id ORDER BY c.animal.animalBase";
+
+    //動物園マイページに表示する取引中(販売)の動物を取得する
+    String Q_COMMENT_GET_ZOO_INDEX = ENTITY_COMMENT + "getZooIndex";
+    String Q_COMMENT_GET_ZOO_INDEX_DEF = "SELECT DISTINCT c.animal, c.chat FROM Comment AS c WHERE c.animal.zoo.user.id = : " + JPQL_PARM_MY_ID + " AND c.chat.companionUser.id = :" + JPQL_PARM_MY_ID +" AND c.animal.soldFlag = 0" ;
+
 
 
     /**

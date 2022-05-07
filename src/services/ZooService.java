@@ -42,6 +42,18 @@ public class ZooService extends ServiceBase {
 
 
     /**
+     * 動物園データを全て取得し、ZooViewのリストで返却する
+     * @return 動物園データのリスト
+     */
+    public List<ZooView> getAll() {
+
+        List<Zoo> zoos = em.createNamedQuery(JpaConst.Q_ZOO_GET_ALL, Zoo.class)
+                .getResultList();
+        return ZooConverter.toViewList(zoos);
+    }
+
+
+    /**
      * 画面から入力された動物園の登録内容を元にデータを1件作成し、動物園テーブルに登録する
      * @param zv
      * @return

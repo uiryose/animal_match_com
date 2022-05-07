@@ -58,8 +58,15 @@ public class ChatAction extends ActionBase {
         UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
         Integer myId = uv.getId();
 
-        //リクエストスコープからチャット相手のユーザーIDを取得
+        //リクエストスコープからチャット相手のユーザーIDを取得    **動物を販売している動物園ID
         Integer companionId = toNumber(getRequestParam(AttributeConst.CHAT_WITH));
+
+        if(companionId == myId) {
+            //掲載した動物園ユーザーからのアクセスの場合は、動物園専用ページのトップ画面に移動する
+            redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
+            return;
+        }
+
 
         //チャットコメント情報を取得する
         List<CommentView> comments = commentService.getAllComment(animalId, myId, companionId);
@@ -230,9 +237,6 @@ public class ChatAction extends ActionBase {
 
         //リクエストスコープからチャット相手のユーザーIDを取得
         Integer companionId = toNumber(getRequestParam(AttributeConst.CHAT_WITH));
-
-System.out.println("テストanimalId:"+ animalId);
-System.out.println("テストcompanionId:"+ companionId);
 
             //編集削除するコメントのIDを元に、コメントデータを削除する
             Comment c = commentService.findOneDTO(toNumber(getRequestParam(AttributeConst.COMMENT_EDIT)));

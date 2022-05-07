@@ -92,6 +92,27 @@ public class CommentService extends ServiceBase {
         return findOneInternal(id);
     }
 
+
+    /**
+     * 動物園マイページに表示する取引中(販売)の動物を取得する
+     * @param loginUserId
+     * @return
+     */
+    public List<Object[]> getZooIndex(Integer loginUserId){
+
+        List<Object[]> commentZooIndex = em.createNamedQuery(JpaConst.Q_COMMENT_GET_ZOO_INDEX, Object[].class)
+                .setParameter(JpaConst.JPQL_PARM_MY_ID, loginUserId)
+                .getResultList();
+
+        return commentZooIndex;
+
+    }
+
+
+
+
+
+
     /**
      * 画面から入力されたコメント内容を元に、コメントデータを更新する
      * @param cv

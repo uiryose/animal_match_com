@@ -93,7 +93,7 @@
 
     <div class="row mt-3">
         <div class="col-4"></div>
-        <div class="col-5 ">
+        <div class="col-3 px-0">
             <c:choose>
                 <c:when test="${login_user != null}">
                     <a class="btn btn-info" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">チャットを始める</a>
@@ -103,8 +103,8 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <div class="col-3 text-center">
-           <a class="btn btn-info"  href="<c:url value='?action=${actBase}&command=${commShow}&id=${animal.animalBase.id}' />">一覧に戻る</a>
+        <div class="col-5 text-right">
+           <a class="btn btn-info"  href="<c:url value='?action=${actBase}&command=${commShow}&id=${animal.animalBase.id}' />"><c:out value="${animal.animalBase.baseName}" />の一覧に戻る</a>
         </div>
     </div>
 

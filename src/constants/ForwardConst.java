@@ -37,6 +37,11 @@ public enum ForwardConst {
     CMD_REMOVE("remove"),
     CMD_SELLING("showSelling"),
     CMD_SOLD("showSold"),
+    CMD_TRADE_INDEX("tradeIndex"),
+    CMD_TRADE_CREATE("tradeCreate"),
+    CMD_TRADE_EDIT("tradeEdit"),
+    CMD_TRADE_UPDATE("tradeUpdate"),
+    CMD_TRADE_DESTROY("tradeDestroy"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -48,6 +53,8 @@ public enum ForwardConst {
     FW_ZOO_EDIT("zoos/edit"),
     FW_ZOO_SELLING("zoos/selling"),
     FW_ZOO_SOLD("zoos/sold"),
+    FW_ZOO_TRADE_INDEX("zoos/tradeIndex"),
+    FW_ZOO_TRADE_EDIT("zoos/tradeEdit"),
     FW_CUST_INDEX("customers/index"),
     FW_CUST_SHOW("customers/show"),
     FW_CUST_NEW("customers/new"),

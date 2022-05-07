@@ -5,9 +5,11 @@
 
 <c:set var="actCust" value="${ForwardConst.ACT_CUST.getValue()}" />
 <c:set var="actChat" value="${ForwardConst.ACT_CHAT.getValue()}" />
+<c:set var="actAuth" value="${ForwardConst.ACT_AUTH.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
+<c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
 
 
 <c:import url="../layout/app.jsp">

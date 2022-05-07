@@ -33,7 +33,10 @@ import lombok.Setter;
             query = JpaConst.Q_COMMENT_GET_ALL_MINE_DEF),
     @NamedQuery(
             name = JpaConst.Q_COMMENT_GET_INDEX,
-            query = JpaConst.Q_COMMENT_GET_INDEX_DEF)
+            query = JpaConst.Q_COMMENT_GET_INDEX_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_COMMENT_GET_ZOO_INDEX,
+            query = JpaConst.Q_COMMENT_GET_ZOO_INDEX_DEF)
 
 
 
