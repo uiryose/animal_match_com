@@ -44,6 +44,8 @@ public class AnimalBaseAction extends ActionBase {
         int page = getPage();
         List<AnimalBaseView> animalbases = animalBaseService.getAllPerPage(page);
 
+
+
         //全基本動物情報データの件数を取得
         long animalbasesCount = animalBaseService.countAll();
 

@@ -9,6 +9,7 @@
     <url-pattern>*.jpg</url-pattern>
     <url-pattern>*.jpeg</url-pattern>
     <url-pattern>*.png</url-pattern>
+    <url-pattern>*.JPG</url-pattern>
   </servlet-mapping>
   <display-name>animal_match_com</display-name>
 </web-app>

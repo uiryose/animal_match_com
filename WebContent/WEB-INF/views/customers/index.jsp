@@ -18,11 +18,11 @@
     <h3 class="mb-4 py-1 col-12 text-white text-center bg-primary rounded">マイページ(個人向け)</h3>
 
     <div class="row">
-        <div class="col-4"><c:out value="${login_customer.customerName}" />さん</div><br>
-        <div class="col-8"><a class="float-right" href="<c:url value='?action=${actCust}&command=${commEdit}' />">個人情報を修正する</a></div>
+        <div class="col-8 font-weight-bold"><c:out value="${login_customer.customerName}" />さん</div>
+        <div class="col-4"><a class="float-right  btn btn-primary" href="<c:url value='?action=${actCust}&command=${commEdit}' />">個人情報を修正</a></div>
+        <div class="col-9"></div>
+        <div class="col-3 mt-1"><a class="float-right btn btn-primary" href="<c:url value='?action=${actAuth}&command=${commLogout}' />">ログアウトする</a></div>
     </div>
-        <div class="col-12 pr-0"><a class="float-right" href="<c:url value='?action=${actAuth}&command=${commLogout}' />">ログアウト</a></div>
-    <br>
 
     <div class="">やり取りしている動物一覧</div>
     <div class="row mx-0">
@@ -37,7 +37,7 @@
                     <th class="col-2">チャット画面</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="border-bottom">
                 <c:forEach var="trade" items="${trades}" varStatus="No">
                      <tr>
                         <td class="align-middle"><c:out value="${No.count}" /></td>
@@ -51,7 +51,7 @@
                             </c:choose>
                         </td>
                         <td class="align-middle"><c:out value="${trade.animal.zoo.zooName}" /></td>
-                        <td><a class="btn btn-info my-0 py-1" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${trade.animal.id}&with=${trade.animal.zoo.user.id}' />"> チャット画面</a></td>
+                        <td><a class="btn btn-primary my-0 py-1" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${trade.animal.id}&with=${trade.animal.zoo.user.id}' />"> チャット画面</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

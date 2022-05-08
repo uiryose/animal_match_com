@@ -5,6 +5,7 @@ import java.util.List;
 
 import actions.views.CommentConverter;
 import actions.views.CommentView;
+import constants.AttributeConst;
 import constants.JpaConst;
 import models.Comment;
 import models.validators.CommentValidator;
@@ -94,7 +95,7 @@ public class CommentService extends ServiceBase {
 
 
     /**
-     * 動物園マイページに表示する取引中(販売)の動物を取得する
+     * 動物園マイページに表示する取引中(販売)の動物を案件ごと取得する
      * @param loginUserId
      * @return
      */
@@ -105,6 +106,22 @@ public class CommentService extends ServiceBase {
                 .getResultList();
 
         return commentZooIndex;
+
+    }
+
+    /**
+     * 動物園マイページに表示する、取引が終了した動物を案件ごとを取得する
+     * @param loginUserId
+     * @return
+     */
+    public List<Object[]> getZooEndIndex(Integer loginUserId){
+
+        List<Object[]> commentZooEndIndex = em.createNamedQuery(JpaConst.Q_COMMENT_GET_ZOO_END_INDEX, Object[].class)
+                .setParameter(JpaConst.JPQL_PARM_MY_ID, loginUserId)
+                .setParameter(JpaConst.JPQL_PARM_SOLD_FLG, AttributeConst.SOLD_FLAG_TRUE.getIntegerValue())
+                .getResultList();
+
+        return commentZooEndIndex;
 
     }
 

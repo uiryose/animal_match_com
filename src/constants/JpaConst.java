@@ -10,7 +10,7 @@ public interface JpaConst {
     String PERSISTENCE_UNIT_NAME = "animal_match_com";
 
     //データ取得件数の最大値
-    int ROW_PER_PAGE = 10; //1ページに表示するレコードの数
+    int ROW_PER_PAGE = 12; //1ページに表示するレコードの数
 
     //ユーザーテーブル
     String TABLE_USER ="users"; //テーブル名
@@ -161,7 +161,6 @@ public interface JpaConst {
 
 
 
-
     //NamedQueryの nameとquery
 //Userクラス
     //ユーザーコードとハッシュ化済パスワードを条件に未削除のユーザーを取得する
@@ -196,7 +195,6 @@ public interface JpaConst {
    ///指定した基本動物情報の販売動物の件数を取得する
     String Q_ANI_COUNT_BY_BASE_ID = ENTITY_ANI + ".countByBaseId";
     String Q_ANI_COUNT_BY_BASE_ID_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.animalBase = : " + JPQL_PARM_ANIMALBASE;
-
    ///指定した動物園が販売中の動物の一覧を取得する
     String Q_ANI_GET_MY_SELLING = ENTITY_ANI + ".getMySelling";
     String Q_ANI_GET_MY_SELLING_DEF = "SELECT a FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG + " ORDER BY a.animalBase.baseName";
@@ -209,8 +207,7 @@ public interface JpaConst {
    ///指定した動物園が販売済の動物の件数を取得する
     String Q_ANI_COUNT_MY_SOLD = ENTITY_ANI + ".countMySold";
     String Q_ANI_COUNT_MY_SOLD_DEF = "SELECT COUNT(a) FROM Animal AS a WHERE a.zoo = : " + JPQL_PARM_ZOO + " AND a.soldFlag = : " + JPQL_PARM_SOLD_FLG ;
-
-   ///基本動物ごとの販売件数を取得する
+   ///基本動物ごとの販売件数を取得する**
     String Q_ANI_COUNT_GROUP_BY_BASE_ID = ENTITY_ANI + ".countGroupByBaseId";
     String Q_ANI_COUNT_GROUP_BY_BASE_ID_DEF = "SELECT a.animalBase.id, count(a) FROM Animal AS a GROUP BY a.animalBase.id ORDER BY a.animalBase.id";
 
@@ -226,7 +223,7 @@ public interface JpaConst {
 
 
 //Zooクラス
-    //指定したUserのidで顧客情報を取得する
+    //指定したUserのidで動物園情報を取得する
     String Q_ZOO_GET_BY_USER_ID = ENTITY_ZOO + ".getByUserId";
     String Q_ZOO_GET_BY_USER_ID_DEF = "SELECT z FROM Zoo AS z WHERE z.user.id = :" + JPQL_PARM_ID;
     //全ての動物園をidの降順に取得する
@@ -251,9 +248,6 @@ public interface JpaConst {
 
     //顧客マイページに表示する取引中の動物を取得する
     String Q_COMMENT_GET_INDEX = ENTITY_COMMENT + ".getIndex";
-//    String Q_COMMENT_GET_INDEX_DEF = "SELECT c FROM Comment AS c WHERE ((c.chat.myUser.id = : " + JPQL_PARM_MY_ID +  " AND c.chat.companionUser.id = : " + JPQL_PARM_COMPANION_ID + ")"
-//            + " OR (c.chat.myUser.id = : " + JPQL_PARM_COMPANION_ID2 + " AND c.chat.companionUser.id = : " + JPQL_PARM_MY_ID2 +  " )) "
-//            + " GROUP BY c.chat.animal.id ORDER BY c.chat.animal.animalBase";
     String Q_COMMENT_GET_INDEX_DEF = "SELECT c FROM Comment AS c WHERE c.chat.myUser.id = : " + JPQL_PARM_MY_ID
             + " OR  c.chat.companionUser.id = : " + JPQL_PARM_MY_ID
             + " GROUP BY c.animal.id ORDER BY c.animal.animalBase";
@@ -261,6 +255,9 @@ public interface JpaConst {
     //動物園マイページに表示する取引中(販売)の動物を取得する
     String Q_COMMENT_GET_ZOO_INDEX = ENTITY_COMMENT + "getZooIndex";
     String Q_COMMENT_GET_ZOO_INDEX_DEF = "SELECT DISTINCT c.animal, c.chat FROM Comment AS c WHERE c.animal.zoo.user.id = : " + JPQL_PARM_MY_ID + " AND c.chat.companionUser.id = :" + JPQL_PARM_MY_ID +" AND c.animal.soldFlag = 0" ;
+    //動物園マイページに表示する取引が終了した案件を取得する
+    String Q_COMMENT_GET_ZOO_END_INDEX = ENTITY_COMMENT + "getZooEndIndex";
+    String Q_COMMENT_GET_ZOO_END_INDEX_DEF = "SELECT DISTINCT c.animal, c.chat FROM Comment AS c WHERE c.animal.zoo.user.id = : " + JPQL_PARM_MY_ID + " AND c.chat.companionUser.id = :" + JPQL_PARM_MY_ID +" AND c.animal.soldFlag = :" + JPQL_PARM_SOLD_FLG ;
 
 
 

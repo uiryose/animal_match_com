@@ -67,8 +67,6 @@ public class ZooAction extends ActionBase {
         UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
         ZooView zv = (ZooView) getSessionScope(AttributeConst.LOGIN_ZOO);
         //販売中、販売済の動物件数を取得しリクエストスコープに保存する
-//        Long animalSellingCount = animalService.countMySelling(zv);
-//        Long animalSoldCount = animalService.countMySold(zv);
         putRequestScope(AttributeConst.ANI_SELLING_COUNT, animalService.countMySelling(zv));
         putRequestScope(AttributeConst.ANI_SOLD_COUNT, animalService.countMySold(zv));
 
@@ -488,5 +486,43 @@ public class ZooAction extends ActionBase {
         }
     }
 
+
+    /**
+     * 動物が販売済みとなり、取引が終了した案件の一覧を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void endTrade() throws ServletException, IOException {
+        //セッションスコープからログイン中のUserとZooを取得する
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+        ZooView zv = (ZooView) getSessionScope(AttributeConst.LOGIN_ZOO);
+        //販売中、販売済の動物件数を取得しリクエストスコープに保存する
+        putRequestScope(AttributeConst.ANI_SELLING_COUNT, animalService.countMySelling(zv));
+        putRequestScope(AttributeConst.ANI_SOLD_COUNT, animalService.countMySold(zv));
+
+        //チャット中の動物情報を取得し、リクエストスコープに保存する
+        List<Object[]> trades = commentService.getZooEndIndex(uv.getId());
+        putRequestScope(AttributeConst.COMMENT_TRADES, trades);
+
+        //取引が終了した案件の件数をリクエストスコープに保存する
+        int tradesCount = 0;
+        if(trades.size() > 0) {
+            tradesCount = trades.size();
+        }
+        putRequestScope(AttributeConst.TRADES_COUNT, tradesCount);
+
+        List<CustomerView> custs = customerService.getAll();
+        List<ZooView> zoos = zooService.getAll();
+        putRequestScope(AttributeConst.CUSTOMERS, custs);
+        putRequestScope(AttributeConst.ZOOS, zoos);
+
+        if(zv == null || uv.getUserFlag() != AttributeConst.USER_ZOO.getIntegerValue()) {
+
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+        } else {
+            //動物園専用ページ画面を表示
+            forward(ForwardConst.FW_ZOO_END_TRADE);
+        }
+    }
 
 }

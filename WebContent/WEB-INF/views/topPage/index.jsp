@@ -19,19 +19,19 @@
 
 
         <div class="animalbase">
-
             <div class="row">
                 <c:forEach var="animalbase" items="${animalbases}">
-                    <div class="col-3 mt-3 base">
-                        <a
-                            href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
-                            <div class="card-body p-0 border h-45 bg-light">
+                    <div class="col-3 my-3 base">
+                        <a class="text-decoration-none" href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
+                            <div class="card-body p-0 border border-bottom-0 bg-light">
+
                                 <img class="card-img-top"
                                     src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
                                     alt="${animalbase.baseName}の画像">
 
                             </div>
-                            <div class="card-footer p-2 border h-25">
+
+                            <div class="card-footer px-2 pt-0 border border-top-0 h-25 text-decoration-none">
                                 <c:set var="Exist" scope="request" value="false" />
                                 <small class="text-muted"><c:out value="${animalbase.baseName}" /></small><br>
                                 <small class="text-muted">掲載実績：
@@ -44,33 +44,47 @@
                                 </small>
                             </div>
                         </a>
+
                     </div>
                 </c:forEach>
             </div>
         </div>
 
 
-        <!-- ここからページネーション -->
-        <nav aria-label="ページネーションです" class = "mt-5 " >
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">前</a></li>
+  <!-- ここからページネーション -->
+    <c:choose>
+        <c:when test="${animalbases.size() == 0}">
+            <h4 class="my-3">指定されたページに該当する動物はいません。</h4>
+        </c:when>
+        <c:otherwise>
+            <nav aria-label="ページネーションです" class = "mt-3 " >
+                <ul class="pagination justify-content-center">
+                    <c:if test="${page > 1}">
+                        <li class="page-item "><a class="page-link" href="<c:url value='?action=${actBase}&command=${commIdx}&page=${page - 1}' />" tabindex="-1">前</a></li>
+                    </c:if>
 
-                <c:forEach var="i" begin="1" end="${((base_count - 1) / maxRow) + 1}" step="1">
-                    <c:choose>
-                        <c:when test="${i == page}">
-                            <li class="page-item page-link disabled"><c:out value="${i}" /></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="<c:url value='?action=${actBase}&command=${commIdx}&page=${i}' />"></a>
-                                <c:out value="${i}" />
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
+                    <c:forEach var="i" begin="1" end="${((bases_count - 1) / maxRow) + 1}" step="1">
+                        <c:choose>
+                            <c:when test="${i == page}">
+                                <li class="page-item page-link disabled"><c:out value="${i}" /></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item">
+                                <a class="page-link" href="<c:url value='?action=${actBase}&command=${commIdx}&page=${i}' />">
+                                    <c:out value="${i}" /></a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${((bases_count - 1) / maxRow) > page}" >
+                        <li class="page-item"><a class="page-link" href="<c:url value='?action=${actBase}&command=${commIdx}&page=${page + 1}' />">次</a></li>
+                    </c:if>
+                </ul>
+            </nav>
 
-                <li class="page-item"><a class="page-link" href="<c:url value='?action=${actBase}&command=${commIdx}&page=${page+1}' />">次</a></li>
-            </ul>
-        </nav>
+        </c:otherwise>
+    </c:choose>
+
 
 
     </c:param>

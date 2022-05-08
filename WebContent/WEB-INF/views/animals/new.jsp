@@ -115,6 +115,7 @@
     <div class="custom-file col-7">
         <input type="file" class="custom-file-input" name="${AttributeConst.ANI_IMAGE.getValue()}" lang="ja" />
         <label class="custom-file-label" for="${AttributeConst.ANI_IMAGE.getValue()}">画像を選択...</label>
+        <small id="helpImegeSize" class="form-text text-muted pl-0">※画像サイズは2MB以内でお願いします。</small>
     </div>
     </div>
 

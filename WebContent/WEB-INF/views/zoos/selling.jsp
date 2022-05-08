@@ -18,6 +18,13 @@
 
 
     <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">掲載中の動物一覧</h3>
+
+    <c:if test="${flush != null}">
+       <div class="alert alert-success">
+           <c:out value="${flush}"></c:out>
+       </div>
+    </c:if>
+
     <div class="">&nbsp;全&nbsp;<c:out value="${selling_count}" />&nbsp;件</div>
     <div class="row mx-0">
         <table class="table table-striped">
@@ -49,8 +56,7 @@
                         <fmt:parseDate value="${animal.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
                         <td class="align-middle"><fmt:formatDate value="${createDay}" pattern="yyyy-MM-dd" /></td>
                         <td><a class="btn btn-info my-0 py-1"  href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">確認編集</a></td>
-<%--                         <a href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />">確認</a></td>
- --%>                    </tr>
+                    </tr>
                 </c:forEach>
             </tbody>
         </table>

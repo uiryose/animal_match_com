@@ -95,6 +95,12 @@
         <div class="col-4"></div>
         <div class="col-3 px-0">
             <c:choose>
+                <c:when test="${animal.zoo.user.id == login_user.id}">
+                    <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />" >マイページで確認する</a>
+                </c:when>
+                <c:when test="${animal.soldFlag == AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()}">
+                    <div class="btn btn-warning" >この動物は販売済みです</div>
+                </c:when>
                 <c:when test="${login_user != null}">
                     <a class="btn btn-info" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">チャットを始める</a>
                 </c:when>

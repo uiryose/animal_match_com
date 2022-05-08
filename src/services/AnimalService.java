@@ -41,29 +41,19 @@ public class AnimalService extends ServiceBase {
         return a;
     }
 
-    /**
-     * AnimalBaseのidを元に動物情報を取得し、Viewモデルで返却する
-     * @param id AnimalBaseのid
-     * @return AnimalViewのインスタンス
-     */
- //要修正
-    public AnimalView findAllByBaseId(int id) {
-        Animal a = (Animal) em.createNamedQuery(JpaConst.Q_ZOO_GET_BY_USER_ID, Animal.class)
-                .setParameter(JpaConst.JPQL_PARM_ID, id)
-                .getSingleResult();
-
-        return AnimalConverter.toView(a);
-    }
-
-
-    //AnimalBaseのidを元に動物情報を取得し、掲載された動物の件数を取得し、返却する
-    public long countAllByBaseId(int id) {
-        long count=1;
-
-
-
-        return count;
-    }
+//    /**
+//     * AnimalBaseのidを元に動物情報を取得し、Viewモデルで返却する
+//     * @param id AnimalBaseのid
+//     * @return AnimalViewのインスタンス
+//     */
+// //要修正
+//    public AnimalView findAllByBaseId(int id) {
+//        Animal a = (Animal) em.createNamedQuery(JpaConst.Q_ZOO_GET_BY_USER_ID, Animal.class)
+//                .setParameter(JpaConst.JPQL_PARM_ID, id)
+//                .getSingleResult();
+//
+//        return AnimalConverter.toView(a);
+//    }
 
 
     /**
@@ -137,10 +127,11 @@ public class AnimalService extends ServiceBase {
         return AnimalConverter.toViewList(animals);
     }
 
-/** エラーが出る
- * 指定した基本動物情報の販売動物の件数を取得し、返却する
- * @return 販売動物の件数
- */
+    /**
+     * 指定した基本動物情報の販売動物の件数を取得し、返却する
+     * [基本動物情報のid, 左記の販売掲載動物の件数]でネストされたリストを作成
+     * @return 販売動物の件数
+     */
     public List<Object[]> getCountByBaseId() {
         List<Object[]> animalCount = em.createNamedQuery(JpaConst.Q_ANI_COUNT_GROUP_BY_BASE_ID, Object[].class)
                 .getResultList();
@@ -188,6 +179,20 @@ public class AnimalService extends ServiceBase {
         return errors;
 
     }
+
+
+    /**
+    * 販売済みフラグを変更する
+    * @param av
+    */
+    public void sold(AnimalView av) {
+
+        //更新日時を現在時刻に設定
+        LocalDateTime ldt = LocalDateTime.now();
+        av.setUpdatedAt(ldt);
+        updateInternal(av);
+    }
+
 
     /**
      * 動物データを１件削除する

@@ -13,9 +13,10 @@
 <c:import url="../layout/app.jsp">
   <c:param name ="content">
 
-
+   <h3 class="mb-0 py-1 col-12 text-white text-center bg-primary rounded">チャット取引画面</h3>
 
     <c:import url="_chatform.jsp" />
+
 <!-- 個人ページ用のチャット送信 -->
     <form method="POST" action="<c:url value='?action=${actChat}&command=${commCrt}&id=${animal.id}&with=${animal.zoo.user.id}'/>">
         <div class="form-group row">
@@ -28,10 +29,12 @@
             <input type="hidden" name="${AttributeConst.CHAT_WITH.getValue()}" value="${animal.zoo.user.id}" />
             <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-info col-8">送信する</button>
+            <div class="col-2 px-0"></div>
+                <button type="submit" class="btn btn-primary col-8">送信する</button>
             </div>
         </div>
     </form>
+    <div class="mt-5 d-flex justify-content-end"><a class="btn btn-primary my-0 py-1 justify-content-right" href="<c:url value='?action=${actCust}&command=${commIdx}' />"> 取引の一覧に戻る</a></div>
 
   </c:param>
 </c:import>

@@ -13,6 +13,7 @@
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commSell" value="${ForwardConst.CMD_SELLING.getValue()}" />
+<c:set var="commSold" value="${ForwardConst.CMD_SOLD_ONE.getValue()}" />
 
 
 <c:import url="../layout/zooapp.jsp">
@@ -129,13 +130,32 @@
 
     <div class="row mt-3">
         <div class="col-4"></div>
-        <div class="col-5 ">
+        <div class="col-3 py-0">
             <c:if test="${animal.soldFlag == AttributeConst.SOLD_FLAG_FALSE.getIntegerValue()}">
                 <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commEdit}&id=${animal.id}' />">登録内容を編集</a>
             </c:if>
         </div>
-        <div class="col-3 text-center">
-           <a class="btn btn-info"  href="<c:url value='?action=${actAni}&command=${commSell}' />">一覧に戻る</a>
+        <div class="col-3 py-0">
+            <c:if test="${animal.soldFlag == AttributeConst.SOLD_FLAG_FALSE.getIntegerValue()}">
+<%--                 <a class="btn btn-warning" href="<c:url value='?action=${actAni}&command=${commSold}&id=${animal.id}' />">販売済みにする</a> --%>
+                <a class="btn btn-warning" href="<c:url value='?action=${actAni}&command=${commSold}&id=${animal.id}' />" onclick="confirmDestroy();">販売済みにする</a>
+            <form method="POST" action="<c:url value='?action=${actAni}&command=${commSold}' />">
+                <input type="hidden" name="${AttributeConst.ANI_ID.getValue()}" value="${animal.id}" />
+                <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+            </form>
+            <script>
+                function confirmDestroy() {
+                    if (confirm("本当に販売済みにしてよろしいですか？これ以降チャットはできません。")) {
+                        document.forms[1].submit();
+                    }
+                }
+            </script>
+
+
+            </c:if>
+        </div>
+        <div class="col-2 py-0 text-center">
+           <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commSell}' />">一覧に戻る</a>
         </div>
     </div>
     </c:param>

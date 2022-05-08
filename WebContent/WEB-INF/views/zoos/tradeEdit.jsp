@@ -44,7 +44,7 @@
 <!-- 削除用のjsp -->
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-4 pl-1 pr-2">
+            <div class="col-4 pl-2 pr-2">
                 <a class="btn btn-danger w-100" href="<c:url value='?action=${actZoo}&command=${commTrdDst}&id=${animal.id}&with=${buy_user_id}&comment_edit=${comment_edit.id}'/>" onclick="confirmDestroy();">このコメントを削除する</a>
             </div>
             <div class="col-4 pr-2 pl-1">

@@ -15,20 +15,29 @@ body {
 }
 
 header.jumbotron {
-  background: url("../image/topimage.jpg");
+  background: url("../image/anitopimage.jpg");
   background-position: left left;
   background-size: cover;
   color: #fff;
   padding-bottom: 5px;
   margin-bottom: 10px;
 }
+
 .login {
-    margin-top: -50px;
+    margin-top: -40px;
     padding-bottom: 40px;
     text-align: right;
+    margin-right: -25px;
 }
 
-h1 {
+.menus {
+    margin-right: -15px;
+}
+.menu {
+    background: linear-gradient(0deg, lightseagreen, turquoise);
+}
+
+ h1 {
     display: inline;
 }
 
@@ -39,18 +48,21 @@ h1 {
   border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
 }
 
-
-.base {
-    height: 250px;
+/* .base {
+    height: 200px;
 }
+ */
 
+/*
 .card-img-top {
     text-align: center;
      max-height: 187;
     width: auto;
  }
+ */
+
 .card-body{
-    height: 187px;
+    height: 140px;
  }
 
 .card-footer {

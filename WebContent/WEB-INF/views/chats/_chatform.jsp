@@ -33,7 +33,7 @@
                         <th class="col-2">売り主</th>
                         <td class="col-4"><c:out value="${animal.zoo.zooName}" />（ <c:out
                                 value="${animal.zoo.region}" /> ）</td>
-                        <td class="col-2 py-1 border-bottom"><a class="btn btn-info"
+                        <td class="col-2 text-right pr-0 py-1 border-bottom"><a class="btn btn-info"
                             href="<c:url value='?action=${actBase}&command=${commShowSell}&id=${animal.id}' />">詳細を確認</a></td>
                     </tr>
                     <tr>
@@ -55,7 +55,6 @@
         </div>
     </div>
 <!-- チャット画面 -->
-       <h3 class="my-4 py-1 col-12 text-white text-center bg-info rounded">チャット取引画面</h3>
     <div class="row">
         <div class="col-1"></div>
         <div class="chat col-10 bg-light px-4 pt-4 pb-2 border ">

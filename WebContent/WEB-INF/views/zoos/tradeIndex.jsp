@@ -16,6 +16,7 @@
 <c:import url="../layout/zooapp.jsp">
   <c:param name ="content">
 
+    <h3 class="mt-3 mb-0 py-1 col-12 text-white text-center bg-info rounded">チャット取引画面</h3>
 
     <c:import url="../chats/_chatform.jsp" />
 

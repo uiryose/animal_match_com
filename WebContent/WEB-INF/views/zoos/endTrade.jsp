@@ -16,16 +16,6 @@
 <c:import url="../layout/zooapp.jsp">
     <c:param name="content">
 
-    <c:if test="${errors != null}">
-        <div class="alert alert-danger">
-            <h5>入力内容にエラーがあります</h5>
-            <c:forEach var="error" items="${errors}">
-            ・<c:out value="${error}" />
-                <br>
-            </c:forEach>
-        </div>
-    </c:if>
-
     <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">動物園マイページ</h3>
     <div class="row">
             <div class="col-3 font-weight-bold"><c:out value="${login_zoo.zooName}" />さん</div>
@@ -37,11 +27,11 @@
     </div>
     <div class="row">
             <div class="col-3"></div>
-            <div class="col-2 pr-0">取引中の案件：</div><div class="col-1 text-right px-0"><c:out value="${trades_count}" /></div><div class="col-5"> 件</div>&nbsp;
+            <div class="col-2 pr-0">取引終了案件：</div><div class="col-1 text-right px-0"><c:out value="${trades_count}" /></div><div class="col-5"> 件</div>&nbsp;
     </div>
 
 
-    <h4 class="mb-0 mt-3 py-1 col-12 text-white text-center bg-secondary rounded">販売取引中一覧</h4>
+    <h4 class="mb-0 mt-3 py-1 col-12 text-white text-center bg-secondary rounded">取引が終了した案件一覧</h4>
     <div class="row mx-0">
         <table class="table table-striped">
             <thead>
@@ -55,7 +45,7 @@
                     <th class="col-2">チャット画面</th>
                 </tr>
             </thead>
-            <tbody class="border-bottom">
+            <tbody>
                 <c:forEach var="trade" items="${trades}" varStatus="No">
                      <tr>
                         <td class="align-middle"><c:out value="${No.count}" /></td>

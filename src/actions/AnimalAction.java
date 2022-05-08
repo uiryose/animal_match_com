@@ -85,7 +85,9 @@ public class AnimalAction extends ActionBase {
 
 
         System.out.println("テスト販売PART：" +  part);
+        System.out.println("テスト販売PARTgetSub：" +  part.getSubmittedFileName());
         System.out.println("テスト販売フラグ：" + AttributeConst.SOLD_FLAG_FALSE.getIntegerValue());
+
 
         if(checkToken()) {
 
@@ -95,14 +97,19 @@ public class AnimalAction extends ActionBase {
                     bv,
                     zv,
                     getRequestParam(AttributeConst.ANI_NICKNAME),
-                    getRequestParam(AttributeConst.ANI_IMAGE) != null
-                        ? imageName
-                        : null,
+
+                    !part.getSubmittedFileName().equals("")
+                             ? imageName
+                             : null,
+
+//                    getRequestParam(AttributeConst.ANI_IMAGE) != null
+//                        ? imageName
+//                        : null,
                     toNumber(getRequestParam(AttributeConst.ANI_AGE)),
                     toNumber(getRequestParam(AttributeConst.ANI_SEX)),
                     bv.getBaseBreedFlag() == AttributeConst.BREED_FLAG_FALSE.getIntegerValue()
-                        ? -1     //個人飼育不可の動物は、個人向け価格-1円とする
-                        : toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)),
+                            ? -1   //個人飼育不可の動物は、個人向け価格-1円とする
+                            : toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)),
                     toNumber(getRequestParam(AttributeConst.PRICE_FOR_ZOO)),
                     getRequestParam(AttributeConst.ZOO_COMMENT),
                     AttributeConst.SOLD_FLAG_FALSE.getIntegerValue(),
@@ -135,8 +142,8 @@ public class AnimalAction extends ActionBase {
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
-                //一覧画面にリダイレクト
-                redirect(ForwardConst.ACT_ZOO, ForwardConst.CMD_INDEX);
+                //販売中の動物一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SELLING);
             }
         }
     }
@@ -156,6 +163,13 @@ public class AnimalAction extends ActionBase {
 
         putRequestScope(AttributeConst.ANIMALS, animals);
         putRequestScope(AttributeConst.ANI_SELLING_COUNT, animalCount);
+
+        //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
+        String flush = getSessionScope(AttributeConst.FLUSH);
+        if (flush != null) {
+            putRequestScope(AttributeConst.FLUSH, flush);
+            removeSessionScope(AttributeConst.FLUSH);
+        }
 
         //販売中一覧画面を表示
         forward(ForwardConst.FW_ZOO_SELLING);
@@ -199,6 +213,7 @@ public class AnimalAction extends ActionBase {
         } else {
 
             //動物詳細画面を表示する
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
             forward(ForwardConst.FW_ANI_SHOW);
         }
     }
@@ -251,8 +266,6 @@ public class AnimalAction extends ActionBase {
 
             //画像の名前を重複なく作成する（動物園名＋乱数＋ファイル名とする）
             Random rnd = new Random();
-            String namamaa = part.getSubmittedFileName();
-            System.out.println("テストファイル名前："+namamaa);
             String imageName = av.getZoo().getZooName() + rnd.nextInt() + part.getSubmittedFileName();
 
             //画面入力されてた内容を上書きする
@@ -262,9 +275,10 @@ public class AnimalAction extends ActionBase {
             av.setPriceForCust(toNumber(getRequestParam(AttributeConst.PRICE_FOR_CUST)));
             av.setPriceForZoo(toNumber(getRequestParam(AttributeConst.PRICE_FOR_ZOO)));
             av.setAnimalComment(getRequestParam(AttributeConst.ZOO_COMMENT));
-            if(part.getSubmittedFileName() != null || !part.getSubmittedFileName().equals("")) {
+            if(!part.getSubmittedFileName().equals("")) {
                 av.setAnimalImage(imageName);
             }
+
             //動物の更新処理を行う
             List<String> errors = animalService.update(av);
 
@@ -288,6 +302,36 @@ public class AnimalAction extends ActionBase {
                 redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SHOW, av.getId());
             }
         }
+    }
+
+
+    /**
+     * 動物の販売済みフラグを変更する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void sold() throws ServletException, IOException {
+
+        System.out.println("テスト：トークンチェックの外です");
+
+        if (checkToken()) {//トークンでエラーになる
+        }
+
+            //販売済にする動物データを取得する
+            AnimalView av = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+
+            //フラグを販売済にして、DB情報を更新する
+            av.setSoldFlag(AttributeConst.SOLD_FLAG_TRUE.getIntegerValue());
+            System.out.println("テスト：トークンチェックの中です");
+
+            //動物の更新処理を行う
+            animalService.update(av);
+
+
+        System.out.println("テスト：動物が販売済になりました。");
+                //販売動物一覧に移動する
+                redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SELLING);
+
     }
 
 

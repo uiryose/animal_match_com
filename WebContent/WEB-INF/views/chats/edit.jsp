@@ -30,7 +30,7 @@
                 <input type="hidden" name="${AttributeConst.COMMENT_EDIT.getValue()}" value="${comment_edit.id}" />
                 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-info col-8">編集する</button>
+                    <button type="submit" class="btn btn-primary col-8">編集する</button>
                 </div>
             </div>
         </form>
@@ -39,11 +39,11 @@
 <!-- 削除用のjsp -->
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-4 pl-1 pr-2">
+            <div class="col-4 pl-2 pr-2">
                 <a class="btn btn-danger w-100" href="<c:url value='?action=${actChat}&command=${commDst}&id=${animal.id}&with=${animal.zoo.user.id}&comment_edit=${comment_edit.id}'/>" onclick="confirmDestroy();">このコメントを削除する</a>
             </div>
             <div class="col-4 pr-2 pl-1">
-                <a class="btn btn-info w-100"
+                <a class="btn btn-primary w-100"
                     href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">新規投稿に戻る</a>
             </div>
         </div>

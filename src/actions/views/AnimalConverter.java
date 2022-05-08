@@ -91,7 +91,10 @@ public class AnimalConverter {
         a.setAnimalBase(AnimalBaseConverter.toModel(av.getAnimalBase()));
         a.setZoo(ZooConverter.toModel(av.getZoo()));
         a.setNickname(av.getNickname());
-        a.setAnimalImage(av.getAnimalImage());
+
+        if( av.getAnimalImage() != null) {
+            a.setAnimalImage(av.getAnimalImage());
+        }
         a.setAnimalAge(av.getAnimalAge());
         a.setAnimalSex(av.getAnimalSex());
         a.setPriceForCust(av.getPriceForCust());
