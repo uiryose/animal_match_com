@@ -40,11 +40,16 @@
     <div class="container">
 
         <header class="zoo-header">
-            <div class="my-0">
+            <div class="card my-0">
                 <a href="<c:url value='?action=${actZoo}&command=${commIdx}' />">
-                    <img class="col-12 px-0" src="<c:url value='/image/zooapp.jpg' /> "
+                    <img class="card-img col-12 px-0" src="<c:url value='/image/zooapp.jpg' /> "
                     alt="動物園ヘッダー画像"></a>
+            <div class="card-img-overlay text-right p-0">
+            <a class="btn btn-info justify-content-end p-3" href="<c:url value='?action=${actBase}&command=${commIdx}' />">動物を探しに行く</a>
             </div>
+            </div>
+
+
         </header>
 <!-- hedderここまで -->
 

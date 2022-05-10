@@ -312,27 +312,25 @@ public class AnimalAction extends ActionBase {
      */
     public void sold() throws ServletException, IOException {
 
-        System.out.println("テスト：トークンチェックの外です");
+        //販売済にする動物データを取得する
+        AnimalView av = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+        UserView uv = getSessionScope(AttributeConst.LOGIN_USER);
 
-        if (checkToken()) {//トークンでエラーになる
-        }
+        if(uv.getId() != av.getZoo().getUser().getId() || av == null) {
+            //自分の掲載した動物でなければ、エラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
 
-            //販売済にする動物データを取得する
-            AnimalView av = animalService.findOne(toNumber(getRequestParam(AttributeConst.ANI_ID)));
+        } else {
 
             //フラグを販売済にして、DB情報を更新する
             av.setSoldFlag(AttributeConst.SOLD_FLAG_TRUE.getIntegerValue());
-            System.out.println("テスト：トークンチェックの中です");
 
             //動物の更新処理を行う
             animalService.update(av);
 
-
-        System.out.println("テスト：動物が販売済になりました。");
-                //販売動物一覧に移動する
-                redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SELLING);
-
-        System.out.println("テスト：リダイレクトの後です。");
+            //販売動物一覧に移動する
+            redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SELLING);
+        }
     }
 
 

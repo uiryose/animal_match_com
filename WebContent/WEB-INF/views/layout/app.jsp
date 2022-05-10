@@ -31,7 +31,8 @@
 <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
 <link rel="stylesheet" href="<c:url value='/css/style.css' />">
 <link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css' />">
-
+<link rel="icon" sizes="16x16" href="<c:url value='/image/favicon.png'/>" >
+<link rel="manifest" href="/manifest.json" />
 
 </head>
 <body>

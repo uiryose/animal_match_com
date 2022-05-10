@@ -58,6 +58,17 @@ public class AnimalBaseService extends ServiceBase {
     }
 
     /**
+     * 個人飼育フラグに対応する基本動物情報テーブルのデータの件数を取得し、返却する
+     * @return データの件数
+     */
+    public long countByBreedFlag(int flag) {
+        long animalBases_count = (long) em.createNamedQuery(JpaConst.Q_BASE_COUNT_BY_BREED_FLAG, Long.class)
+                .setParameter(JpaConst.JPQL_PARM_BREED_FLAG, flag)
+                .getSingleResult();
+        return animalBases_count;
+    }
+
+    /**
      * idを条件に取得したデータをAnimalaBaseViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
@@ -97,7 +108,38 @@ public class AnimalBaseService extends ServiceBase {
     }
 
 
+    /**
+     * 名前検索した動物に部分一致する情報を取得する
+     * @param name
+     * @return 検索結果のリスト
+     */
+    public List<AnimalBaseView> getSearchByName(String name){
 
+        List<AnimalBase> animalBases = em.createNamedQuery(JpaConst.Q_BASE_GET_SEARCH_BY_NAME, AnimalBase.class)
+                .setParameter(JpaConst.JPQL_PARM_NAME, "%" + name + "%")
+                .getResultList();
+
+        return AnimalBaseConverter.toViewList(animalBases);
+
+    }
+
+
+    /**
+     * 名前検索した動物に部分一致する情報を取得する
+     * @param name
+     * @return 検索結果のリスト
+     */
+    public List<AnimalBaseView> getSearchByBreedFlag(int page,int breedFlag){
+
+        List<AnimalBase> animalBases = em.createNamedQuery(JpaConst.Q_BASE_GET_SEARCH_BY_BREED_FLAG, AnimalBase.class)
+                .setParameter(JpaConst.JPQL_PARM_BREED_FLAG, breedFlag)
+                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
+                .setMaxResults(JpaConst.ROW_PER_PAGE)
+                .getResultList();
+
+        return AnimalBaseConverter.toViewList(animalBases);
+
+    }
 
     /**
      * 動物データを1件登録する

@@ -44,8 +44,6 @@ public class AnimalBaseAction extends ActionBase {
         int page = getPage();
         List<AnimalBaseView> animalbases = animalBaseService.getAllPerPage(page);
 
-
-
         //全基本動物情報データの件数を取得
         long animalbasesCount = animalBaseService.countAll();
 
@@ -58,6 +56,9 @@ public class AnimalBaseAction extends ActionBase {
         List<Object[]> sellCountList = animalService.getCountByBaseId();
 
         putRequestScope(AttributeConst.ANI_COUNT, sellCountList);
+
+        //検索メソッドからのアクセスを認識するセッション情報を削除する
+        removeSessionScope(AttributeConst.SEARCHING);
 
         //一覧画面を表示
         forward(ForwardConst.FW_TOP_INDEX);
@@ -103,6 +104,75 @@ public class AnimalBaseAction extends ActionBase {
         //販売動物の詳細(チャットを促す画面)を表示
         forward(ForwardConst.FW_BASE_SHOWSELL);
     }
+
+
+    /**
+     * 検索項目に一致するデータを表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void searchName() throws ServletException, IOException{
+
+        //パラメータから検索する動物の名前を取得する
+        String name = getRequestParam(AttributeConst.BASE_NAME);
+
+        if(name == null || name.equals("") ) {
+            //検索内容が空白の場合は、一覧表示にリダイレクトする
+            redirect(ForwardConst.ACT_BASE, ForwardConst.CMD_INDEX);
+            return;
+        }
+
+        //指定された検索項目に一致するデータを取得し、リクエストスコープに保存する
+        List<AnimalBaseView> searchs = animalBaseService.getSearchByName(name);
+        putRequestScope(AttributeConst.SEARCHS, searchs);
+
+        //この検索メソッドから一覧画面が表示された場合は、通常の一覧表示とJSPの表示を分ける
+        String callMethod = AttributeConst.SEARCH.getValue();
+        putRequestScope(AttributeConst.CALL_METHOD, callMethod);
+
+        //各基本動物毎の掲載実績の件数を取得
+        List<Object[]> sellCountList = animalService.getCountByBaseId();
+        putRequestScope(AttributeConst.ANI_COUNT, sellCountList);
+
+        //検索メソッドからのアクセスをセッションに記録する
+        putSessionScope(AttributeConst.SEARCHING, "_searching");
+
+        //一覧画面を表示
+        forward(ForwardConst.FW_TOP_INDEX);
+    }
+
+
+    /**
+     * 検索機能として個人飼育の可否で絞り込みをする
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void searchBreedFlag() throws ServletException, IOException {
+
+        int page = getPage();
+        Integer breedFlag = toNumber(getRequestParam(AttributeConst.BASE_BREED_FLAG));
+
+        //指定された検索項目に一致するデータを取得し、リクエストスコープに保存する
+        List<AnimalBaseView> searchs = animalBaseService.getSearchByBreedFlag(page, breedFlag);
+        putRequestScope(AttributeConst.SEARCHS, searchs);
+
+        //個人飼育フラグに対する基本動物情報データの件数を取得
+        long animalbasesCount = animalBaseService.countByBreedFlag(breedFlag);
+        putRequestScope(AttributeConst.BASE_COUNT, animalbasesCount); //飼育フラグに対応する基本動物情報データの件数
+        putRequestScope(AttributeConst.PAGE, page);
+        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
+
+        //各基本動物毎の掲載実績の件数を取得
+        List<Object[]> sellCountList = animalService.getCountByBaseId();
+        putRequestScope(AttributeConst.ANI_COUNT, sellCountList);
+
+        //検索メソッドからのアクセスをセッションに記録する
+        putSessionScope(AttributeConst.SEARCHING, "_searching");
+
+        //一覧画面を表示
+        forward(ForwardConst.FW_TOP_INDEX);
+    }
+
 
 
 

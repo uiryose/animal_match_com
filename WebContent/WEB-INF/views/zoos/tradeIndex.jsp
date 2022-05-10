@@ -32,7 +32,15 @@
             <input type="hidden" name="${AttributeConst.CHAT_WITH.getValue()}" value="${buy_user_id}" />
             <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-info col-8">送信する</button>
+               <c:choose>
+                   <c:when
+                       test="${animal.soldFlag != AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()}">
+                       <button type="submit" class="btn btn-info col-8">送信する</button>
+                   </c:when>
+                   <c:otherwise>
+                       <div class="btn btn-warning col-8">この動物は販売終了したため、チャットの利用はできません</div>
+                   </c:otherwise>
+               </c:choose>
             </div>
         </div>
     </form>

@@ -152,6 +152,7 @@ public interface JpaConst {
     String JPQL_PARM_ANIMAL = "animal";
     String JPQL_PARM_LIKE = "like";
     String JPQL_PARM_IMAGE ="image";
+    String JPQL_PARM_BREED_FLAG = "base_breed_flag"; //個人飼育フラグ
     String JPQL_PARM_SOLD_FLG = "sold_flag"; //販売済みフラグ
     String JPQL_PARM_DELET_FLG = "delete_flag"; //削除フラグ
     String JPQL_PARM_MY_ID = "my_id"; //自分のユーザーID
@@ -176,10 +177,20 @@ public interface JpaConst {
     //全ての基本動物情報を名前順に取得する
     String Q_BASE_GET_ALL = ENTITY_BASE + ".getAll";
     String Q_BASE_GET_ALL_DEF = "SELECT b FROM AnimalBase AS b ORDER BY b.baseName";
-
     //全ての基本動物情報を件数を取得する
-    String Q_BASE_COUNT = ENTITY_BASE + ".count";
+    String Q_BASE_COUNT = ENTITY_BASE + ".countAll";
     String Q_BASE_COUNT_DEF = "SELECT COUNT(b) FROM AnimalBase AS b";
+    //名前検索した動物に部分一致する情報を取得する
+    String Q_BASE_GET_SEARCH_BY_NAME = ENTITY_BASE + ".getSearchAll";
+    String Q_BASE_GET_SEARCH_BY_NAME_DEF = "SELECT b FROM AnimalBase AS b WHERE b.baseName LIKE : " + JPQL_PARM_NAME;
+    //個人飼育フラグに対応する基本動物情報を名前順に取得する
+    String Q_BASE_GET_SEARCH_BY_BREED_FLAG = ENTITY_BASE + ".getByBreedFlag";
+    String Q_BASE_GET_SEARCH_BY_BREED_FLAG_DEF = "SELECT b FROM AnimalBase AS b WHERE b.baseBreedFlag = :" + JPQL_PARM_BREED_FLAG + " ORDER BY b.baseName";
+    //個人飼育フラグに対応する基本動物情報を件数を取得する
+    String Q_BASE_COUNT_BY_BREED_FLAG = ENTITY_BASE + ".countByBreedFlag";
+    String Q_BASE_COUNT_BY_BREED_FLAG_DEF = "SELECT COUNT(b) FROM AnimalBase AS b WHERE b.baseBreedFlag = :" + JPQL_PARM_BREED_FLAG;
+
+
 
 
 //Animalクラス

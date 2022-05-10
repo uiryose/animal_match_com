@@ -31,7 +31,16 @@ import lombok.Setter;
             query = JpaConst.Q_BASE_GET_ALL_DEF),
     @NamedQuery(
             name = JpaConst.Q_BASE_COUNT,
-            query = JpaConst.Q_BASE_COUNT_DEF)
+            query = JpaConst.Q_BASE_COUNT_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_BASE_GET_SEARCH_BY_NAME,
+            query = JpaConst.Q_BASE_GET_SEARCH_BY_NAME_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_BASE_GET_SEARCH_BY_BREED_FLAG,
+            query = JpaConst.Q_BASE_GET_SEARCH_BY_BREED_FLAG_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_BASE_COUNT_BY_BREED_FLAG,
+            query = JpaConst.Q_BASE_COUNT_BY_BREED_FLAG_DEF)
 
 })
 

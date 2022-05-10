@@ -50,7 +50,9 @@ public enum ForwardConst {
     CMD_MYMESSEAGE("myMesseage"),
     CMD_FEEDBACK("feedback"),
     CMD_ESAMATCH("esaMatch"),
-    CMD_SHEARCH("shearch"),
+    CMD_SEARCH("search"),
+    CMD_SEARCH_NAME("searchName"),
+    CMD_SEARCH_BREEDFLAG("searchBreedFlag"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),

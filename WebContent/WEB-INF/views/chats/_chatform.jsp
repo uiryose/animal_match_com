@@ -83,14 +83,16 @@
                             </p>
                             <div class="mr-2 pb-1 align-self-end" style="line-height:1.1rem">
 
-                                <c:choose>
-                                    <c:when test="${buy_user_id == null}">
-                                        <div class="text-right"><a href="<c:url value='?action=${actChat}&command=${commEdit}&id=${animal.id}&with=${animal.zoo.user.id}&comment_edit=${comment.id}'/>">[編集]</a></div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="text-right"><a href="<c:url value='?action=${actZoo}&command=${commTrdEdit}&id=${animal.id}&with=${buy_user_id}&comment_edit=${comment.id}'/>">[編集ネ]</a></div>
-                                    </c:otherwise>
-                                </c:choose>
+                                <c:if test="${animal.soldFlag != AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()}"> <!-- 動物が販売済の時はコメント編集を非表示にする -->
+                                    <c:choose>
+                                        <c:when test="${buy_user_id == null}">
+                                            <div class="text-right"><a href="<c:url value='?action=${actChat}&command=${commEdit}&id=${animal.id}&with=${animal.zoo.user.id}&comment_edit=${comment.id}'/>">[編集]</a></div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="text-right"><a href="<c:url value='?action=${actZoo}&command=${commTrdEdit}&id=${animal.id}&with=${buy_user_id}&comment_edit=${comment.id}'/>">[編集ネ]</a></div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:if>
 
                                 <fmt:parseDate value="${comment.createdAt}"
                                     pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />

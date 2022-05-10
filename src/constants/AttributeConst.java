@@ -133,7 +133,14 @@ public enum AttributeConst {
     COMMENT_EDIT("comment_edit"),
     COMMENT_TRADES("trades"),
     TRADES_COUNT("trades_count"),
-    COMMENT_CONTENT("content");
+    COMMENT_CONTENT("content"),
+
+    //検索関連
+    SEARCH("search"),
+    SEARCHS("searchs"),
+    SEARCH_NAME("search_name"),
+    CALL_METHOD("call_method"),
+    SEARCHING("searching");
 
 
     private final String text;

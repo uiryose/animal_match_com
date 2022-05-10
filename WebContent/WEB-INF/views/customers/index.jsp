@@ -51,7 +51,17 @@
                             </c:choose>
                         </td>
                         <td class="align-middle"><c:out value="${trade.animal.zoo.zooName}" /></td>
-                        <td><a class="btn btn-primary my-0 py-1" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${trade.animal.id}&with=${trade.animal.zoo.user.id}' />"> チャット画面</a></td>
+                        <td>
+                        <c:choose>
+                            <c:when test="${trade.animal.soldFlag != AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()}">
+                                <a class="btn btn-primary my-0 py-1" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${trade.animal.id}&with=${trade.animal.zoo.user.id}' />">チャット画面</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="btn btn-warning my-0 py-1" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${trade.animal.id}&with=${trade.animal.zoo.user.id}' />">販売終了です</a>
+                            </c:otherwise>
+                        </c:choose>
+
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
