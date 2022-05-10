@@ -19,12 +19,6 @@
 
     <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">掲載中の動物一覧</h3>
 
-    <c:if test="${flush != null}">
-       <div class="alert alert-success">
-           <c:out value="${flush}"></c:out>
-       </div>
-    </c:if>
-
     <div class="">&nbsp;全&nbsp;<c:out value="${selling_count}" />&nbsp;件</div>
     <div class="row mx-0">
         <table class="table table-striped">

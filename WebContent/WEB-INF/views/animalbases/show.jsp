@@ -68,17 +68,17 @@
 
 
 
+
 <!-- 販売個体 -->
             <div class="row animal">
                 <c:forEach var="animal" items="${animals}">
                     <div class="col-3 mt-3 base">
-                        <a href="<c:url value='?action=${actBase}&command=${commShowSell}&id=${animal.id}' />">
                             <div class="card-body p-0 border h-30 bg-light">
-                                <img class="card-img-top"
-                                    src="<c:url value='/image/animal/${animal.animalImage}' /> "
-                                    alt="${animal.nickname}の画像">
-                        </a>
-
+                                <a href="<c:url value='?action=${actBase}&command=${commShowSell}&id=${animal.id}' />">
+                                    <img class="card-img-top"
+                                        src="<c:url value='/image/animal/${animal.animalImage}' />"
+                                        alt="${animal.nickname}の画像">
+                                </a>
                             </div>
                             <div class="card-footer p-2 border h-25">
                                 <small class="text-muted"><c:out value="${animal.zoo.zooName}" />&nbsp;(<c:out value="${animal.zoo.region}" />)</small><br>

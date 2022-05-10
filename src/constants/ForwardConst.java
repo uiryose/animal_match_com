@@ -17,6 +17,7 @@ public enum ForwardConst {
     ACT_AUTH("Auth"),
     ACT_LIKE("Like"),
     ACT_CHAT("Chat"),
+    ACT_INFO("Info"),
 
     //command
     CMD("command"),
@@ -44,6 +45,12 @@ public enum ForwardConst {
     CMD_TRADE_UPDATE("tradeUpdate"),
     CMD_TRADE_DESTROY("tradeDestroy"),
     CMD_END_TRADE("endTrade"),
+    CMD_INTRODUCE("introduce"),
+    CMD_BEFOREUSE("beforeUse"),
+    CMD_MYMESSEAGE("myMesseage"),
+    CMD_FEEDBACK("feedback"),
+    CMD_ESAMATCH("esaMatch"),
+    CMD_SHEARCH("shearch"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -74,7 +81,12 @@ public enum ForwardConst {
     FW_BASE_EDIT("animalbases/edit"),
     FW_LIKE_INDEX("likes/index"),
     FW_CHAT_INDEX("chats/index"),
-    FW_CHAT_EDIT("chats/edit");
+    FW_CHAT_EDIT("chats/edit"),
+    FW_INFO_INTRODUCE("infos/introduce"),
+    FW_INFO_BEFOREUSE("infos/beforeuse"),
+    FW_INFO_MYMESSEAGE("infos/myMesseage"),
+    FW_INFO_FEEDBACK("infos/feedback"),
+    FW_INFO_ESAMATCH("infos/esaMatch");
 
     /**
      * 文字列

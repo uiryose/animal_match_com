@@ -332,6 +332,7 @@ public class AnimalAction extends ActionBase {
                 //販売動物一覧に移動する
                 redirect(ForwardConst.ACT_ANI, ForwardConst.CMD_SELLING);
 
+        System.out.println("テスト：リダイレクトの後です。");
     }
 
 

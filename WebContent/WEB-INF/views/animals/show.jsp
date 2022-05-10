@@ -20,6 +20,12 @@
     <c:param name="content">
     <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">動物詳細確認画面</h3>
 
+    <c:if test="${flush != null}">
+       <div class="alert alert-success">
+           <c:out value="${flush}"></c:out>
+       </div>
+    </c:if>
+
 <!-- 基本情報 -->
     <div class="" >
       <div class="row p-1">

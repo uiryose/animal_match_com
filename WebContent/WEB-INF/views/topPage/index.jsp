@@ -9,29 +9,36 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
+<c:set var="commSrh" value="${ForwardConst.CMD_SHEARCH.getValue()}" />
 
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-
-        <div>検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行</div>
-        <div>検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行</div>
-
+        <div class="row">
+            <form method="GET" class="col-9" action="<c:url value='?action=${actBase}&command=${commSrh}'/>">
+                <div class="input-group">
+                  <input type="text" id="txt-search" class="form-control input-group-prepend" placeholder="動物名を入力"></input>
+                  <span class="input-group-btn input-group-append">
+                    <button type="submit" id="btn-search" class="btn btn-primary"><i class="fas fa-search"></i> 検索</button>
+                  </span>
+                </div>
+            </form>
+            <div class="col-3 mx-0 btn btn-primary">個人飼育可で絞り込み</div>
+        </div>
 
         <div class="animalbase">
             <div class="row">
                 <c:forEach var="animalbase" items="${animalbases}">
                     <div class="col-3 my-3 base">
-                        <a class="text-decoration-none" href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
                             <div class="card-body p-0 border border-bottom-0 bg-light">
-
-                                <img class="card-img-top"
-                                    src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
-                                    alt="${animalbase.baseName}の画像">
-
+                                <a class="text-decoration-none" href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
+                                    <img class="card-img-top"
+                                        src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
+                                        alt="${animalbase.baseName}の画像">
+                                </a>
                             </div>
 
-                            <div class="card-footer px-2 pt-0 border border-top-0 h-25 text-decoration-none">
+                            <div class="card-footer pl-2 pr-0 pt-0 border border-top-0 h-25 text-decoration-none">
                                 <c:set var="Exist" scope="request" value="false" />
                                 <small class="text-muted"><c:out value="${animalbase.baseName}" /></small><br>
                                 <small class="text-muted">掲載実績：
@@ -43,8 +50,6 @@
                                     </c:forEach> <c:if test="${Exist == false}">0</c:if> 件
                                 </small>
                             </div>
-                        </a>
-
                     </div>
                 </c:forEach>
             </div>

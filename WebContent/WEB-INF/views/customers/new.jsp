@@ -4,8 +4,10 @@
 <%@ page import="constants.AttributeConst"%>
 
 <c:set var="actCust" value="${ForwardConst.ACT_CUST.getValue()}" />
+<c:set var="actInfo" value="${ForwardConst.ACT_INFO.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commBefore" value="${ForwardConst.CMD_BEFOREUSE.getValue()}" />
 
 
 <c:import url="../layout/app.jsp">
@@ -20,13 +22,17 @@
         </div>
     </c:if>
 
-
+    <div class="mb-4">
+        <img class="col-12 px-0"
+            src="<c:url value='/image/custentrynew.jpg' /> "
+            alt="個人案内ページ">
+    </div>
     <h4 class="title">ご利用方法</h4>
     <div>このサイトでは動物園が販売している動物を探すことができます。<br>
     ペットショップでは入手困難な動物もいます。ただし、個人が飼育できる動物は法律で制限されています。</div>
     <div>また法律の制限がない場合でも、当サイトでは動物の飼育難易度や危険性を考慮して、個人の方への販売を<br>
     不可としている動物もいます。<br>
-    詳しくは<a href="">ご利用の前に</a>をご確認ください。</div><br>
+    詳しくは<a href="<c:url value='?action=${actInfo}&command=${commBefore}' />">ご利用の前に</a>をご確認ください。</div><br>
 
     <h4 class="title">飼育の責任</h4>
     <div>動物を飼うことは責任も伴います。ご購入前に実際に動物を見に行くことをお奨めします。<br>
@@ -65,7 +71,7 @@
             <div class="form-check">
               <label class="form-check-label" for="check1">
               <input class="form-check-input Iread" type="checkbox" id="check1"  onclick="clickBtn1()">
-                <a href="">「ご利用の前に」</a>を確認しました。
+                <a href="<c:url value='?action=${actInfo}&command=${commBefore}' />">「ご利用の前に」</a>を確認しました。
               </label>
             </div>
           </div>

@@ -7,12 +7,18 @@
 <c:set var="actBase" value="${ForwardConst.ACT_BASE.getValue()}" />
 <c:set var="actZoo" value="${ForwardConst.ACT_ZOO.getValue()}" />
 <c:set var="actCust" value="${ForwardConst.ACT_CUST.getValue()}" />
+<c:set var="actInfo" value="${ForwardConst.ACT_INFO.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commLogin" value="${ForwardConst.CMD_LOGIN.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
 <c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
+<c:set var="commIntr" value="${ForwardConst.CMD_INTRODUCE.getValue()}" />
+<c:set var="commBefore" value="${ForwardConst.CMD_BEFOREUSE.getValue()}" />
+<c:set var="commMymsg" value="${ForwardConst.CMD_MYMESSEAGE.getValue()}" />
+<c:set var="commFdb" value="${ForwardConst.CMD_FEEDBACK.getValue()}" />
+<c:set var="commEsa" value="${ForwardConst.CMD_ESAMATCH.getValue()}" />
 
 
 
@@ -51,8 +57,8 @@
            <div class="row ">
                <div class="p-1 text-center" ><a class="menu list-group-item list-group-item-success list-group-item-action py-0 px-3 " href="<c:url value='?action=${actCust}&command=${commNew}' />">ご利用案内 <br>個人の方へ</a></div>
                <div class="p-1 text-center" ><a class="menu list-group-item list-group-item-success list-group-item-action py-0 px-3" href="<c:url value='?action=${actZoo}&command=${commNew}' />">ご利用案内 <br>動物園へ</a></div>
-               <div class="p-1 text-center" ><a class="menu list-group-item list-group-item-success list-group-item-action py-2.3 px-2" href="<c:url value='?action=${a}&command=${a}' />">制作コメント</a></div>
-               <div class="p-1 text-center" ><a class="menu list-group-item list-group-item-success list-group-item-action py-2.3 px-2" href="<c:url value='?action=${a}&command=${a}' />">お問い合わせ</a></div>
+               <div class="p-1 text-center" ><a class="menu list-group-item list-group-item-success list-group-item-action py-2.3 px-2" href="<c:url value='?action=${actInfo}&command=${commMymsg}' />">制作コメント</a></div>
+               <div class="p-1 text-center" ><a class="menu list-group-item list-group-item-success list-group-item-action py-2.3 px-2" href="<c:url value='?action=${actInfo}&command=${commFdb}' />">お問い合わせ</a></div>
            </div>
        </div>
     </header>
@@ -64,10 +70,10 @@
                     <nav class="bg-info">
                         <ul class="nav flex-column m-0 border border-dark">
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">トップページ</a></li>
-                            <li class="nav-item mb-1"><a href="#" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">サイトの趣旨</a></li>
-                            <li class="nav-item mb-1"><a href="#" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">ご利用の前に</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actInfo}&command=${commIntr}' />" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">サイトの趣旨</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actInfo}&command=${commBefore}' />" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">ご利用の前に</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commNew}' />" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">動物を掲載する</a></li>
-                            <li class="nav-item mb-0"><a href="#" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">エサMatch.com</a></li>
+                            <li class="nav-item mb-0"><a href="<c:url value='?action=${actInfo}&command=${commEsa}' />" class="nav-link py-3 text-dark border border-light px-2 list-group-item-action">エサMatch.com</a></li>
                         </ul>
                     </nav>
                 </div>

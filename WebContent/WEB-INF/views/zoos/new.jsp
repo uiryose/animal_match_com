@@ -4,8 +4,10 @@
 <%@ page import="constants.AttributeConst"%>
 
 <c:set var="actZoo" value="${ForwardConst.ACT_ZOO.getValue()}" />
+<c:set var="actInfo" value="${ForwardConst.ACT_INFO.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commBefore" value="${ForwardConst.CMD_BEFOREUSE.getValue()}" />
 
 
 <c:import url="../layout/app.jsp">
@@ -19,7 +21,11 @@
             </c:forEach>
         </div>
     </c:if>
-
+    <div class="mb-4">
+        <img class="col-12 px-0"
+            src="<c:url value='/image/zooentrynew.jpg' /> "
+            alt="動物園案内ページ">
+    </div>
     <h4 class="title">ご利用方法</h4>
     <div>このサイトは動物のマッチングサイトです。<br>
      動物の掲載はユーザー登録後に可能となります。ユーザー登録後にマイページをご覧ください。<br>
@@ -29,7 +35,7 @@
     <h4 class="title">個人の特定動物飼育制限について</h4>
     <div>個人が飼育できる動物は法律で制限されています。
      また法律で制限がない場合でも、当サイトでは動物の飼育難易度や危険性を考慮して、個人の方への販売を不可としている動物もいます。<br>
-     詳しくは<a href="">ご利用の前に</a>をご確認ください。</div><br>
+     詳しくは<a href="<c:url value='?action=${actInfo}&command=${commBefore}' />">ご利用の前に</a>をご確認ください。</div><br>
 
     <h4 class="title">販売にあたって</h4>
     <div>動物の販売契約書の作成を推奨します。<a href="https://www.google.co.jp/">当サイト提携弁護士</a>にご相談いただけます。<br>

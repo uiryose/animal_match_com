@@ -39,12 +39,12 @@
 
     <div class="container">
 
-        <header class="">
-
-            <c:if test="${sessionScope.login_user != null}">
-                <div class="login"><a href="<c:url value='?action=${actCust}&command=${commIdx}' />">マイページ</a></div>
-            </c:if>
-
+        <header class="zoo-header">
+            <div class="my-0">
+                <a href="<c:url value='?action=${actZoo}&command=${commIdx}' />">
+                    <img class="col-12 px-0" src="<c:url value='/image/zooapp.jpg' /> "
+                    alt="動物園ヘッダー画像"></a>
+            </div>
         </header>
 <!-- hedderここまで -->
 
@@ -52,8 +52,8 @@
             <div class="col-2 mt-3">
                 <div class=" fixed-left">
                     <nav class="bg-secondary">
-                        <ul class="nav flex-column m-0 border border-white">
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">マイページ</a></li>
+                        <ul class="nav flex-column m-0 border border-top-0 border-white">
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">ホーム</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commNew}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">動物の新規登録</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSell}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">掲載中の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSold}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">販売済みの動物</a></li>
