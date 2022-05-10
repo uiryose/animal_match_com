@@ -30,7 +30,8 @@
 <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
 <link rel="stylesheet" href="<c:url value='/css/style.css' />">
 <link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css' />">
-
+<link rel="icon" sizes="16x16" href="<c:url value='/image/faviconz.png'/>" >
+<link rel="manifest" href="/manifest.json" />
 
 </head>
 <body>
@@ -42,14 +43,14 @@
         <header class="zoo-header">
             <div class="card my-0">
                 <a href="<c:url value='?action=${actZoo}&command=${commIdx}' />">
-                    <img class="card-img col-12 px-0" src="<c:url value='/image/zooapp.jpg' /> "
-                    alt="動物園ヘッダー画像"></a>
-            <div class="card-img-overlay text-right p-0">
-            <a class="btn btn-info justify-content-end p-3" href="<c:url value='?action=${actBase}&command=${commIdx}' />">動物を探しに行く</a>
+                    <img class="card-img col-12 px-0"
+                    src="<c:url value='/image/zooapp.jpg' /> " alt="動物園ヘッダー画像">
+                </a>
+                <div class="card-img-overlay text-right p-0">
+                    <a class="btn btn-info justify-content-end p-3"
+                        href="<c:url value='?action=${actBase}&command=${commIdx}' />">動物を探しに行く</a>
+                </div>
             </div>
-            </div>
-
-
         </header>
 <!-- hedderここまで -->
 
