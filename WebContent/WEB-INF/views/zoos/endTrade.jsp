@@ -77,7 +77,6 @@
                                       </c:forEach>
                                </c:when>
                            </c:choose>
-                                       :<c:out value="${trade[1].myUser.id}" />
                           </td>
 
                         <td><a class="btn btn-warning my-0 py-1" href="<c:url value='?action=${actZoo}&command=${commTrdIdx}&id=${trade[0].id}&with=${trade[1].myUser.id}' />"> チャット画面</a></td>
