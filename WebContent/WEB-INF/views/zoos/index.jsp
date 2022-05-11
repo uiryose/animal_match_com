@@ -71,33 +71,31 @@
                         <td class="align-middle"><c:out value="${trade[0].animalAge}" />&nbsp;才</td>
 
                         <td class="align-middle">
-                           <c:choose>
-                               <c:when test="${trade[1].myUser.userFlag == AttributeConst.USER_CUST.getIntegerValue()}">
-                                      <c:forEach var="customer" items="${customers}">
-                                          <c:if test="${customer.user.id == trade[1].myUser.id}" >
-                                               <c:out value="${customer.customerName }"/>
-                                          </c:if>
-                                      </c:forEach>
-                               </c:when>
-                               <c:when test="${trade[1].myUser.userFlag == AttributeConst.USER_ZOO.getIntegerValue()}">
-                                      <c:forEach var="zoo" items="${zoos}">
-                                          <c:if test="${zoo.user.id == trade[1].myUser.id}" >
-                                               <c:out value="${zoo.zooName }"/>
-                                          </c:if>
-                                      </c:forEach>
-                               </c:when>
-                           </c:choose>
-                                       :<c:out value="${trade[1].myUser.id}" />
-                          </td>
-
-                        <td><a class="btn btn-info my-0 py-1" href="<c:url value='?action=${actZoo}&command=${commTrdIdx}&id=${trade[0].id}&with=${trade[1].myUser.id}' />"> チャット画面</a></td>
-
+                            <c:choose>
+                                <c:when
+                                    test="${trade[1].myUser.userFlag == AttributeConst.USER_CUST.getIntegerValue()}">
+                                    <c:forEach var="customer" items="${customers}">
+                                        <c:if test="${customer.user.id == trade[1].myUser.id}">
+                                            <c:out value="${customer.customerName }" />
+                                        </c:if>
+                                    </c:forEach>
+                                </c:when>
+                                <c:when
+                                    test="${trade[1].myUser.userFlag == AttributeConst.USER_ZOO.getIntegerValue()}">
+                                    <c:forEach var="zoo" items="${zoos}">
+                                        <c:if test="${zoo.user.id == trade[1].myUser.id}">
+                                            <c:out value="${zoo.zooName }" />
+                                        </c:if>
+                                    </c:forEach>
+                                </c:when>
+                            </c:choose>
+                         </td>
+                         <td><a class="btn btn-info my-0 py-1" href="<c:url value='?action=${actZoo}&command=${commTrdIdx}&id=${trade[0].id}&with=${trade[1].myUser.id}' />"> チャット画面</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
-
 
     </c:param>
 </c:import>

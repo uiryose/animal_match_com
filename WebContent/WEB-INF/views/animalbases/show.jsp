@@ -11,6 +11,7 @@
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commShowSell" value="${ForwardConst.CMD_SHOWSELL.getValue()}" />
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
 
 <c:import url="../layout/app.jsp">
@@ -36,8 +37,15 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="col-2">飼育難易</th>
-                                <td class="col-6"><c:out value="${animalbase.baseDifficulty}" /></td>
+                                <th class="col-2">飼育難易度</th>
+                                <td class="col-6 ratings">
+                                    <c:forEach begin="1" end="${animalbase.baseDifficulty}" step="1" >
+                                        <i class="fa fa-star rating-color"></i>
+                                    </c:forEach>
+                                     <c:forEach begin="1" end="${5-Integer.parseInt(animalbase.baseDifficulty)}" step="1" >
+                                        <i class="fa fa-star"></i>
+                                    </c:forEach>
+                                </td>
                             </tr>
                             <tr>
                                 <th class="col-2">個人飼育</th>
@@ -54,14 +62,12 @@
                         </tbody>
                     </table>
               </div>
-
               <div class="col-4">
                 <img src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
                                     alt="${animalbase.baseName}の画像" class="img-fluid">
               </div>
             </div>
           </div>
-
 
         <c:choose>
             <c:when test="${animals.size() > 0 }">
@@ -71,9 +77,6 @@
                 <div class="mt-5 border-bottom">現在<c:out value="${animalbase.baseName}" />の掲載はありません</div>
             </c:otherwise>
         </c:choose>
-
-
-
 
 <!-- 販売個体 -->
             <div class="row animal">

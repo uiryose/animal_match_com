@@ -87,7 +87,7 @@
                                             <div class="text-right"><a href="<c:url value='?action=${actChat}&command=${commEdit}&id=${animal.id}&with=${animal.zoo.user.id}&comment_edit=${comment.id}'/>">[編集]</a></div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="text-right"><a href="<c:url value='?action=${actZoo}&command=${commTrdEdit}&id=${animal.id}&with=${buy_user_id}&comment_edit=${comment.id}'/>">[編集ネ]</a></div>
+                                            <div class="text-right"><a href="<c:url value='?action=${actZoo}&command=${commTrdEdit}&id=${animal.id}&with=${buy_user_id}&comment_edit=${comment.id}'/>">[編集]</a></div>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:if>

@@ -14,6 +14,7 @@
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commSell" value="${ForwardConst.CMD_SELLING.getValue()}" />
 <c:set var="commSold" value="${ForwardConst.CMD_SOLD_ONE.getValue()}" />
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
 
 <c:import url="../layout/zooapp.jsp">
@@ -46,8 +47,15 @@
                           </td>
                       </tr>
                       <tr>
-                          <th class="col-2">飼育難易</th>
-                          <td class="col-6"><c:out value="${animal.animalBase.baseDifficulty}" /></td>
+                          <th class="col-2">飼育難易渡</th>
+                          <td class="col-6 ratings">
+                             <c:forEach begin="1" end="${animal.animalBase.baseDifficulty}" step="1" >
+                                 <i class="fa fa-star rating-color"></i>
+                             </c:forEach>
+                              <c:forEach begin="1" end="${5-Integer.parseInt(animal.animalBase.baseDifficulty)}" step="1" >
+                                 <i class="fa fa-star"></i>
+                             </c:forEach>
+                          </td>
                       </tr>
                       <tr>
                           <th class="col-2">個人飼育</th>
@@ -80,7 +88,14 @@
                   <tbody>
                       <tr>
                           <th class="col-2">愛称</th>
-                          <td class="col-6"><c:out value="${animal.nickname}" /></td>
+                          <td class="col-6 py-0 align-middle">
+                            <div class="row py-0">
+                                <div class="col-8 py-1"><c:out value="${animal.nickname}" /></div>
+                                <c:if test="${animal.soldFlag == AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()}">
+                                    <div class="col-4 btn btn-warning my-0 py-1">販売済みです</div>
+                                </c:if>
+                            </div>
+                          </td>
                       </tr>
                       <tr>
                           <th class="col-2">年齢</th>
@@ -141,9 +156,8 @@
                 <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commEdit}&id=${animal.id}' />">登録内容を編集</a>
             </c:if>
         </div>
-        <div class="col-3 py-0">
+        <div class="col-2 py-0">
             <c:if test="${animal.soldFlag == AttributeConst.SOLD_FLAG_FALSE.getIntegerValue()}">
-<%--                 <a class="btn btn-warning" href="<c:url value='?action=${actAni}&command=${commSold}&id=${animal.id}' />">販売済みにする</a> --%>
                 <a class="btn btn-warning" href="<c:url value='?action=${actAni}&command=${commSold}&id=${animal.id}' />" onclick="confirmDestroy();">販売済みにする</a>
             <form method="POST" action="<c:url value='?action=${actAni}&command=${commSold}' />">
                 <input type="hidden" name="${AttributeConst.ANI_ID.getValue()}" value="${animal.id}" />
@@ -160,8 +174,8 @@
 
             </c:if>
         </div>
-        <div class="col-2 py-0 text-center">
-           <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commSell}' />">一覧に戻る</a>
+        <div class="col-3 py-0 text-right">
+           <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commSell}' />">掲載中の一覧</a>
         </div>
     </div>
     </c:param>

@@ -123,3 +123,20 @@ pre {
   border-radius: 1rem;
 }
 /* ここまでチャット画面 */
+
+
+/* レーティング */
+.ratings{
+    margin-right:10px;
+}
+
+.ratings i{
+
+    color:#cecece;
+    font-size:22px;
+}
+
+.rating-color{
+    color:#fbc634 !important;
+}
+
