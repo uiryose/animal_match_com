@@ -19,7 +19,6 @@
 
             <form method="POST" action="<c:url value='?action=${actBase}&command=${commSrhName}'/>"  class="col-9" >
                <div class="input-group">
-
                   <input type="text" name="${AttributeConst.BASE_NAME.getValue()}" class="form-control input-group-prepend" placeholder="動物名を入力"></input>
                   <span class="input-group-btn input-group-append">
                     <input type="submit" class="btn btn-primary" value="検索">
@@ -28,72 +27,46 @@
             </form>
             <div class="col-3 mx-0 ">
                 <a class="btn btn-primary px-2" href="<c:url value='?action=${actBase}&command=${commSrhBF}&${AttributeConst.BASE_BREED_FLAG.getValue()}=${AttributeConst.BREED_FLAG_TURE.getIntegerValue()}'/>">個人飼育可で絞り込み</a>
-
             </div>
         </div>
 
-        <c:if test="${searchs.size() == 0}">
+        <c:if test="${animalbases.size() == 0}">
             <div class="mt-3">該当する動物はいませんでした。違う動物をお探しください</div>
         </c:if>
-
-
 
         <div class="animalbase">
             <div class="row">
                 <c:forEach var="animalbase" items="${animalbases}">
                     <div class="col-3 my-3 base">
-                            <div class="card-body p-0 border border-bottom-0 bg-light">
-                                <a class="text-decoration-none" href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
-                                    <img class="card-img-top"
-                                        src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
-                                        alt="${animalbase.baseName}の画像">
-                                </a>
-                            </div>
-
-                            <div class="card-footer pl-2 pr-0 pt-0 border border-top-0 h-25 text-decoration-none">
-                                <c:set var="Exist" scope="request" value="false" />
-                                <small class="text-muted"><c:out value="${animalbase.baseName}" /></small><br>
-                                <small class="text-muted">掲載実績：
-                                    <c:forEach var="count" items="${animals_count}">
-                                        <c:if test="${count[0] == animalbase.id}">
-                                            <c:out value="${count[1] }" />
-                                            <c:set var="Exist" scope="request" value="true" />
-                                        </c:if>
-                                    </c:forEach> <c:if test="${Exist == false}">0</c:if> 件
-                                </small>
-                            </div>
+                        <div class="card-body p-0 border border-bottom-0 bg-light">
+                            <a class="text-decoration-none"
+                                href="<c:url value='?action=${actBase}&command=${commShow}&id=${animalbase.id}' />">
+                                <img class="card-img-top"
+                                src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
+                                alt="${animalbase.baseName}の画像">
+                            </a>
+                        </div>
+                        <div
+                            class="card-footer pl-2 pr-0 pt-0 border border-top-0 h-25 text-decoration-none">
+                            <c:set var="Exist" scope="request" value="false" />
+                            <small class="text-muted"><c:out
+                                    value="${animalbase.baseName}" /></small><br> <small
+                                class="text-muted">掲載実績： <c:forEach var="count"
+                                    items="${animals_count}">
+                                    <c:if test="${count[0] == animalbase.id}">
+                                        <c:out value="${count[1] }" />
+                                        <c:set var="Exist" scope="request" value="true" />
+                                    </c:if>
+                                </c:forEach> <c:if test="${Exist == false}">0</c:if> 件
+                            </small>
+                        </div>
                     </div>
                 </c:forEach>
- <!-- 検索結果を表示 -->
-                <c:forEach var="search" items="${searchs}">
-                    <div class="col-3 my-3 base">
-                            <div class="card-body p-0 border border-bottom-0 bg-light">
-                                <a class="text-decoration-none" href="<c:url value='?action=${actBase}&command=${commShow}&id=${search.id}' />">
-                                    <img class="card-img-top"
-                                        src="<c:url value='/image/animalbase/${search.baseImage}' /> "
-                                        alt="${search.baseName}の画像">
-                                </a>
-                            </div>
-
-                            <div class="card-footer pl-2 pr-0 pt-0 border border-top-0 h-25 text-decoration-none">
-                                <c:set var="Exist" scope="request" value="false" />
-                                <small class="text-muted"><c:out value="${search.baseName}" /></small><br>
-                                <small class="text-muted">掲載実績：
-                                    <c:forEach var="count" items="${animals_count}">
-                                        <c:if test="${count[0] == search.id}">
-                                            <c:out value="${count[1] }" />
-                                            <c:set var="Exist" scope="request" value="true" />
-                                        </c:if>
-                                    </c:forEach> <c:if test="${Exist == false}">0</c:if> 件
-                                </small>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
             </div>
+        </div>
 
-        <c:if test="${call_method != AttributeConst.SEARCH.getValue() }"> <!-- 今回はsearchNameメソッドからの呼び出し時に、該当件数が少ないためページネーションを省略するための措置 -->
-            <!-- ここからページネーション -->
+ <!-- ここからページネーション -->
+        <c:if test="${call_method != AttributeConst.SEARCH.getValue() }"> <!-- searchNameメソッドからの呼び出し時は該当件数が少ないため、今回はページネーションを省略するための措置 -->
             <c:choose>
                 <c:when test="${animalbases.size() == 0}">
                     <h4 class="my-3">指定されたページに該当する動物はいません。</h4>
@@ -150,7 +123,6 @@
                                             href="<c:url value='?action=${actBase}&command=${commIdx}&page=${page + 1}' />">次</a></li>
                                     </c:otherwise>
                                 </c:choose>
-
                             </c:if>
                         </ul>
                     </nav>

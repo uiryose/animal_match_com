@@ -123,8 +123,8 @@ public class AnimalBaseAction extends ActionBase {
         }
 
         //指定された検索項目に一致するデータを取得し、リクエストスコープに保存する
-        List<AnimalBaseView> searchs = animalBaseService.getSearchByName(name);
-        putRequestScope(AttributeConst.SEARCHS, searchs);
+        List<AnimalBaseView> animalbases = animalBaseService.getSearchByName(name);
+        putRequestScope(AttributeConst.ANIMALBASES, animalbases);
 
         //この検索メソッドから一覧画面が表示された場合は、通常の一覧表示とJSPの表示を分ける
         String callMethod = AttributeConst.SEARCH.getValue();
@@ -153,8 +153,8 @@ public class AnimalBaseAction extends ActionBase {
         Integer breedFlag = toNumber(getRequestParam(AttributeConst.BASE_BREED_FLAG));
 
         //指定された検索項目に一致するデータを取得し、リクエストスコープに保存する
-        List<AnimalBaseView> searchs = animalBaseService.getSearchByBreedFlag(page, breedFlag);
-        putRequestScope(AttributeConst.SEARCHS, searchs);
+        List<AnimalBaseView> animalbases = animalBaseService.getSearchByBreedFlag(page, breedFlag);
+        putRequestScope(AttributeConst.ANIMALBASES, animalbases);
 
         //個人飼育フラグに対する基本動物情報データの件数を取得
         long animalbasesCount = animalBaseService.countByBreedFlag(breedFlag);
