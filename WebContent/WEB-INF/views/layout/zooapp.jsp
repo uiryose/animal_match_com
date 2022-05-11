@@ -17,6 +17,7 @@
 <c:set var="commEndTrd" value="${ForwardConst.CMD_END_TRADE.getValue()}" />
 <c:set var="commbuyIdx" value="${ForwardConst.CMD_BUY_INDEX.getValue()}" />
 <c:set var="commLogin" value="${ForwardConst.CMD_LOGIN.getValue()}" />
+<c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
 
 

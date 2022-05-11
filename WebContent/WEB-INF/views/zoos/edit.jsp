@@ -16,7 +16,7 @@
     <c:param name="content">
 
         <c:if test="${errors != null}">
-            <div class="alert alert-danger">
+            <div class="alert alert-danger my-3">
                 <h5>入力内容にエラーがあります</h5>
                 <c:forEach var="error" items="${errors}">
                 ・<c:out value="${error}" />

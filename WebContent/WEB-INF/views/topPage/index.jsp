@@ -44,6 +44,12 @@
                                 <img class="card-img-top"
                                 src="<c:url value='/image/animalbase/${animalbase.baseImage}' /> "
                                 alt="${animalbase.baseName}の画像">
+                            <c:if
+                                test="${animalbase.baseBreedFlag == AttributeConst.BREED_FLAG_TURE.getIntegerValue() }">
+                                <div class="card-img-overlay pt-0">
+                                    <span class="badge badge-pill badge-primary">個人飼育可能</span>
+                                </div>
+                            </c:if>
                             </a>
                         </div>
                         <div

@@ -15,7 +15,7 @@
   <h3 class="my-3 py-1 col-12 text-white text-center bg-info rounded">動物新規登録画面</h3>
 
   <c:if test="${errors != null}">
-      <div class="alert alert-danger">
+      <div class="alert alert-danger my-3">
           <h5>入力内容にエラーがあります</h5>
           <c:forEach var="error" items="${errors}">
           ・<c:out value="${error}" />

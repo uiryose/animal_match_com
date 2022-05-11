@@ -92,7 +92,6 @@
             <small>Copyright &copy;2022 Animal Match.com, All Rights Reserved.</small>
           </div>
         </footer>
-                    <div class="login"><a href="<c:url value='?action=${actAuth}&command=${commLogout}' />">ログアウト</a></div>
     </div>
 </body>
 </html>
