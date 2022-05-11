@@ -59,8 +59,7 @@
         <div class="col-1"></div>
         <div class="chat col-10 bg-light px-4 pt-4 pb-2 border ">
 
-        <c:if test="${buy_user_id == null}"><!-- ${buy_user_id}がリクエストパラメータに存在するのは販売側の動物園チャットを示す -->
-            <div class="message d-flex flex-row align-items-start mb-2">
+           <div class="message d-flex flex-row align-items-start mb-2">
                 <div
                     class="message-icon rounded-circle bg-secondary text-white fs-3">
                     <i class="fas fa-user"></i>
@@ -69,7 +68,6 @@
                     お気軽にチャットを送ってください。
                 </p>
             </div>
-        </c:if>
 
         <c:forEach var="comment" items="${comments}">
                 <c:choose>

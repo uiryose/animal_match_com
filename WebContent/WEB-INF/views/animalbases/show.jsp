@@ -63,8 +63,14 @@
           </div>
 
 
-        <div>検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行</div>
-        <div>検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行検索行</div>
+        <c:choose>
+            <c:when test="${animals.size() > 0 }">
+                <div class="mt-5 border-bottom"><c:out value="${animalbase.baseName}" />の販売一覧です。チャットでやり取りしてみましょう</div>
+            </c:when>
+            <c:otherwise>
+                <div class="mt-5 border-bottom">現在<c:out value="${animalbase.baseName}" />の掲載はありません</div>
+            </c:otherwise>
+        </c:choose>
 
 
 
@@ -73,14 +79,14 @@
             <div class="row animal">
                 <c:forEach var="animal" items="${animals}">
                     <div class="col-3 mt-3 base">
-                            <div class="card-body p-0 border h-30 bg-light">
+                            <div class="card-body p-0 border border-bottom-0 bg-light">
                                 <a href="<c:url value='?action=${actBase}&command=${commShowSell}&id=${animal.id}' />">
                                     <img class="card-img-top"
                                         src="<c:url value='/image/animal/${animal.animalImage}' />"
                                         alt="${animal.nickname}の画像">
                                 </a>
                             </div>
-                            <div class="card-footer p-2 border h-25">
+                            <div class="card-footer pl-2 pr-0 pt-0 border border-top-0 h-35 text-decoration-none">
                                 <small class="text-muted"><c:out value="${animal.zoo.zooName}" />&nbsp;(<c:out value="${animal.zoo.region}" />)</small><br>
                                 <c:choose>
                                     <c:when test="${animal.animalBase.baseBreedFlag == AttributeConst.BREED_FLAG_FALSE.getIntegerValue()}" >

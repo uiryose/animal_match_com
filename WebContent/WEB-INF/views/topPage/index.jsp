@@ -87,10 +87,10 @@
                                     </c:forEach> <c:if test="${Exist == false}">0</c:if> 件
                                 </small>
                             </div>
-                    </div>
-                </c:forEach>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
-        </div>
 
         <c:if test="${call_method != AttributeConst.SEARCH.getValue() }"> <!-- 今回はsearchNameメソッドからの呼び出し時に、該当件数が少ないためページネーションを省略するための措置 -->
             <!-- ここからページネーション -->

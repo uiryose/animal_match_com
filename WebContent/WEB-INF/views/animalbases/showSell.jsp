@@ -13,6 +13,7 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
+<c:set var="commTrdIdx" value="${ForwardConst.CMD_TRADE_INDEX.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
 
 
@@ -101,8 +102,11 @@
                 <c:when test="${animal.soldFlag == AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()}">
                     <div class="btn btn-warning" >この動物は販売済みです</div>
                 </c:when>
-                <c:when test="${login_user != null}">
+                <c:when test="${login_user.userFlag == AttributeConst.USER_CUST.getIntegerValue()}">
                     <a class="btn btn-info" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">チャットを始める</a>
+                </c:when>
+                <c:when test="${login_user.userFlag == AttributeConst.USER_ZOO.getIntegerValue()}">
+                    <a class="btn btn-info" href="<c:url value='?action=${actZoo}&command=${commTrdIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">チャットを始める</a>
                 </c:when>
                 <c:otherwise>
                     <a class="btn btn-info" href="<c:url value='?action=${actAuth}&command=${commShowLogin}' />">ログインしてチャットを始める</a>

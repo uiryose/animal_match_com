@@ -46,11 +46,8 @@ public class CustomerAction extends ActionBase {
      */
     public void index() throws ServletException, IOException{
 
+        //セッションスコープからログイン中のUserを取得する
         UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
-        /*        //セッションスコープからログイン中のUserを取得する
-        //ログイン中のユーザーIDを元に、顧客テーブルから情報を取得
-        CustomerView cv = customerService.findOneByUserId(uv.getId());
-        putRequestScope(AttributeConst.CUSTOMER, cv);*/
 
         //チャット中の動物情報を取得し、リクエストスコープに保存する
         List<Object[]> trades = commentService.getIndex(uv.getId());

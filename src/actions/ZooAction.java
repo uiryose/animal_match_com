@@ -525,4 +525,28 @@ public class ZooAction extends ActionBase {
         }
     }
 
+
+    /**
+     * 動物園が購入しようとしている動物のチャット一覧を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void buyIndex() throws ServletException, IOException {
+
+        //セッションスコープからログイン中のUserを取得する
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+
+        //チャット中の動物情報を取得し、リクエストスコープに保存する
+        List<Object[]> trades = commentService.getIndex(uv.getId());
+        putRequestScope(AttributeConst.COMMENT_TRADES, trades);
+
+        if(uv != null && uv.getUserFlag() == AttributeConst.USER_ZOO.getIntegerValue()) {
+            //顧客マイページ画面を表示
+            forward(ForwardConst.FW_ZOO_BUY_INDEX);
+
+        } else {
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+        }
+    }
+
 }

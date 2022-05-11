@@ -15,9 +15,9 @@
 <c:set var="commSell" value="${ForwardConst.CMD_SELLING.getValue()}" />
 <c:set var="commSold" value="${ForwardConst.CMD_SOLD.getValue()}" />
 <c:set var="commEndTrd" value="${ForwardConst.CMD_END_TRADE.getValue()}" />
+<c:set var="commbuyIdx" value="${ForwardConst.CMD_BUY_INDEX.getValue()}" />
 <c:set var="commLogin" value="${ForwardConst.CMD_LOGIN.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
-<c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
 
 
 
@@ -64,7 +64,7 @@
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSell}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">掲載中の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actAni}&command=${commSold}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">販売済みの動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commEndTrd}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">終了した取引</a></li>
-                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actBase}&command=${commIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">購入候補の動物</a></li>
+                            <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commbuyIdx}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">購入候補の動物</a></li>
                             <li class="nav-item mb-1"><a href="<c:url value='?action=${actZoo}&command=${commEdit}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">アカウント情報</a></li>
                             <li class="nav-item mb-0"><a href="<c:url value='?action=${actAuth}&command=${commLogout}' />" class="nav-link py-3 text-light border border-light px-2 list-group-item-action">ログアウト</a></li>
                         </ul>
