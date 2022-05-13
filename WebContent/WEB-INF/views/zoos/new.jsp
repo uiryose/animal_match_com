@@ -51,7 +51,7 @@
         <div class="form-group row">
           <label for="${AttributeConst.USER_CODE.getValue()}" class="col-2 col-form-label">ログインID</label>
           <div class="col-10">
-            <input type="text" class="form-control" name="${AttributeConst.USER_CODE.getValue()}" placeholder="ログインで必要になります"  value="${user.code}">
+            <input type="text" class="form-control" name="${AttributeConst.USER_CODE.getValue()}" placeholder="半角英数字で入力してください。ログインで必要になります"  value="${user.code}" pattern="^[0-9a-zA-Z]+$">
           </div>
         </div>
         <div class="form-group row">

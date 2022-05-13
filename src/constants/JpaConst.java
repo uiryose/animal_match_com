@@ -272,46 +272,4 @@ public interface JpaConst {
 
 
 
-    /**
-    //全ての従業員をidの降順に取得する
-    String Q_EMP_GET_ALL = ENTITY_EMP + ".getAll"; //name
-    String Q_EMP_GET_ALL_DEF = "SELECT e FROM Employee AS e ORDER BY e.id DESC"; //query
-    //全ての従業員の件数を取得する
-    String Q_EMP_COUNT = ENTITY_EMP + ".count";
-    String Q_EMP_COUNT_DEF = "SELECT COUNT(e) FROM Employee AS e";
-    //全ての日報をidの降順に取得する
-    String Q_REP_GET_ALL = ENTITY_REP + ".getAll";
-    String Q_REP_GET_ALL_DEF = "SELECT r FROM Report AS r ORDER BY r.id DESC";
-    //全ての日報の件数を取得する
-    String Q_REP_COUNT = ENTITY_REP + ".count";
-    String Q_REP_COUNT_DEF = "SELECT COUNT(r) FROM Report AS r";
-    //指定した従業員が作成した日報を全件idの降順で取得する
-    String Q_REP_GET_ALL_MINE = ENTITY_REP + ".getAllMine";
-    String Q_REP_GET_ALL_MINE_DEF = "SELECT r FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY r.id DESC";
-    //指定した従業員が作成した日報の件数を取得する
-    String Q_REP_COUNT_ALL_MINE = ENTITY_REP + ".countAllMine";
-    String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
-
-    //論理削除を除く全ての従業員
-    String Q_EMP_GET_ALL_REM_DEL = ENTITY_EMP + ".getAllRemDel"; //name
-    String Q_EMP_GET_ALL_REM_DEL_DEF = "SELECT e FROM Employee AS e WHERE " + JPQL_PARM_DELET_FLG + " = "+EMP_DEL_FALSE+"  ORDER BY e.id DESC"; //query
-
-    //論理削除を除く全ての従業員の件数を取得する
-    String Q_EMP_COUNT_REM_DEL = ENTITY_EMP + ".countRemDel";
-    String Q_EMP_COUNT_DEF_REM_DEL = "SELECT COUNT(e) FROM Employee AS e WHERE " +  JPQL_PARM_DELET_FLG + "="+ EMP_DEL_FALSE ;
-
-    //自分のidとフォロー先のidが一致するレコードを取得する
-    String Q_FOL_GET_ONE = ENTITY_FOL + ".getOne";
-    String Q_FOL_GET_ONE_DEF = "SELECT f FROM Follow AS f WHERE f.myEmployee.id = :" +  JPQL_PARM_ID +" AND f.followEmployee.id = :" + JPQL_PARM_ID_FOL;
-
-    //指定した従業員のフォロー先を全件idの降順で取得する
-    String Q_FOL_GET_ALL_MINE = ENTITY_FOL + ".getAllMine";
-    String Q_FOL_GET_ALL_MINE_DEF = "SELECT f FROM Follow AS f WHERE f.myEmployee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY f.id DESC";
-
-    //指定したレポートのidでコメント情報を取得する
-    String Q_COM_GET_ALL_MINE = ENTITY_COM + "getAllMine";
-    String Q_COM_GET_ALL_MINE_DEF = "SELECT c FROM Comment AS c WHERE c.report.id = :" + JPQL_PARM_ID;
-
-*/
-
 }
