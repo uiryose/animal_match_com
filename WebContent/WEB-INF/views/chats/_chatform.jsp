@@ -60,13 +60,15 @@
         <div class="chat col-10 bg-light px-4 pt-4 pb-2 border ">
 
            <div class="message d-flex flex-row align-items-start mb-2">
-                <div
-                    class="message-icon rounded-circle bg-secondary text-white fs-3">
-                    <i class="fas fa-user"></i>
-                </div>
-                <p class="message-text ml-3 px-3 py-2 ms-2 mb-0 bg-warning align-self-center">
-                    お気軽にチャットを送ってください。
-                </p>
+                <%-- <c:if test="login_user.id != animal.zoo.user.id"> --%>
+                    <div
+                        class="message-icon rounded-circle bg-secondary text-white fs-3">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <p class="message-text ml-3 px-3 py-2 ms-2 mb-0 bg-warning align-self-center">
+                        お気軽にチャットを送ってください。
+                    </p>
+                <%-- </c:if> --%>
             </div>
 
         <c:forEach var="comment" items="${comments}">

@@ -211,6 +211,12 @@ public class AnimalAction extends ActionBase {
 
             forward(ForwardConst.FW_ERR_UNKNOWN);
         } else {
+            //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
+            String flush = getSessionScope(AttributeConst.FLUSH);
+            if (flush != null) {
+                putRequestScope(AttributeConst.FLUSH, flush);
+                removeSessionScope(AttributeConst.FLUSH);
+            }
 
             //動物詳細画面を表示する
             putRequestScope(AttributeConst.TOKEN, getTokenId());
