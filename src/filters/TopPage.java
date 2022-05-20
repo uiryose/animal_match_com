@@ -35,16 +35,25 @@ public class TopPage implements Filter {
     /**
      * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
      */
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
+        String servletPath = ((HttpServletRequest) request).getServletPath();
         String contextPath = ((HttpServletRequest) request).getContextPath();
         String queryString = ((HttpServletRequest) request).getQueryString();
 
-        if(queryString == null) {
+        if (servletPath.matches("/css.*")) {
+            // CSSフォルダ内は認証処理から除外する
+            chain.doFilter(request, response);
+        } else if (servletPath.matches("([^\\s]+(\\.(?i)(jpg|JPG|png|gif|bmp))$)")) {
+            //画像形式全てスルーさせる
+            chain.doFilter(request, response);
+
+        } else if (queryString == null || queryString.equals("")) {
             ((HttpServletResponse) response).sendRedirect(
                     contextPath
-                    + "?action=" + ForwardConst.ACT_BASE.getValue()
-                    + "&command=" + ForwardConst.CMD_INDEX.getValue());
+                            + "?action=" + ForwardConst.ACT_BASE.getValue()
+                            + "&command=" + ForwardConst.CMD_INDEX.getValue());
             return;
         }
 
