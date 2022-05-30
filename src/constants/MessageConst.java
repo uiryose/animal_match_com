@@ -30,7 +30,7 @@ public enum MessageConst {
     E_NOTITLE("タイトルを入力してください。"),
     E_NOCONTENT("内容を入力してください。"),
     E_CODE_EXIST("入力されたログインIDは既に使われています。"),
-    E_NOUSER_CODE("コードを入力してください。"),
+    E_NOUSER_CODE("ログインIDを入力してください。"),
     E_NOANIMALSELECT("動物を選択してください。"),
     E_NONICKNAME("動物の愛称を入力してください。"),
     E_NOPRICEFORCUST("個人向けの販売価格を入力してください。"),
