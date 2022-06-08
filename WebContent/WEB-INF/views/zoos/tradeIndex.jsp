@@ -38,7 +38,7 @@
                        <button type="submit" class="btn btn-info col-8">送信する</button>
                    </c:when>
                    <c:otherwise>
-                       <div class="btn btn-warning col-8">この動物は販売終了したため、チャットの利用はできません</div>
+                       <div class="btn btn-warning col-8 disabled" style="opacity:1">この動物は販売終了したため、チャットの利用はできません</div>
                    </c:otherwise>
                </c:choose>
             </div>

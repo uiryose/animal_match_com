@@ -100,10 +100,10 @@
                     <a class="btn btn-info" href="<c:url value='?action=${actAni}&command=${commShow}&id=${animal.id}' />" >マイページで確認する</a>
                 </c:when>
                 <c:when test="${animal.soldFlag == AttributeConst.SOLD_FLAG_TRUE.getIntegerValue()}">
-                    <div class="btn btn-warning" >この動物は販売済みです</div>
+                    <div class="btn btn-warning disabled" style="opacity:1" >この動物は販売済みです</div>
                 </c:when>
                 <c:when test="${login_user.userFlag == AttributeConst.USER_CUST.getIntegerValue() && (animal.animalBase.baseBreedFlag == AttributeConst.BREED_FLAG_FALSE.getIntegerValue() || animal.priceForCust < 0 ) }">
-                    <div class="btn btn-warning" >個人の方は購入できません</div>
+                    <div class="btn btn-warning disabled" style="opacity:1" >個人の方は購入できません</div>
                 </c:when>
                 <c:when test="${login_user.userFlag == AttributeConst.USER_CUST.getIntegerValue()}">
                     <a class="btn btn-info" href="<c:url value='?action=${actChat}&command=${commIdx}&id=${animal.id}&with=${animal.zoo.user.id}' />">チャットを始める</a>
